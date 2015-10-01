@@ -1,0 +1,82 @@
+apply plugin: "com.android.application"
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        multiDexEnabled true
+    }
+
+
+    packagingOptions {
+        exclude "LICENSE.txt"
+        exclude "META-INF/NOTICE"
+        exclude "META-INF/LICENSE"
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable "InvalidPackage"  // Some libraries have issues with this
+        disable "OldTargetApi"// Due to Robolectric that modifies the manifest when running tests
+    }
+
+//    signingConfigs {
+//        debug {
+//            storeFile file(globalConfiguration.getAt("debugKeyStoreFilePath"))
+//            storePassword globalConfiguration.getAt("debugKeyStorePassword")
+//            keyAlias globalConfiguration.getAt("debugKeyAlias")
+//            keyPassword globalConfiguration.getAt("debugKeyPassword")
+//        }
+//        release {
+//            storeFile file(globalConfiguration.getAt("releaseKeyStoreFilePath"))
+//            storePassword globalConfiguration.getAt("releaseKeyStorePassword")
+//            keyAlias globalConfiguration.getAt("releaseKeyAlias")
+//            keyPassword globalConfiguration.getAt("releaseKeyPassword")
+//        }
+//    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':domain')
+    compile project(':data')
+
+    apt presentationDependencies.daggerCompiler
+    compile presentationDependencies.androidAnnotations
+    compile presentationDependencies.gson
+    compile presentationDependencies.playServicesPlus
+    compile presentationDependencies.dagger
+    compile presentationDependencies.multidex
+    compile presentationDependencies.appCompat7
+    compile presentationDependencies.cardViewV7
+    compile presentationDependencies.design
+    compile presentationDependencies.butterknife
+    compile presentationDependencies.picasso
+    compile presentationDependencies.androidSupportV4
+    compile presentationDependencies.recyclerView
+    compile presentationDependencies.facebookSdk
+    compile presentationDependencies.playServicesPlus
+    compile presentationDependencies.circularImageView
+    compile presentationDependencies.googleMapView
+    compile presentationDependencies.retroFit
+    compile presentationDependencies.jodaTimeAndroid
+    compile presentationDependencies.mapPlayServices
+    compile presentationDependencies.rxAndroid
+    compile presentationDependencies.rxJava
+    compile presentationDependencies.retroFitConverter
+}
