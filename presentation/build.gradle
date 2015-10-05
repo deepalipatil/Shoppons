@@ -79,4 +79,5 @@ dependencies {
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.rxJava
     compile presentationDependencies.retroFitConverter
+    compile 'org.jetbrains:annotations:13.0'
 }

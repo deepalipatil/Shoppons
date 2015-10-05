@@ -19,13 +19,27 @@ public final class LoginUser extends UseCase<User> {
     private String mEmail;
     private String mPassword;
 
-    public LoginUser(final UserRepository userRepository, final String email, final String
-            password, final ThreadExecutor threadExecutor, final PostExecutionThread
+    /**
+     * Constructor
+     *
+     * @param email user email
+     * @param password user password
+     * @param userRepository user repository implementation {@link UserRepository}
+     * @param threadExecutor thread executor for network actions {@link ThreadExecutor}
+     * @param postExecutionThread post network task executor {@link PostExecutionThread}
+     */
+    public LoginUser(final String email, final String password, final UserRepository
+            userRepository, final ThreadExecutor threadExecutor, final PostExecutionThread
                              postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         mUserRepository = userRepository;
     }
 
+    /**
+     * Overridden method from UseCase {@link UseCase}
+     *
+     * @return Observable {@link Observable} of user
+     */
     @Override
     protected Observable<User> buildUseCaseObservable() {
         return mUserRepository.loginUser(mEmail, mPassword);
