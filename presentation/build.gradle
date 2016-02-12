@@ -82,6 +82,11 @@ android {
         javaMaxHeapSize "4g"
     }
 }
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
@@ -113,4 +118,7 @@ dependencies {
     compile presentationDependencies.rxJava
     compile presentationDependencies.retroFitConverter
     compile 'org.jetbrains:annotations:13.0'
+    compile('com.afollestad.material-dialogs:commons:0.8.2.0@aar') {
+        transitive = true
+    }
 }

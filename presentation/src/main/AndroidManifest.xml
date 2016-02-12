@@ -3,6 +3,7 @@
     package="com.shopons"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name=".Shopons"
         android:allowBackup="true"
@@ -12,17 +13,29 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.activity.MainActivity"
-            android:screenOrientation="portrait">
+            android:name=".view.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <data
-                android:host="iryd-android-user"
-                android:pathPrefix="/connect/"
-                android:scheme="${scheme}"/>
+
+        </activity>
+
+        <activity android:name="com.shopons.view.activity.MainActivity"
+            android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait">
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <data
+                    android:host="iryd-android-user"
+                    android:pathPrefix="/connect/"
+                    android:scheme="${scheme}"/>
+            </intent-filter>
         </activity>
 
         <meta-data
@@ -36,3 +49,4 @@
     </application>
 
 </manifest>
+
