@@ -45,7 +45,7 @@ android {
         }
     }
 
-    productFlavors{
+    productFlavors {
         staging {
             applicationId "com.shopons.debug"
         }
@@ -57,18 +57,18 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders = [google_map_api_key:"AIzaSyBlznsn1clWfk76-vm15YQWqokVfxKsUrA",
-                                    name:"Shopons debug",
-                                    scheme:"com.shopons.debug"]
+            manifestPlaceholders = [google_map_api_key: "AIzaSyBlznsn1clWfk76-vm15YQWqokVfxKsUrA",
+                                    name              : "Shopons debug",
+                                    scheme            : "com.shopons.debug"]
             resValue "string", "app_name", "Shopons Staging"
             resValue "string", "home", "Shopons Staging"
             signingConfig signingConfigs.debug
             minifyEnabled false
         }
         release {
-            manifestPlaceholders = [google_map_api_key:"AIzaSyALJEC1zyeycN8TmyQ3uAnM03ZUBduH-Hs",
-                                    name:"Shopons",
-                                    scheme:"com.shopons"]
+            manifestPlaceholders = [google_map_api_key: "AIzaSyALJEC1zyeycN8TmyQ3uAnM03ZUBduH-Hs",
+                                    name              : "Shopons",
+                                    scheme            : "com.shopons"]
             resValue "string", "app_name", "Shopons"
             resValue "string", "home", "Shopons"
             signingConfig signingConfigs.release
@@ -117,8 +117,10 @@ dependencies {
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.rxJava
     compile presentationDependencies.retroFitConverter
-    compile 'org.jetbrains:annotations:13.0'
     compile('com.afollestad.material-dialogs:commons:0.8.2.0@aar') {
         transitive = true
     }
+    compile 'org.jetbrains:annotations:13.0'
+    compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.google.android.gms:play-services:8.4.0'
 }

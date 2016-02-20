@@ -55,4 +55,5 @@ dependencies {
     compile dataDependencies.retroFitConverter
     compile dataDependencies.adapterRxJava
     compile dataDependencies.realm
+    compile dataDependencies.mapPlayServices
 }

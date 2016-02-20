@@ -5,5 +5,10 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="Drawer_Opened">Drawer Opened</string>
+    <string name="Drawer_Closed">Drawer Closed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_loc">Pune</string>
+    <string name="search_hint">Type name of shop or brand</string>
 
 </resources>

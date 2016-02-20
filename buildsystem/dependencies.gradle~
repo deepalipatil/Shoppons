@@ -26,7 +26,7 @@ ext {
     javaxAnnotationVersion = "1.2"
     androidAnnotationsVersion = "20.0.0"
     circularImageViewVersion = "1.2.1"
-    supportLibraryVerion = "23.0.1"
+    supportLibraryVerion = "23.1.1"
     retroFitVersion = "2.0.0-beta1"
     jodaAndroidVersion = "2.8.2"
     materialDialogVersion = "0.8.2.0@aar"
@@ -81,7 +81,7 @@ ext {
             mapPlayServices   : "com.google.android.gms:play-services:${playMapServicesVersion}",
             rxAndroid         : "io.reactivex:rxandroid:1.0.1",
             rxJava            : "io.reactivex:rxjava:1.0.14",
-            retroFitConverter : "com.squareup.retrofit:converter-gson:${converterGsonVersion}"
+            retroFitConverter : "com.squareup.retrofit:converter-gson:${converterGsonVersion}",
 	    materialDialogs     : "com.afollestad.material-dialogs:commons:${materialDialogVersion}"
     ]
 }

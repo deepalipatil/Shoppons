@@ -26,16 +26,9 @@
 
         <activity android:name="com.shopons.view.activity.MainActivity"
             android:label="@string/title_activity_splash"
-            android:screenOrientation="portrait">
-            <intent-filter>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
 
-                <action android:name="android.intent.action.VIEW" />
-
-                <data
-                    android:host="iryd-android-user"
-                    android:pathPrefix="/connect/"
-                    android:scheme="${scheme}"/>
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -49,4 +42,5 @@
     </application>
 
 </manifest>
+
 
