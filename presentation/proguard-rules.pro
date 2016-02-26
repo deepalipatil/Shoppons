@@ -18,3 +18,7 @@
 
 -keep class android.support.design.internal.** {*;}
 -keep class android.support.design.widget.** {*;}
+
+# For google gms specific classess
+-dontwarn com.google.android.gms.**
+-keep class com.google.android.gms.**

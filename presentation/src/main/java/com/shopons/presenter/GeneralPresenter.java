@@ -18,17 +18,17 @@ public class GeneralPresenter extends Presenter {
                 mThreadExecutor,mPostExecutionThread).execute(subscriber));
     }
     @Override
-    void resume() {
-
+    public void resume() {
+        cancelRunningUseCases();
     }
 
     @Override
-    void pause() {
-
+    public void pause() {
+        cancelRunningUseCases();
     }
 
     @Override
-    void destroy() {
-
+    public void destroy() {
+        cancelRunningUseCases();
     }
 }

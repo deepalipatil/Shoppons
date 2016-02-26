@@ -15,28 +15,29 @@ public class LocationPresenter extends Presenter {
 
     LocationRepository mLocationRepository;
 
-    LocationPresenter(Context context)
+    public LocationPresenter(Context context)
     {
         mLocationRepository=new LocationRepository(context);
     }
 
-    void getUserLocation(Subscriber<Location> subscriber)
+    public void getUserLocation(Subscriber<Location> subscriber)
     {
         mSubscriptions.add(new GetUserLocation(mLocationRepository,
                 mThreadExecutor,mPostExecutionThread).execute(subscriber));
     }
     @Override
-    void resume() {
+    public void resume() {
+        cancelRunningUseCases();
 
     }
 
     @Override
-    void pause() {
-
+    public void pause() {
+        cancelRunningUseCases();
     }
 
     @Override
-    void destroy() {
-
+    public void destroy() {
+        cancelRunningUseCases();
     }
 }

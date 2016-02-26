@@ -19,8 +19,8 @@ ext {
     androidAnnotationsVersion = '20.0.0'
     hatchttpVersion = "1.3.8"
     facebookSdkVersion = "3.23.1"
-    playServicesPlusVersion = "7.8.0"
-    playServicesIdentityVersion = "7.8.0"
+    playServicesPlusVersion = "8.4.0"
+    playServicesIdentityVersion = "8.4.0"
     googleMapsUtils = "0.4"
     gsonVersion = "2.3"
     javaxAnnotationVersion = "1.2"
@@ -30,7 +30,7 @@ ext {
     retroFitVersion = "2.0.0-beta1"
     jodaAndroidVersion = "2.8.2"
     materialDialogVersion = "0.8.2.0@aar"
-    playMapServicesVersion = "7.8.0"
+    playMapServicesVersion = "8.4.0"
     converterGsonVersion = "2.0.0-beta1"
     adapterRxJavaVersion = "2.0.0-beta1"
     realmVersion = "0.82.2"
@@ -83,6 +83,7 @@ ext {
             rxAndroid         : "io.reactivex:rxandroid:1.0.1",
             rxJava            : "io.reactivex:rxjava:1.0.14",
             retroFitConverter : "com.squareup.retrofit:converter-gson:${converterGsonVersion}",
-	    materialDialogs     : "com.afollestad.material-dialogs:commons:${materialDialogVersion}"
+	    materialDialogs     : "com.afollestad.material-dialogs:commons:${materialDialogVersion}",
+	    locationPlayServices: "com.google.android.gms:play-services-location:${playMapServicesVersion}"
     ]
 }

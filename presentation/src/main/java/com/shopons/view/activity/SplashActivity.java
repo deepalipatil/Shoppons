@@ -51,7 +51,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 @Override
                 public void onError(Throwable e) {
-                    e.printStackTrace();
+                    Log.d("#####SplashActvity", "OnError");
                 }
 
                 @Override
@@ -97,6 +97,14 @@ public class SplashActivity extends AppCompatActivity {
 
             });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(mGeneralPresenter!=null)
+            mGeneralPresenter.destroy();
     }
 
     boolean isNetworkAvailable()

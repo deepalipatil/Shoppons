@@ -1,7 +1,11 @@
 package com.shopons.view.activity;
 
+
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -14,11 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 import com.shopons.R;
-
-import java.util.ArrayDeque;
+import com.shopons.view.fragment.MainFragment;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,26 +47,65 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.drawer_list)
     ListView drawer_list;
 
+    @Bind(R.id.btn_location)
+    Button btn_location;
+
     ActionBar actionBar;
     boolean mIsLoggedIn=false;
 
-    int height;
+    final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    final String TAG="####MainActivity";
+
 
     final String[] drawer_login_items={"Home","Favorite","About","Contact Us"};
     final String[] drawer_not_login_items={"Login","About","Contact Us"};
 
 
     @OnClick(R.id.btn_location)
-    void setLocation()
+    void startLocationIntent()
     {
+      try{
+        Intent intent =
+                new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                        .build(this);
+        startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+    } catch (GooglePlayServicesRepairableException e) {
+        // TODO: Handle the error.
+    } catch (GooglePlayServicesNotAvailableException e) {
+        // TODO: Handle the error.
+    }
 
+}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i(TAG, "Place: " + place.getName());
+                btn_location.setText(place.getName());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        MainFragment fragment= new MainFragment();
+
+        FragmentTransaction transaction= getFragmentManager().beginTransaction();
+        transaction.replace(R.id.container,fragment);
+        transaction.commit();
 
         setSupportActionBar(toolbar);
         actionBarDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,
@@ -73,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
              @Override
              public void onDrawerOpened(View drawerView) {
                  super.onDrawerOpened(drawerView);
+
+
              }
          };
 
@@ -135,5 +184,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawers();
+        }
+       else
+            super.onBackPressed();
+
     }
 }

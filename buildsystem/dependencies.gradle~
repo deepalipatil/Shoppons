@@ -45,7 +45,8 @@ ext {
             retroFit          : "com.squareup.retrofit:retrofit:${retroFitVersion}",
             retroFitConverter : "com.squareup.retrofit:converter-gson:${converterGsonVersion}",
             adapterRxJava     : "com.squareup.retrofit:adapter-rxjava:${adapterRxJavaVersion}",
-            realm             : "io.realm:realm-android:${realmVersion}"
+            realm             : "io.realm:realm-android:${realmVersion}",
+	    mapPlayServices   : "com.google.android.gms:play-services:${playMapServicesVersion}"
 
     ]
 
@@ -82,6 +83,7 @@ ext {
             rxAndroid         : "io.reactivex:rxandroid:1.0.1",
             rxJava            : "io.reactivex:rxjava:1.0.14",
             retroFitConverter : "com.squareup.retrofit:converter-gson:${converterGsonVersion}",
-	    materialDialogs     : "com.afollestad.material-dialogs:commons:${materialDialogVersion}"
+	    materialDialogs     : "com.afollestad.material-dialogs:commons:${materialDialogVersion}",
+	    locationPlayServices: "com.google.android.gms:play-services-location:${playMapServicesVersion}"
     ]
 }

@@ -1,6 +1,7 @@
 package com.shopons.data.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.shopons.data.interfaces.UserLocationInterface;
 import com.shopons.data.utils.LocationManager;
@@ -21,10 +22,13 @@ public class LocationRepository implements com.shopons.domain.repositories.Locat
     @Override
     public Observable<Location> getUserLocation() {
 
-       return Observable.create(new Observable.OnSubscribe<Location>() {
+
+        return Observable.create(new Observable.OnSubscribe<Location>() {
             @Override
             public void call(final Subscriber<? super Location> subscriber) {
+                Log.d("####LocationRepostory", "Inside get Location");
                 final LocationManager locationManager = new LocationManager(mContext);
+                //locationManager.connect();
                 locationManager.setUserLocationInterface(new UserLocationInterface() {
                     @Override
                     public void onUserLocation(Location location) {

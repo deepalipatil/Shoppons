@@ -1,9 +1,13 @@
 package com.shopons.data.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -18,14 +22,22 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
     Location mlocation;
     UserLocationInterface userLocationInterface;
     LocationRequest mlocationRequest;
+    Context mContext;
 
 
 
    public LocationManager(Context context){
-        mGoogleApiClient=new GoogleApiClient.Builder(context)
-               .addApi(LocationServices.API).addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
-        mlocationRequest= LocationRequest.create().
-               setInterval(5000).setFastestInterval(3000);
+       mGoogleApiClient = new GoogleApiClient.Builder(context)
+               .addApi(LocationServices.API)
+               .addOnConnectionFailedListener(this)
+               .addConnectionCallbacks(this)
+               .build();
+       mContext = context;
+       mlocationRequest = LocationRequest.create()
+               .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+               .setInterval(500)
+               .setFastestInterval(300);
+       mGoogleApiClient.connect();
    }
 
     public void setUserLocationInterface(UserLocationInterface userLocationInterface) {
@@ -41,7 +53,7 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
                 @Override
                 public void onLocationChanged(Location location) {
                     mlocation = location;
-                    if(userLocationInterface!=null)
+                    if(userLocationInterface!=null && mlocation!=null)
                     {
                         com.shopons.domain.Location userLocation=new com.shopons.domain.Location(location.getLatitude(),
                                                             location.getLongitude());
@@ -55,6 +67,14 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
             });
 
         }
+        else
+        {
+            com.shopons.domain.Location userLocation=new com.shopons.domain.Location(mlocation.getLatitude(),
+                    mlocation.getLongitude());
+            userLocationInterface.onUserLocation(userLocation);
+            if(mGoogleApiClient!=null && mGoogleApiClient.isConnected())
+                mGoogleApiClient.disconnect();
+        }
 
 
     }
@@ -66,10 +86,15 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Log.d("####LocationManager", " OnConnectionFailed! " + connectionResult.toString());
+        if (!connectionResult.hasResolution()) {
+            // show the localized error dialog.
+            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(),
+                    ((Activity) mContext), 0).show();
+        }
     }
 
-    public void connect()
+    public void Myconnect()
     {
         if(mGoogleApiClient.isConnected()==false)
         mGoogleApiClient.connect();

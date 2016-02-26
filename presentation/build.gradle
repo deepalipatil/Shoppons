@@ -97,17 +97,17 @@ dependencies {
     apt presentationDependencies.daggerCompiler
     compile presentationDependencies.androidAnnotations
     compile presentationDependencies.gson
-    compile presentationDependencies.playServicesPlus
-    compile presentationDependencies.dagger
+    //compile presentationDependencies.playServicesPlus
+    //compile presentationDependencies.dagger
     compile presentationDependencies.multidex
     compile presentationDependencies.appCompat7
-    compile presentationDependencies.cardViewV7
+    //compile presentationDependencies.cardViewV7
     compile presentationDependencies.design
     compile presentationDependencies.butterknife
-    compile presentationDependencies.picasso
+    //compile presentationDependencies.picasso
     compile presentationDependencies.androidSupportV4
-    compile presentationDependencies.recyclerView
-    compile presentationDependencies.facebookSdk
+    //compile presentationDependencies.recyclerView
+    //compile presentationDependencies.facebookSdk
     compile presentationDependencies.playServicesPlus
     compile presentationDependencies.circularImageView
     compile presentationDependencies.googleMapView
@@ -121,6 +121,6 @@ dependencies {
         transitive = true
     }
     compile 'org.jetbrains:annotations:13.0'
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile presentationDependencies.locationPlayServices
+
 }
