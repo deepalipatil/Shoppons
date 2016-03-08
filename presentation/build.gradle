@@ -101,7 +101,7 @@ dependencies {
     //compile presentationDependencies.dagger
     compile presentationDependencies.multidex
     compile presentationDependencies.appCompat7
-    //compile presentationDependencies.cardViewV7
+    compile presentationDependencies.cardViewV7
     compile presentationDependencies.design
     compile presentationDependencies.butterknife
     //compile presentationDependencies.picasso

@@ -17,14 +17,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
 import com.shopons.R;
+import com.shopons.domain.Location;
 import com.shopons.view.fragment.MainFragment;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
@@ -53,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar;
     boolean mIsLoggedIn=false;
 
+    Location mLocation;
+    Bundle bundle=null;
+
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     final String TAG="####MainActivity";
 
@@ -76,12 +84,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+        public Location getSearchLocation()
+        {return mLocation;}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
+
                 Place place = PlaceAutocomplete.getPlace(this, data);
+                LatLng latLng=place.getLatLng();
+                mLocation=new Location(latLng.longitude,latLng.latitude);
+
+                Log.d("###ActivityResult","longitude "+latLng.longitude);
+                Log.d("###ActivityResult","latitude "+latLng.latitude);
+
                 Log.i(TAG, "Place: " + place.getName());
                 btn_location.setText(place.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
@@ -96,13 +113,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    Location getSearchedLocation()
+    {
+        return mLocation;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         MainFragment fragment= new MainFragment();
+       /* if(mLocation!=null)
+        {bundle=new Bundle();
+        bundle.putDouble("lat",mLocation.getLatitude());
+        bundle.putDouble("long",mLocation.getLongitude());
 
+        fragment.setArguments(bundle);}*/
         FragmentTransaction transaction= getFragmentManager().beginTransaction();
         transaction.replace(R.id.container,fragment);
         transaction.commit();
@@ -156,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayAdapter<String> arAdapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,
                     drawer_login_items);
             drawer_list.setAdapter(arAdapter);
+            drawer_list.setOnItemClickListener(new NavListener());
         }
         else
         {
@@ -195,5 +222,19 @@ public class MainActivity extends AppCompatActivity {
        else
             super.onBackPressed();
 
+    }
+
+    class NavListener implements AdapterView.OnItemClickListener
+    {
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            String item =  ((TextView) view).getText().toString();
+            switch (item)
+            {
+                case "Login":
+                {}
+            }
+        }
     }
 }

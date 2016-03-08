@@ -17,13 +17,14 @@ public class GetStoreListingByLocation extends UseCase<List<Store>> {
     StoreRepository mStoreRepository;
     double latitude, longitude;
 
-    GetStoreListingByLocation(final double latitude, final double longitude,
-                              final GeneralRepository generalRepository,
+    public GetStoreListingByLocation(final double latitude, final double longitude,
+                              final StoreRepository mStoreRepository,
                               final ThreadExecutor threadExecutor,
                               final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.latitude=latitude;
         this.longitude=longitude;
+        this.mStoreRepository=mStoreRepository;
 
     }
 

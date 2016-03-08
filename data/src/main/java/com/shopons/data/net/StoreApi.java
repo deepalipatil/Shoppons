@@ -1,6 +1,8 @@
 package com.shopons.data.net;
 
 import com.shopons.data.entities.StoreEntity;
+import com.shopons.data.entities.StoreInfo;
+
 import java.util.List;
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -18,6 +20,6 @@ public interface StoreApi {
     })
 
     @GET("stores")
-    public Observable<List<StoreEntity>> getStoreListing(@Query("long") double longitude,@Query("lat") double latitude);
+    public Observable<StoreEntity> getStoreListing(@Query("long") double longitude,@Query("lat") double latitude);
 
 }

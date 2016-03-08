@@ -1,35 +1,31 @@
-package com.shopons.domain;
+package com.shopons.data.entities;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by komal on 24/2/16.
+ * Created by komal on 29/2/16.
  */
-
-
- public class Store {
+public class StoreInfo {
+    @SerializedName("id")
     private String id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("address")
     private String address;
+    @SerializedName("city")
     private String city;
+    @SerializedName("contact")
     private String contact;
+    @SerializedName("comp_rating")
     private double rating;
 
-    public Store(String id,String name, String address,String city, String contact, double rating)
-    {
-        this.id=id;
-        this.name=name;
-        this.address=address;
-        this.city=city;
-        this.contact=contact;
-        this.rating=rating;
-    }
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
+
         this.id = id;
     }
 
@@ -72,3 +68,4 @@ import java.util.List;
         this.rating = rating;
     }
 }
+
