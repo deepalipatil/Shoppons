@@ -82,15 +82,15 @@ public class MainFragment extends Fragment {
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
         progressBar=(ProgressBar)view.findViewById(R.id.progress_bar);
 
-        Log.d(TAG,"Inside on createView");
         mLocationReceiver= new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.d("Inside BroadCast receiver","");
                 checkGpsStatus();
             }
         };
 
-        mInternetReceiver=new BroadcastReceiver() {
+       /* mInternetReceiver=new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if(isConnected())
@@ -98,12 +98,32 @@ public class MainFragment extends Fragment {
                     checkGpsStatus();
                 }
             }
-        };
+        };*/
 
+        getActivity().registerReceiver(mLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
         mlocation=new Location(-1,-1);
         mStorePresenter=new StorePresenter();
         mLocationPresenter=new LocationPresenter(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager linearLayoutManager= (LinearLayoutManager)recyclerView.getLayoutManager();
+                int totalItem=linearLayoutManager.getItemCount();
+                int lastVisibleItemPos=linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                if(lastVisibleItemPos==totalItem-1)
+                {
+                    progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(),"End of List ",Toast.LENGTH_SHORT).show();
+                }
+
+                if(progressBar.getVisibility()==View.VISIBLE && lastVisibleItemPos!=totalItem-1)
+                    progressBar.setVisibility(View.GONE);
+            }
+        });
         storeList=new ArrayList<Store>();
 
        return view;
@@ -128,16 +148,14 @@ public class MainFragment extends Fragment {
             return;
         }
 
-        getActivity().registerReceiver(mLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
+       // getActivity().registerReceiver(mLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
         //getActivity().registerReceiver(mInternetReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
 
         if(!mFirstCalled)
         {
-
             mFirstCalled=true;
             checkGpsStatus();
-
         }
 
 
@@ -175,7 +193,7 @@ public class MainFragment extends Fragment {
 
 
 
-                    StoreRecyclerAdapter adapter = new StoreRecyclerAdapter(storeList);
+                    StoreRecyclerAdapter adapter = new StoreRecyclerAdapter(storeList,getActivity());
                     recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                     storeList.clear();
@@ -193,6 +211,8 @@ public class MainFragment extends Fragment {
 
                     for (Store element : stores) {
                         Log.d("#####MainFragment", element.getName());
+                        Log.d("#####MainFragment", element.getThumbnail());
+
                         storeList.add(element);
                     }
                     Log.d("Size of new List",""+storeList.size());
@@ -214,15 +234,17 @@ public class MainFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(mLocationReceiver);
+        //getActivity().unregisterReceiver(mLocationReceiver);
         //getActivity().unregisterReceiver(mInternetReceiver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        getActivity().unregisterReceiver(mLocationReceiver);
         if(mLocationPresenter!=null)
             mLocationPresenter.destroy();
+
     }
 
     boolean isGpsOn(Context context)
@@ -236,45 +258,52 @@ public class MainFragment extends Fragment {
         return allowedLocationProviders.contains(LocationManager.GPS_PROVIDER);
     }
 
+    void getUserCurrentLocation()
+    {
+        mLocationPresenter.getUserLocation(new Subscriber<Location>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG,"OnCompleted");
+                getStoreListing();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onNext(Location location) {
+                //if(location!=null){
+
+                location.getLongitude();
+                mlocation.setLongitude(location.getLongitude());
+                mlocation.setLatitude(location.getLatitude());
+                Log.d(TAG,"OnNext");
+                Log.d(TAG,"latitude "+location.getLatitude());
+                Log.d(TAG,"longitude "+location.getLongitude());
+                Geocoder geocoder= new Geocoder(getActivity(), Locale.getDefault());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
+                            location.getLongitude(), 1);
+                    String city = addresses.get(0).getLocality();
+                    btnLoc.setText(city);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }//}
+            }
+        });
+    }
     void checkGpsStatus()
     {
         if(isGpsOn(getActivity())==true)
         {
-            mLocationPresenter.getUserLocation(new Subscriber<Location>() {
-                @Override
-                public void onCompleted() {
-                    Log.d(TAG,"OnCompleted");
-                    getStoreListing();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onNext(Location location) {
-                    if(location!=null){
-                    mlocation.setLongitude(location.getLongitude());
-                    mlocation.setLatitude(location.getLatitude());
-                    Log.d(TAG,"OnNext");
-                    Log.d(TAG,"latitude "+location.getLatitude());
-                    Log.d(TAG,"longitude "+location.getLongitude());
-                    Geocoder geocoder= new Geocoder(getActivity(), Locale.getDefault());
-                    try {
-                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),
-                                location.getLongitude(), 1);
-                        String city = addresses.get(0).getLocality();
-                        btnLoc.setText(city);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }}
-                }
-            });
+            getUserCurrentLocation();
         }
         else
         {
-            mlocation=null;
+            mlocation.setLatitude(-1);
+            mlocation.setLongitude(-1);
             showNoGpsDialog();
         }
     }
@@ -286,8 +315,8 @@ public class MainFragment extends Fragment {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mFirstCalled=false;
                         materialDialog.dismiss();
+                        //mFirstCalled=false;
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(intent);
                     }

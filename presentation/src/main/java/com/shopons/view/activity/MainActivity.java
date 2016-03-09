@@ -220,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawers();
         }
        else
-            super.onBackPressed();
+            moveTaskToBack(true);
+
 
     }
 

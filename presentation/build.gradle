@@ -104,7 +104,7 @@ dependencies {
     compile presentationDependencies.cardViewV7
     compile presentationDependencies.design
     compile presentationDependencies.butterknife
-    //compile presentationDependencies.picasso
+    compile presentationDependencies.picasso
     compile presentationDependencies.androidSupportV4
     //compile presentationDependencies.recyclerView
     //compile presentationDependencies.facebookSdk

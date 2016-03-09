@@ -24,6 +24,7 @@ public class StoreDeserializer implements JsonDeserializer<StoreInfo> {
         store.setCity(jsonObject.get("city").getAsString());
         store.setRating(jsonObject.get("comp_rating").getAsDouble());
         store.setContact(jsonObject.get("contact").getAsString());
+        store.setThumbnail(jsonObject.get("thumbnail").getAsString());
         return store;
 
 

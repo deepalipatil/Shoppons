@@ -55,8 +55,8 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
                     mlocation = location;
                     if(userLocationInterface!=null && mlocation!=null)
                     {
-                        com.shopons.domain.Location userLocation=new com.shopons.domain.Location(location.getLatitude(),
-                                                            location.getLongitude());
+                        com.shopons.domain.Location userLocation=new com.shopons.domain.Location(mlocation.getLatitude(),
+                                                            mlocation.getLongitude());
                         userLocationInterface.onUserLocation(userLocation);
                         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient,this);
                         if(mGoogleApiClient!=null && mGoogleApiClient.isConnected())
@@ -69,12 +69,14 @@ public class LocationManager implements GoogleApiClient.ConnectionCallbacks,Goog
         }
         else
         {
+            if(userLocationInterface!=null )
+            {
             com.shopons.domain.Location userLocation=new com.shopons.domain.Location(mlocation.getLatitude(),
                     mlocation.getLongitude());
             userLocationInterface.onUserLocation(userLocation);
             if(mGoogleApiClient!=null && mGoogleApiClient.isConnected())
                 mGoogleApiClient.disconnect();
-        }
+        }}
 
 
     }

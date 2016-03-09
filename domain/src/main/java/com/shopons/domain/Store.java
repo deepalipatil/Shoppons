@@ -14,8 +14,9 @@ import java.util.List;
     private String city;
     private String contact;
     private double rating;
+    private String thumbnail;
 
-    public Store(String id,String name, String address,String city, String contact, double rating)
+    public Store(String id,String name, String address,String city, String contact, double rating,String thumbnail)
     {
         this.id=id;
         this.name=name;
@@ -23,6 +24,15 @@ import java.util.List;
         this.city=city;
         this.contact=contact;
         this.rating=rating;
+        this.thumbnail=thumbnail;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getId() {

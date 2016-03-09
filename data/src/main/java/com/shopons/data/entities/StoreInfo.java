@@ -18,7 +18,17 @@ public class StoreInfo {
     private String contact;
     @SerializedName("comp_rating")
     private double rating;
+    @SerializedName("thumbnail")
+    private String thumbnail;
 
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public String getId() {
         return id;

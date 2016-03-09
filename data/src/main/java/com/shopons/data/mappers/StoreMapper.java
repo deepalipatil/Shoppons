@@ -12,7 +12,7 @@ import com.shopons.domain.Store;
 public class StoreMapper {
     public static Store transform(final StoreInfo storeInfo) {
         return new Store(storeInfo.getId(),storeInfo.getName(),storeInfo.getAddress(),
-                storeInfo.getCity(),storeInfo.getContact(),storeInfo.getRating());
+                storeInfo.getCity(),storeInfo.getContact(),storeInfo.getRating(),storeInfo.getThumbnail());
     }
 
 }

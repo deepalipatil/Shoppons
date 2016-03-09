@@ -31,7 +31,7 @@
             android:textStyle="bold|italic"
             android:textSize="35dp"
             android:gravity="left"
-            android:fontFamily="sans-serif-thin"
+            android:fontFamily="sans-serif"
             android:layout_alignParentTop="true"
             android:layout_alignLeft="@+id/store_addr"
             android:layout_alignStart="@+id/store_addr"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="20km"
-                android:textColor="#FFFFFF"
+                android:textColor="#ffffff"
                 android:textSize="20dp"
             />
 
@@ -101,7 +101,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
     </RelativeLayout>
