@@ -211,7 +211,7 @@ public class MainFragment extends Fragment {
 
                     for (Store element : stores) {
                         Log.d("#####MainFragment", element.getName());
-                        Log.d("#####MainFragment", element.getThumbnail());
+                        Log.d("#####MainFragment", element.getBrand_info().get(0).getPerson_type());
 
                         storeList.add(element);
                     }

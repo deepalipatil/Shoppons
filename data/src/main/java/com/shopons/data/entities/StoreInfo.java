@@ -2,6 +2,8 @@ package com.shopons.data.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by komal on 29/2/16.
  */
@@ -20,7 +22,16 @@ public class StoreInfo {
     private double rating;
     @SerializedName("thumbnail")
     private String thumbnail;
+    @SerializedName("brand_info")
+    private List<BrandInfo> brand_info;
 
+    public List<BrandInfo> getBrand_info() {
+        return brand_info;
+    }
+
+    public void setBrand_info(List<BrandInfo> brand_info) {
+        this.brand_info = brand_info;
+    }
 
     public String getThumbnail() {
         return thumbnail;
@@ -77,5 +88,7 @@ public class StoreInfo {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+
 }
 

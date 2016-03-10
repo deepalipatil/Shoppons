@@ -77,7 +77,7 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
         TextView distance;
         LinearLayout linear_ratings;
         TextView ratings;
-        ImageView star;
+
 
         public StoreCardView(View itemView) {
             super(itemView);
@@ -92,7 +92,7 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
             distance=(TextView)itemView.findViewById(R.id.distance);
             linear_ratings=(LinearLayout)itemView.findViewById(R.id.linear_ratings);
             ratings=(TextView)itemView.findViewById(R.id.ratings);
-            star=(ImageView)itemView.findViewById(R.id.star);
+
         }
     }
 }
