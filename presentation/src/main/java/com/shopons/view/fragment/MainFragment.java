@@ -1,6 +1,7 @@
 package com.shopons.view.fragment;
 
 
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,13 +24,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.shopons.R;
 import com.shopons.adapter.StoreRecyclerAdapter;
 import com.shopons.domain.Location;
@@ -39,13 +36,12 @@ import com.shopons.presenter.LocationPresenter;
 import com.shopons.presenter.StorePresenter;
 import com.shopons.view.activity.MainActivity;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Subscriber;
 
 /**
@@ -54,7 +50,7 @@ import rx.Subscriber;
 
 
 public class MainFragment extends Fragment {
-    private final String TAG="####MainFragment";
+    public static final String TAG="####MainFragment";
     Button btnLoc;
     BroadcastReceiver mLocationReceiver;
     BroadcastReceiver mInternetReceiver;
@@ -71,6 +67,9 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static MainFragment getInstance() {
+        return new MainFragment();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

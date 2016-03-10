@@ -3,14 +3,12 @@ package com.shopons.view.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,30 +17,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+
 import android.widget.TextView;
+
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.shopons.R;
 import com.shopons.domain.Location;
-import com.shopons.view.fragment.MainFragment;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.shopons.domain.User;
+
+import com.shopons.view.fragment.MainFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseScreen  implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.drawer)
     DrawerLayout drawerLayout;
 
-    @Bind(R.id.navigation_view)
+    @Bind(R.id.navigationView)
     NavigationView navigationView;
 
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -55,14 +60,25 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.btn_location)
     Button btn_location;
 
+    @Bind(R.id.search)
+    ImageView search;
+
+    @OnClick(R.id.search)
+            void searchById()
+    {
+    }
+
     ActionBar actionBar;
     boolean mIsLoggedIn=false;
+    View mHeaderView;
 
     Location mLocation;
     Bundle bundle=null;
 
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    final String TAG="####MainActivity";
+    private static final String TAG="####MainActivity";
+    private int mPosition;
+    private LoginPresenter mLoginPresenter;
 
 
     final String[] drawer_login_items={"Home","Favorite","About","Contact Us"};
@@ -122,11 +138,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        User user = new User();
+        final BaseScreen baseScreen = new BaseScreen();
+        //baseScreen.changeStatusBarColor(R.color.colorPrimary);
         MainFragment fragment= new MainFragment();
+
        /* if(mLocation!=null)
         {bundle=new Bundle();
         bundle.putDouble("lat",mLocation.getLatitude());
         bundle.putDouble("long",mLocation.getLongitude());
+=======
+        //addFragment(R.id.container, MainFragment.getInstance(), MainFragment.TAG);
+        mLoginPresenter = new LoginPresenter();
+        toolbar.setTitle(getString(R.string.home));
+        mLastMenuItemId = -1;
+        mPosition = 0;
+        mIsLoggedIn = user.isLoggedIn();
+>>>>>>> 1731b678ee568d551c7b7bd187030d4d4d9104ca
 
         fragment.setArguments(bundle);}*/
         FragmentTransaction transaction= getFragmentManager().beginTransaction();
@@ -167,11 +195,22 @@ public class MainActivity extends AppCompatActivity {
         initMenu();
 
     }
+
     void initNavigationHeader()
     {
         //If user is not logged in
-        View header=LayoutInflater.from(this).inflate(R.layout.header,null,false);
-        navigationView.addHeaderView(header);
+        if(mIsLoggedIn)
+        {
+            View header = LayoutInflater.from(this).inflate(R.layout.navigation_drawer_header, null);
+            navigationView.addHeaderView(header);
+
+        }
+        else {
+            View header1 = LayoutInflater.from(this).inflate(R.layout.navigation_drawer_header1, null);
+            navigationView.addHeaderView(header1);
+        }
+
+
        //Add condition of if user is logged in
     }
 
@@ -179,19 +218,32 @@ public class MainActivity extends AppCompatActivity {
     {
         if(mIsLoggedIn)
         {
-            ArrayAdapter<String> arAdapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,
-                    drawer_login_items);
-            drawer_list.setAdapter(arAdapter);
-            drawer_list.setOnItemClickListener(new NavListener());
+
+            //ArrayAdapter<String> arAdapter=new ArrayAdapter<String>(MainActivity.this,R.layout.itm_list,drawer_login_items);
+
+            //drawer_list.setAdapter(arAdapter);
+           // MenuInflater inflater = getMenuInflater();
+            //inflater.inflate(R.menu.navigation_drawer_item1,menu);
+
+            Menu menu = navigationView.getMenu();
+            navigationView.inflateMenu(R.menu.navigation_drawer_item1); //inflate new items.
+
+
+
         }
         else
         {
-            ArrayAdapter<String> arAdapter=new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,
-                    drawer_not_login_items);
-            drawer_list.setAdapter(arAdapter);
+           // ArrayAdapter<String> arAdapter=new ArrayAdapter<String>(MainActivity.this,R.layout.itm_list,
+                  //  drawer_not_login_items);
+            //drawer_list.setAdapter(arAdapter);
+           // MenuInflater inflater = getMenuInflater();
+           // inflater.inflate(R.menu.navigation_drawer_item,menu);
+            Menu menu = navigationView.getMenu();
+            navigationView.inflateMenu(R.menu.navigation_drawer_item); //inflate new items.
+
+
         }
     }
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -204,8 +256,17 @@ public class MainActivity extends AppCompatActivity {
 
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
+        switch (item.getItemId()){
+            case R.id.login: {
+                Log.d(TAG,"######Login clicked");
+                Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+                startActivity(intent);
+            }
+        }
 
         return super.onOptionsItemSelected(item);
+
+
     }
 
     @Override
@@ -236,6 +297,60 @@ public class MainActivity extends AppCompatActivity {
                 case "Login":
                 {}
             }
+        }
+    }
+
+
+    /* void initNavigationView(final User user) {
+
+        drawer_list.setOnItemClickListener(this);
+        updateAdapter(user);
+        if (user != null) {
+            mIsLoggedIn = true;
+            mHeaderView = LayoutInflater.from(MainActivity.this)
+                    .inflate(R.layout.item_navigation_headerview, drawer_list, false);
+            mHeaderView.findViewById(R.id.profile_edit).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   // startActivity(Intents.getShowProfileIntent());
+                    //overridePendingTransition(R.anim.in_right, R.anim.out_left);
+                    //finish();
+                }
+            });
+            if (!user.getProfilePicUrl().isEmpty()) {
+                Log.d("##HomeActivity", "Height " + ImageUtils.DpToPx(this, 72));
+                if (user.getProfilePicUrl().contains("facebook") || user.getProfilePicUrl().contains("goo")) {
+                    Picasso.with(this).load(user.getProfilePicUrl())
+                            .placeholder(R.drawable.image_place_hold)
+                            .into((CircleImageView) mHeaderView.findViewById(R.id.profile_image));
+                } else {
+                    Picasso.with(this).load(user.getProfilePicUrl() + "?height=150")
+                            .placeholder(R.drawable.image_place_hold)
+                            .into((CircleImageView) mHeaderView.findViewById(R.id.profile_image));
+                }
+            }
+            ((TextView) mHeaderView.findViewById(R.id.user_email))
+                    .setText(user.getEmailAddress());
+            ((TextView) mHeaderView.findViewById(R.id.user_email))
+                    .setTypeface(Typefaces.get(Typefaces.Type.ROBOTO_REGULAR));
+            ((TextView) mHeaderView.findViewById(R.id.user_name))
+                    .setText(user.getFullName());
+            ((TextView) mHeaderView.findViewById(R.id.user_name))
+                    .setTypeface(Typefaces.get(Typefaces.Type.ROBOTO_MEDIUM));
+            mDrawerList.addHeaderView(mHeaderView);
+            mListAdapter.setSelected(1);
+
+        } else {
+            mFooterView.setVisibility(View.VISIBLE);
+            mListAdapter.setSelected(0);
+        }
+    }*/
+
+    @Override
+    public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+        if (mPosition == position) {
+            drawerLayout.closeDrawers();
+            return;
         }
     }
 }

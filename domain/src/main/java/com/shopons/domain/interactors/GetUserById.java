@@ -16,23 +16,25 @@ import rx.Observable;
 public final class GetUserById extends UseCase<User> {
 
     private UserRepository mUserRepository;
-    private long mUserId;
+    private String mUserId;
+    private String mAuthKey;
 
     /**
      * Constructor
      *
-     * @param userId id of the user to be retrieved
-     * @param userRepository user repository implementation
+     * @param mUserId id of the user to be retrieved
+     * @param mUserRepository user repository implementation
      * @param threadExecutor thread executor for network/db task
      * @param postExecutionThread post execution thread
      */
-    public GetUserById(final long userId, final UserRepository userRepository,final ThreadExecutor
-            threadExecutor, final PostExecutionThread postExecutionThread) {
+    public GetUserById(final String mUserId, final String mAuthKey,
+                       final UserRepository mUserRepository, final ThreadExecutor threadExecutor,
+                       final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        mUserId = userId;
-        mUserRepository = userRepository;
+        this.mUserRepository = mUserRepository;
+        this.mUserId = mUserId;
+        this.mAuthKey = mAuthKey;
     }
-
     /**
      * Overridden method from UseCase {@link UseCase}
      *

@@ -24,6 +24,8 @@ public class Shopons extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         JodaTimeAndroid.init(getApplicationContext());
+        //RealmFactory.Init(getApplicationContext());
+        //AppversionSave.init();
     }
 
     /**

@@ -12,24 +12,37 @@ import android.os.Parcelable;
  */
 public final class UserModel implements Parcelable {
 
-    private long mId;
+    private String mId;
     private String mEmailAddress;
     private String mName;
-    private String mProfilePicUrl;
+    private String mFullName;
+    private String mPhoneNumber;
+    private String mPassword;
+    private String mAuthKey;
+    private boolean mIsLoggedIn;
 
-    public UserModel(long id, String emailAddress, String name, String profilePicUrl) {
-        mId = id;
+    public UserModel(){}
+
+    public UserModel(final String authKey, final String fullName, final String emailAddress, final String phoneNumber,
+                     final String password, final String id) {
+        this.mFullName = fullName;
         mEmailAddress = emailAddress;
-        mName = name;
-        mProfilePicUrl = profilePicUrl;
+        mPhoneNumber = phoneNumber;
+        mPassword = password;
+        mId = id;
+        mAuthKey = authKey;
     }
 
     protected UserModel(Parcel in) {
-        mId = in.readLong();
+        mId = in.readString();
+        mFullName = in.readString();
         mEmailAddress = in.readString();
-        mName = in.readString();
-        mProfilePicUrl = in.readString();
+        mPhoneNumber = in.readString();
+        mPassword = in.readString();
+        mAuthKey = in.readString();
+        mIsLoggedIn = in.readByte() != 0;
     }
+
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
         @Override
@@ -49,10 +62,47 @@ public final class UserModel implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
-        dest.writeString(mEmailAddress);
-        dest.writeString(mName);
-        dest.writeString(mProfilePicUrl);
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(mId);
+        parcel.writeString(mName);
+        parcel.writeString(mFullName);
+        parcel.writeString(mEmailAddress);
+        parcel.writeString(mPhoneNumber);
+        parcel.writeString(mPassword);
+        parcel.writeString(mAuthKey);
+        parcel.writeByte((byte) (mIsLoggedIn ? 1 : 0));
     }
+
+    public void setId(final String id){
+        mId = id;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setAuthKey(String authKey) {
+        mAuthKey = authKey;
+    }
+
+    public String getFullName() {
+        return mFullName;
+    }
+
+    public String getEmailAddress() {
+        return mEmailAddress;
+    }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public String getAuthKey() {
+        return mAuthKey;
+    }
+
 }

@@ -16,32 +16,19 @@ import rx.Observable;
 public final class LoginUser extends UseCase<User> {
 
     private UserRepository mUserRepository;
-    private String mEmail;
+    private String mPhone;
     private String mPassword;
+    private User mUser;
 
-    /**
-     * Constructor
-     *
-     * @param email user email
-     * @param password user password
-     * @param userRepository user repository implementation {@link UserRepository}
-     * @param threadExecutor thread executor for network actions {@link ThreadExecutor}
-     * @param postExecutionThread post network task executor {@link PostExecutionThread}
-     */
-    public LoginUser(final String email, final String password, final UserRepository
-            userRepository, final ThreadExecutor threadExecutor, final PostExecutionThread
-                             postExecutionThread) {
+    public LoginUser(final String phone, final String password,
+                            final ThreadExecutor threadExecutor, final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        mUserRepository = userRepository;
+        this.mPhone=phone;
+        this.mPassword=password;
     }
 
-    /**
-     * Overridden method from UseCase {@link UseCase}
-     *
-     * @return Observable {@link Observable} of user
-     */
     @Override
-    protected Observable<User> buildUseCaseObservable() {
-        return mUserRepository.loginUser(mEmail, mPassword);
+    public Observable<User> buildUseCaseObservable() {
+        return mUserRepository.loginByEmail(mPhone,mPassword);
     }
 }

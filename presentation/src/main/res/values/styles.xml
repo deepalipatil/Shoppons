@@ -17,4 +17,39 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="white_text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:layout_marginRight">24dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CollapsingToolbarTitle">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="TextInputLayoutPrimary" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="RoudnedButton" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/small_corner_button</item>
+    </style>
+
+    <style name="AppTheme.OverflowIcon" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlNormal">#90b0b0b0</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_social_login">SocialLoginActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="Drawer_Opened">Drawer Opened</string>
+    <string name="Drawer_Closed">Drawer Closed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_loc">Pune</string>
+    <string name="search_hint">Type name of shop or brand</string>
+
+    <string name="facebook">Facebook</string>
+    <string name="google_plus">G+</string>
+    <string name="connect_with">Connect with</string>
+    <string name="logout">Logout</string>
+    <string name="connecting">Connecting…</string>
+    <string name="connect_with_facebook">Connect With Facebook</string>
+    <string name="connect_with_google">Connect With Google</string>
+
+    <string name="google_map_api_key">AIzaSyAmLwATmBv5NLosIVpGoUrhivOoqvmMUeA</string>
+    <string name="facebook_app_id">750802168386653</string>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="logging_out">Logging out…</string>
+    <string name="no_internet">No internet connection found</string>
+    <string name="sending_otp">Sending OTP…</string>
+    <string name="resending_otp">Resending OTP</string>
+    <string name="updating_password">Updating password...</string>
+    <string name="verifying">Verifying...</string>
+
+</resources>

@@ -10,13 +10,14 @@ public class AppVersionEntity {
     private boolean forceUpdate;
     @SerializedName("update_available")
     private boolean updateAvailable;
-
     public AppVersionEntity(final boolean forceUpdate, final boolean updateAvailable) {
         this.forceUpdate = forceUpdate;
         this.updateAvailable = updateAvailable;
     }
 
-    public boolean isForceUpdate() {
+    public AppVersionEntity(){}
+
+    public boolean getForceUpdate() {
         return forceUpdate;
     }
 
@@ -24,7 +25,7 @@ public class AppVersionEntity {
         this.forceUpdate = forceUpdate;
     }
 
-    public boolean isUpdateAvailable() {
+    public boolean getUpdateAvailable() {
         return updateAvailable;
     }
 

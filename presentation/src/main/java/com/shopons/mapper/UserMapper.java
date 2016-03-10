@@ -13,7 +13,12 @@ import com.shopons.domain.User;
 public final class UserMapper {
 
     public UserModel transform(final User user) {
-        return new UserModel(user.getId(), user.getEmailAddress(), user.getName(), user
-                .getProfilePic());
+        return new UserModel(user.getAuthKey(), user.getFullName(), user.getEmailAddress(),
+                user.getPhoneNumber(), user.getPassword(), user.getId());
+    }
+
+    public static User transform(final UserModel userModel){
+        return new User(userModel.getAuthKey(),userModel.getFullName(), userModel.getEmailAddress(),
+                userModel.getPhoneNumber(), userModel.getPassword(), userModel.getId());
     }
 }
