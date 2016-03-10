@@ -14,6 +14,8 @@ public class AppVersion {
         this.updateAvailable = updateAvailable;
     }
 
+    public AppVersion(){}
+
     public boolean isForceUpdate() {
         return forceUpdate;
     }

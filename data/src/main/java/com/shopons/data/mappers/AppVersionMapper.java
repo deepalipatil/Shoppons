@@ -8,7 +8,7 @@ import com.shopons.domain.AppVersion;
  */
 public class AppVersionMapper {
     public static AppVersion transform(final AppVersionEntity appVersionEntity) {
-        return new AppVersion(appVersionEntity.isForceUpdate(), appVersionEntity.isUpdateAvailable());
+        return new AppVersion(appVersionEntity.getForceUpdate(), appVersionEntity.getUpdateAvailable());
     }
 
     public static AppVersionEntity transform(final AppVersion appVersion) {

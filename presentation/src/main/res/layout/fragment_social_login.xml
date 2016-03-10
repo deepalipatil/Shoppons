@@ -1,0 +1,99 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.SocialLoginActivity">
+
+    <ImageView
+        android:layout_above="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_marginTop="37dp"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/skip"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <RelativeLayout
+            android:id="@+id/social_button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/facebook_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:text="@string/connect_with_facebook"
+                    android:background="@drawable/fb_button"
+                    android:layout_gravity="center_horizontal"/>
+
+                <Button
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/google_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:text="@string/connect_with_google"
+                    android:background="@drawable/gplus_button"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/social_button_container"
+            android:layout_marginTop="23dp"
+            android:text="Sign Up"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/social_button_container"
+            android:layout_marginTop="23dp"
+            android:text="Login"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/skip"
+        android:layout_marginTop="54dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:padding="8dp"
+        android:text="Skip"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

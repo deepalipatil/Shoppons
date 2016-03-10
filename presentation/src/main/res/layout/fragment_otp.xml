@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:focusableInTouchMode="true"
+    tools:context="com.shopons.view.activity.OtpActivity">
+
+    <TextView
+        android:id="@+id/validate_your_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Validate your phone number"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/insert_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/validate_your_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:text="Insert the code received \n on your phone"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/insert_code"
+        android:theme="@style/TextInputLayoutPrimary"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/otp_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Enter your OTP"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:textSize="14sp"
+            android:theme="@style/EditText"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/verify"
+        style="@style/RoudnedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otp"
+        android:layout_marginTop="24dp"
+        android:text="Vertify"
+        android:textAllCaps="true"/>
+
+    <TextView
+        android:id="@+id/resend_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verify"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:text="Resend Otp"
+        android:textAllCaps="true"
+        android:textSize="16sp"/>
+
+</RelativeLayout>
