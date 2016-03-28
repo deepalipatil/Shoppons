@@ -28,6 +28,9 @@ public interface StoreApi {
     @GET("store/{store_id}")
     public Observable<StoreDetailsEntity> getStoreDetails(@Path("store_id") String storeId);
 
+    @GET("stores/search/{query}")
+    public Observable<SearchResult> searchResults(@Path("query") String query,@Query("page_id") int page_id);
+
 
 
 }

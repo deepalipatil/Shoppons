@@ -23,7 +23,10 @@ public class DialogsHelper {
                 .title(header)
                 .content(content)
                 .positiveColor(activity.getResources().getColor(R.color.colorPrimary))
-                .positiveText(okText);
+                .positiveText(okText)
+                .backgroundColor(activity.getResources().getColor(R.color.black))
+                .typeface(FontUtils.getFonts(activity.getBaseContext(), "Sansation_Regular.ttf"), FontUtils.getFonts(activity.getBaseContext(), "Sansation_Light.ttf"));
+        ;
 
         if (!cancelText.equals("")) {
             builder.negativeText(cancelText);
@@ -41,7 +44,9 @@ public class DialogsHelper {
                 .title(header)
                 .customView(layoutId, true)
                 .positiveColor(activity.getResources().getColor(R.color.colorPrimary))
-                .positiveText(okText);
+                .positiveText(okText)
+                .typeface(FontUtils.getFonts(activity.getBaseContext(),"Arcon-Regular.otf"),FontUtils.getFonts(activity.getBaseContext(),"Arcon-Rounded-Regular.otf"));
+
     }
 
     public static String getFormattedError(final String []errorString) {
@@ -92,6 +97,7 @@ public class DialogsHelper {
                         materialDialog.dismiss();
                     }
                 }).cancelable(false).build();
+        dialog.setTypeface(dialog.getTitleView(),FontUtils.getFonts(dialog.getContext(),"Arcon-Regular.otf"));
         dialog.show();
     }
 
@@ -106,6 +112,7 @@ public class DialogsHelper {
                         materialDialog.dismiss();
                     }
                 }).cancelable(false).build();
+        dialog.setTypeface(dialog.getTitleView(),FontUtils.getFonts(dialog.getContext(),"Arcon-Regular.otf"));
         dialog.show();
     }
 
@@ -124,6 +131,7 @@ public class DialogsHelper {
                         materialDialog.dismiss();
                     }
                 }).build();
+        dialog.setTypeface(dialog.getTitleView(),FontUtils.getFonts(dialog.getContext(),"Sansation_Bold.ttf"));
         dialog.show();
     }
 
@@ -137,6 +145,7 @@ public class DialogsHelper {
                         materialDialog.dismiss();
                     }
                 }).build();
+        dialog.setTypeface(dialog.getTitleView(),FontUtils.getFonts(dialog.getContext(),"Sansation_Bold.ttf"));
         dialog.show();
     }
 
@@ -242,8 +251,6 @@ public class DialogsHelper {
                 listeners[1].onClick(materialDialog, dialogAction);
             }
         });
-        final MaterialDialog dialog = builder.build();
-        dialog.show();
     }
 }
 

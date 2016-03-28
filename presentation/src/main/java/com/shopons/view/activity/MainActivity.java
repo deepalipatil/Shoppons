@@ -39,6 +39,8 @@ import com.shopons.domain.User;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.view.fragment.MainFragment;
 
+import org.w3c.dom.Text;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -199,6 +201,8 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         if(mIsLoggedIn)
         {
             View header = LayoutInflater.from(this).inflate(R.layout.navigation_drawer_header, null);
+            TextView username=(TextView)findViewById(R.id.username);
+            TextView email=(TextView)findViewById(R.id.email);
             navigationView.addHeaderView(header);
 
         }

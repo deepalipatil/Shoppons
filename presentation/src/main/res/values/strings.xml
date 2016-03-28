@@ -27,6 +27,8 @@
     <string name="facebook_app_id">569754989845753</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
     <string name="success">Success</string>
     <string name="logging_out">Logging out…</string>
     <string name="no_internet">No internet connection found</string>

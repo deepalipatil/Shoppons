@@ -33,7 +33,7 @@ public class StoreMapper {
 
         for(BrandInfo element:brandInfoList)
         {
-            mappedBrandInfo.add(new com.shopons.domain.BrandInfo(element.getPerson_type()));
+            mappedBrandInfo.add(new com.shopons.domain.BrandInfo(element.getPerson_type(),element.getCategory()));
         }
 
         return new Store(storeInfo.getId(),storeInfo.getName(),storeInfo.getAddress(),
