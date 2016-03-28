@@ -1,17 +1,13 @@
 package com.shopons.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,11 +16,8 @@ import android.widget.TextView;
 import com.shopons.R;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
+import com.shopons.view.activity.MapsActivity;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by komal on 2/3/16.
@@ -32,6 +25,8 @@ import java.util.List;
 public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRecyclerAdapter.StoreCardView> {
     Context context;
     Location currentLoc;
+    public static double lat;
+    public static double lng;
 
     public StoreRecyclerAdapter(RecyclerView recyclerView,Context context)
     {
@@ -117,15 +112,22 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
             holder.distance.setText(String.format("%.1f",distance)+"km");
         }
 
-        
+        lat=getItem(position).getLocation().getLatitude();
+        lng=getItem(position).getLocation().getLongitude();
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ///Start Sneha's intent
             }
         });
 
-
+        holder.linear_place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MapsActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

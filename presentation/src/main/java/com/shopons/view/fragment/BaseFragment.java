@@ -2,21 +2,27 @@ package com.shopons.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shopons.domain.User;
 import com.shopons.domain.constants.Constants;
 import com.shopons.utils.ExceptionTypes;
+import com.shopons.utils.FontUtils;
 import com.shopons.view.activity.SocialLoginActivity;
 
 /**
@@ -96,6 +102,45 @@ public abstract class  BaseFragment extends DialogFragment {
             Toast.makeText(getActivity(), "There was some issue with social login, " +
                     "please try again !!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    protected void setBoldFont(final TextView textView) {
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Sansation_Bold.ttf");
+        textView.setTypeface(font);
+    }
+
+    public static void setLightFont(final TextView textView) {
+        textView.setTypeface(FontUtils.getFonts(textView.getContext(),"Sansation_Light.ttf"));
+    }
+
+    protected void setRegularFont(final TextView textView) {
+        textView.setTypeface(FontUtils.getFonts(getContext(),"Sansation_Regular.ttf"));
+    }
+
+    protected void setRegularFont(final TextInputLayout textInputLayout) {
+        textInputLayout.setTypeface(FontUtils.getFonts(getContext(),"Arcon-Regular.ttf"));
+    }
+
+    protected void setRegularFont(final EditText editText) {
+        editText.setTypeface(FontUtils.getFonts(getContext(), "Arcon-Regular.ttf"));
+    }
+
+    protected View tryInflate(String name, Context context, AttributeSet attrs) {
+        LayoutInflater li = LayoutInflater.from(context);
+        View v = null;
+        try {
+            v = li.createView(name, null, attrs);
+        } catch (Exception e) {
+            try {
+                v = li.createView("android.widget." + name, null, attrs);
+            } catch (Exception e1) {
+            }
+        }
+        return v;
+    }
+
+    protected void setTypeFace(TextView tv) {
+        tv.setTypeface(FontUtils.getFonts(getContext(), "Arcon-Regular"));
     }
 
     protected void hideSoftKeyboard() {
