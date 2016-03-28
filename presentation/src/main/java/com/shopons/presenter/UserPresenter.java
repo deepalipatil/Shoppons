@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.shopons.domain.User;
 import com.shopons.domain.interactors.GPlusLogin;
-import com.shopons.domain.interactors.GetUserById;
 import com.shopons.domain.repositories.UserRepository;
 
 import rx.Subscriber;
@@ -21,10 +20,7 @@ public class UserPresenter extends Presenter {
         mUserRepository = new com.shopons.data.repository.UserRepository();
     }
 
-    public void getUserById(final String id, final String authKey, final Subscriber<User> subscriber) {
-        mSubscriptions.add(new GetUserById(id, authKey, mUserRepository,
-                mThreadExecutor, mPostExecutionThread).execute(subscriber));
-    }
+
 
 
     @Override

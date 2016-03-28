@@ -4,6 +4,7 @@ package com.shopons.data.repository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopons.data.deserializer.StoreDeserializer;
+import com.shopons.data.deserializer.StoreDetailsDeserializer;
 import com.shopons.data.deserializer.StoreEntityDeserializer;
 import com.shopons.data.entities.AppVersionEntity;
 import com.shopons.data.entities.StoreDetailsEntity;
@@ -17,9 +18,12 @@ import com.shopons.data.utils.Urls;
 import com.shopons.domain.AppVersion;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -34,13 +38,31 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
 
    StoreApi mStoreApi;
 
-    GsonBuilder gsonBuilder=new GsonBuilder().registerTypeAdapter(StoreEntity.class, new StoreEntityDeserializer())
-            .registerTypeAdapter(StoreInfo.class, new StoreDeserializer());
-    Gson gson=gsonBuilder.create();
+
+
+
 
 
     public StoreRepository(){
+
+        GsonBuilder gsonBuilder=new GsonBuilder()
+                .registerTypeAdapter(StoreEntity.class, new StoreEntityDeserializer())
+                .registerTypeAdapter(StoreInfo.class, new StoreDeserializer())
+                .registerTypeAdapter(StoreDetailsEntity.class,new StoreDetailsDeserializer());
+        Gson gson=gsonBuilder.create();
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+// set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        final OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+// add your other interceptors …
+// add logging as last interceptor
+        okHttpClient.interceptors().add(logging);
+
         Retrofit retrofit=new Retrofit.Builder().baseUrl(Urls.shopons_base)
+                .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         mStoreApi=retrofit.create(StoreApi.class);

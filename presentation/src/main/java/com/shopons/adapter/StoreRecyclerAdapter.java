@@ -1,10 +1,12 @@
 package com.shopons.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import com.shopons.R;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
+import com.shopons.view.activity.shop_info;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -72,7 +75,7 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
     }
 
     @Override
-    public void onBindViewHolder(final StoreCardView holder, int position) {
+    public void onBindViewHolder(final StoreCardView holder, final int position) {
         holder.store_name.setText(getItem(position).getName());
         holder.store_address.setText(getItem(position).getCity());
         //Ratings
@@ -121,7 +124,11 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ///Start Sneha's intent
+                Bundle bundle=new Bundle();
+
+                Intent intent=new Intent(context,shop_info.class);
+                intent.putExtra("store_id",getItem(position).getId());
+                context.startActivity(intent);
             }
         });
 

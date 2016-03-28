@@ -51,12 +51,12 @@ public class MapsActivity extends AppCompatActivity
         LatLngBounds India = new LatLngBounds(
                 new LatLng(34.0836708, 74.7972825), new LatLng(8.0883064, 77.5384507));
 
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
+        //CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng));
+        //CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
 
-        mMap.moveCamera(center);
-        mMap.animateCamera(zoom);
-        mMap.addMarker(new MarkerOptions().position(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng)).title(""));
+        //mMap.moveCamera(center);
+        //mMap.animateCamera(zoom);
+        //mMap.addMarker(new MarkerOptions().position(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng)).title(""));
     }
 
     @Override

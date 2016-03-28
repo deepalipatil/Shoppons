@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/webView"
+        android:layout_gravity="right" />
+
+    <android.support.v7.widget.Toolbar
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="#2196F3">
+        <RelativeLayout
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:src="@drawable/actionbarback"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/relativeLayout"
+                android:layout_toStartOf="@+id/relativeLayout"
+                android:layout_marginRight="220dp"
+                android:layout_marginEnd="220dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/relativeLayout">
+
+
+                <ImageView
+                    android:id="@+id/call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_local_phone_white_24dp"
+                    android:onClick="share_method"
+                    android:layout_marginRight="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    />
+
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/action_bar_shear_"
+                    android:onClick="share_method"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="38dp"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+<ScrollView
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -39,7 +108,7 @@
                         android:scaleType="centerCrop"/>
 
                     <TextView
-                        android:id="@+id/shop_name"
+                        android:id="@+id/store_name"
                         android:text="Levis"
                         android:textStyle="bold|italic"
                         android:layout_marginTop="70dp"
@@ -52,11 +121,11 @@
 
 
                     <TextView
-                        android:id="@+id/address"
+                        android:id="@+id/store_city"
                         android:text="Rajarampuri"
                         android:textStyle="italic"
                         android:fontFamily="sans-serif-condensed"
-                        android:layout_below="@+id/shop_name"
+                        android:layout_below="@+id/store_name"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="@dimen/shop_info_margin_left"
                         android:layout_width="wrap_content"
@@ -72,80 +141,38 @@
                         android:background="@drawable/image_overlay">
                     </FrameLayout>
 
-                    <ImageView
-                        android:id="@+id/like_image"
+
+
+                    <TextView
+                        android:id="@+id/num_of_reviews"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/address"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/store_city"
                         android:layout_marginLeft="@dimen/shop_info_margin_left"
-                        android:layout_marginBottom="15dp"
                         android:layout_alignParentLeft="true"
-                        android:src="@drawable/love"
-                        android:background="@drawable/image_overlay"
+                        android:text="1000"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorAccent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="15dp"
                         />
 
                     <TextView
-                        android:id="@+id/num_of_likes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/like_image"
+                        android:layout_toRightOf="@+id/num_of_reviews"
                         android:layout_alignParentBottom="true"
-                        android:layout_below="@+id/address"
+                        android:layout_below="@+id/store_city"
                         android:layout_marginTop="25dp"
-                        android:layout_marginLeft="12dp"
                         android:layout_marginBottom="15dp"
-                        android:text="1000"
+                        android:text="Reviews"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"/>
+                        android:textColor="@color/colorAccent"
+                        android:layout_marginLeft="5dp"
+                        />
 
 
-                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/tableLayout1"
-                        android:layout_below="@+id/like_image"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        >
-
-                        <!-- 2 columns -->
-                        <TableRow
-                            android:id="@+id/tableRow1"
-                            android:layout_width="30dp"
-                            android:layout_height="25dp"
-                            android:layout_marginLeft="@dimen/shop_info_margin_left">
-
-                            <Button
-                                android:id="@+id/call"
-                                android:text="Call"
-                                android:textStyle="italic"
-                                android:fontFamily="sans-serif-condensed"
-                                android:textColor="@color/colorAccent"
-                                android:autoLink="phone"
-                                android:linksClickable="true"/>
-
-                            <Button
-                                android:id="@+id/Rate"
-                                android:text="Rate"
-                                android:textStyle="italic"
-                                android:fontFamily="sans-serif-condensed"
-                                android:textColor="@color/colorAccent"/>
-
-                            <Button
-                                android:id="@+id/Review"
-                                android:text="Review"
-                                android:textStyle="italic"
-                                android:fontFamily="sans-serif-condensed"
-                                android:textColor="@color/colorAccent"/>
-
-                            <Button
-                                android:id="@+id/follow"
-                                android:text="Follow"
-                                android:textStyle="italic"
-                                android:fontFamily="sans-serif-condensed"
-                                android:textColor="@color/colorAccent"/>
-
-                        </TableRow>
-                    </TableLayout>
 
                 </RelativeLayout>
             </FrameLayout>
@@ -200,14 +227,11 @@
 
                     <TextView
                         android:text="Jeans"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp"/><![CDATA[
 
-                    <TextView
-                        android:text="20"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="120dp"/>
                     />
 
+                ]]>
                 </TableRow>
 
                 <View
@@ -228,11 +252,6 @@
                         android:text="Saree"
                         android:textSize="15sp"/>
 
-                    <TextView
-                        android:text="20"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="120dp"/>
-
                 </TableRow>
 
                 <View
@@ -250,14 +269,11 @@
 
                     <TextView
                         android:text="Lehenga"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp"/><![CDATA[
 
-                    <TextView
-                        android:text="20"
-                        android:textSize="15sp"
-                        android:layout_marginLeft="120dp"/>
                     />
 
+                ]]>
                 </TableRow>
 
 
@@ -280,44 +296,6 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/opening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/deals">
-
-        <TextView
-            android:id="@+id/working"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/shop_info_margin_left"
-            android:text="@string/opening_hours"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/text_color"
-            android:textSize="18sp"/>
-
-
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/working"
-            android:layout_marginLeft="@dimen/shop_info_margin_left"
-            android:layout_marginTop="10dp"
-            android:text="10:30AM to 10:30PM"
-            android:textStyle="italic"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/light_gray"
-            android:textSize="15sp"/>
-
-        </RelativeLayout>
-
     <!--<View
         android:layout_below="@+id/opening"
         android:layout_width="5dp"
@@ -326,53 +304,18 @@
         android:background="@drawable/delimeter"/>-->
 
 
-    <RelativeLayout
-        android:id="@+id/pay_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/opening">
 
-        <TextView
-            android:id="@+id/pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/shop_info_margin_left"
-            android:text="@string/payment_modes"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
-            android:textColor="@color/text_color"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/pay_deals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/pay"
-            android:layout_marginLeft="@dimen/shop_info_margin_left"
-            android:layout_marginTop="10dp"
-            android:textStyle="italic"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Cash\n\nCredit Card"
-            android:textColor="@color/light_gray"
-            android:textSize="16sp"/>
-
-    </RelativeLayout>
     <LinearLayout
         android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/pay_details"
+        android:layout_below="@+id/deals"
         android:layout_marginLeft="@dimen/shop_info_margin_left"
         android:layout_marginTop="25dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/restaurant_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
@@ -383,7 +326,7 @@
             />
 
         <TextView
-            android:id="@+id/cuisines"
+            android:id="@+id/store_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -400,6 +343,7 @@
 </RelativeLayout>
 
     </ScrollView>
+        </LinearLayout>
             <!--<LinearLayout
                 android:id="@+id/info"
                 android:layout_width="wrap_content"

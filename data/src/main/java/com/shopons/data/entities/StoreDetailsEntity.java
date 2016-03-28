@@ -8,30 +8,75 @@ import java.util.List;
  * Created by komal on 20/3/16.
  */
 public class StoreDetailsEntity {
+    @SerializedName("id")
     private String id;
-    private List<BrandInfo> brand_info;
+    @SerializedName("name")
     private String name;
+    @SerializedName("address")
     private String address;
+    @SerializedName("city")
+    private String city;
+    @SerializedName("contact")
+    private String contact;
     @SerializedName("comp_rating")
     private double rating;
+    @SerializedName("thumbnail")
+    private String thumbnail;
+    @SerializedName("brand_info")
+    private List<BrandInfo> brandInfoList;
     @SerializedName("total_reviews")
     private int reviews;
-    private String city;
+    private LocationEntity location;
+    private PhoneNumberEntity phone_numbers;
+
+    public PhoneNumberEntity getPhone_numbers() {
+        return phone_numbers;
+    }
+
+    public void setPhone_numbers(PhoneNumberEntity phone_numbers) {
+        this.phone_numbers = phone_numbers;
+    }
+
+    public int getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(int reviews) {
+        this.reviews = reviews;
+    }
+
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+
+        this.location = new LocationEntity(location.getLat(),location.getLng());
+    }
+
+    public List<BrandInfo> getBrandInfoList() {
+        return brandInfoList;
+    }
+
+    public void setBrandInfoList(List<BrandInfo> brandInfoList) {
+        this.brandInfoList = brandInfoList;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
+
         this.id = id;
-    }
-
-    public List<BrandInfo> getBrand_info() {
-        return brand_info;
-    }
-
-    public void setBrand_info(List<BrandInfo> brand_info) {
-        this.brand_info = brand_info;
     }
 
     public String getName() {
@@ -50,14 +95,6 @@ public class StoreDetailsEntity {
         this.address = address;
     }
 
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public String getCity() {
         return city;
     }
@@ -66,11 +103,19 @@ public class StoreDetailsEntity {
         this.city = city;
     }
 
-    public int getReviews() {
-        return reviews;
+    public String getContact() {
+        return contact;
     }
 
-    public void setReviews(int reviews) {
-        this.reviews = reviews;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
+
+    public double getRating() {
+        return rating;
+    }
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
 }

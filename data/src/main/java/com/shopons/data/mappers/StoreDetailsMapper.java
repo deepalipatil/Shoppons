@@ -3,6 +3,8 @@ package com.shopons.data.mappers;
 
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.domain.BrandInfo;
+import com.shopons.domain.Location;
+import com.shopons.domain.PhoneNumber;
 import com.shopons.domain.StoreDetails;
 
 import java.util.ArrayList;
@@ -14,14 +16,24 @@ import java.util.List;
 public class StoreDetailsMapper {
     public static StoreDetails transform(StoreDetailsEntity storeDetailsEntity)
     {
-        List<BrandInfo> mappedList=new ArrayList<>();
+        List<BrandInfo> mappedBrandInfo=new ArrayList<>();
+        Location location;
 
-        for(com.shopons.data.entities.BrandInfo element:storeDetailsEntity.getBrand_info())
+
+        if(storeDetailsEntity.getLocation()!=null)
+            location=new Location(storeDetailsEntity.getLocation().getLat(),storeDetailsEntity.getLocation().getLng());
+        else
+            location=new Location(-1,-1);
+
+        PhoneNumber mappedPhoneNumber=new PhoneNumber(storeDetailsEntity.getPhone_numbers().getTelephone(),
+                storeDetailsEntity.getPhone_numbers().getMobile(),storeDetailsEntity.getPhone_numbers().getLandline());
+
+        for(com.shopons.data.entities.BrandInfo element:storeDetailsEntity.getBrandInfoList())
         {
-            mappedList.add(new BrandInfo(element.getPerson_type()));
+            mappedBrandInfo.add(new BrandInfo(element.getPerson_type(),element.getCategory()));
         }
-        return new StoreDetails(storeDetailsEntity.getId(),mappedList,storeDetailsEntity.getName(),
-                storeDetailsEntity.getAddress(),storeDetailsEntity.getRating(),storeDetailsEntity.getReviews(),
-                storeDetailsEntity.getCity());
+        return new StoreDetails(storeDetailsEntity.getId(),storeDetailsEntity.getName(),storeDetailsEntity.getAddress(),
+                storeDetailsEntity.getCity(),storeDetailsEntity.getContact(),storeDetailsEntity.getRating(),
+                storeDetailsEntity.getThumbnail(),mappedBrandInfo,location,storeDetailsEntity.getReviews(),mappedPhoneNumber);
     }
 }

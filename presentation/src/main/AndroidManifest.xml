@@ -48,6 +48,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.shopons.view.activity.shop_info"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--android:theme="@style/AppTheme"-->
+
+        </activity>
+
+
         <activity
             android:name=".view.activity.SocialLoginActivity"
             android:label="@string/title_activity_social_login"
