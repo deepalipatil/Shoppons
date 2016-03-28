@@ -16,20 +16,22 @@ import rx.Observable;
 public class GetStoreListingByLocation extends UseCase<List<Store>> {
     StoreRepository mStoreRepository;
     double latitude, longitude;
+    int pageNo;
 
-    public GetStoreListingByLocation(final double latitude, final double longitude,
+    public GetStoreListingByLocation(final double latitude, final double longitude,int pageNo,
                               final StoreRepository mStoreRepository,
                               final ThreadExecutor threadExecutor,
                               final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.latitude=latitude;
         this.longitude=longitude;
+        this.pageNo=pageNo;
         this.mStoreRepository=mStoreRepository;
 
     }
 
     @Override
     protected Observable<List<Store>> buildUseCaseObservable() {
-        return mStoreRepository.getStoreListing(longitude,latitude);
+        return mStoreRepository.getStoreListing(longitude,latitude,pageNo);
     }
 }

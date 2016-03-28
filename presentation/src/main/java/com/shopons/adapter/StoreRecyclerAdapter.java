@@ -2,19 +2,23 @@ package com.shopons.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shopons.R;
+import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -25,16 +29,21 @@ import java.util.List;
 /**
  * Created by komal on 2/3/16.
  */
-public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdapter.StoreCardView> {
+public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRecyclerAdapter.StoreCardView> {
     Context context;
-    List<Store> mlist;
-    public StoreRecyclerAdapter(List<Store> list,Context context)
-    {
-        mlist=new ArrayList<>();
-        for (int i = 0 ; i<list.size();i++)
-            mlist.add(list.get(i)) ;
+    Location currentLoc;
 
+    public StoreRecyclerAdapter(RecyclerView recyclerView,Context context)
+    {
+       super(recyclerView);
         this.context=context;
+        currentLoc=new Location(-1,-1);
+    }
+
+    public void setCurrentUserLocation(Location location)
+    {
+        currentLoc.setLatitude(location.getLatitude());
+        currentLoc.setLongitude(location.getLongitude());
     }
     @Override
     public StoreCardView onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,14 +52,72 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
         return storeCardView;
     }
 
+
+    double getDistanceFromLatLonInKm(double lat1,double lon1,double lat2,double lon2) {
+        double R = 6371; // Radius of the earth in km
+        double dLat = deg2rad(lat2-lat1);  // deg2rad below
+        double dLon = deg2rad(lon2-lon1);
+        double a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ;
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c; // Distance in km
+        return d;
+    }
+
+    double deg2rad(double deg) {
+        return deg * (Math.PI/180);
+    }
+
     @Override
     public void onBindViewHolder(final StoreCardView holder, int position) {
-        holder.store_name.setText(mlist.get(position).getName());
-        holder.store_address.setText(mlist.get(position).getCity());
-        holder.ratings.setText(""+mlist.get(position).getRating());
-        if(mlist.get(position).getThumbnail()!=null && mlist.get(position).getThumbnail()!="") {
-            Picasso.with(context).load(mlist.get(position).getThumbnail()).fit().centerCrop().into(holder.img_background);
+        holder.store_name.setText(getItem(position).getName());
+        holder.store_address.setText(getItem(position).getCity());
+        //Ratings
+        if(getItem(position).getRating()==0.0)
+        {
+            holder.ratings.setVisibility(View.GONE);
         }
+        else
+        {
+            holder.ratings.setText(""+getItem(position).getRating());
+        }
+        // Background Image
+        if(getItem(position).getThumbnail()!=null && getItem(position).getThumbnail()!="") {
+            Picasso.with(context).load(getItem(position).getThumbnail()).fit().centerCrop().into(holder.img_background);
+        }
+
+        if(getItem(position).getTag_men() )
+        {
+            Log.d("Adapter", "Inside if condition of men "+getItem(position).getTag_men() );
+            holder.tagMen.setVisibility(View.VISIBLE);
+        }
+        else
+            holder.tagMen.setVisibility(View.GONE);
+
+        if(getItem(position).getTag_women())
+            holder.tagWomen.setVisibility(View.VISIBLE);
+        else
+          holder.tagWomen.setVisibility(View.GONE);
+
+        if(getItem(position).getTag_kids())
+            holder.tagKids.setVisibility(View.VISIBLE);
+        else
+            holder.tagKids.setVisibility(View.GONE);
+
+        if(currentLoc.getLatitude()==-1 && currentLoc.getLongitude()==-1)
+            holder.linear_place.setVisibility(View.GONE);
+
+       else
+        {
+            double distance=getDistanceFromLatLonInKm(currentLoc.getLatitude(),currentLoc.getLongitude(),
+                    getItem(position).getLocation().getLatitude(),getItem(position).getLocation().getLongitude());
+            holder.distance.setText(String.format("%.1f",distance)+"km");
+        }
+
+        
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,13 +125,10 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
             }
         });
 
+
+
     }
 
-    @Override
-    public int getItemCount()
-    {
-        return mlist.size();
-    }
 
     class StoreCardView extends RecyclerView.ViewHolder
     {
@@ -75,8 +139,9 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
         LinearLayout linear_place;
         ImageView place;
         TextView distance;
-        LinearLayout linear_ratings;
+        LinearLayout linear_tags;
         TextView ratings;
+        TextView tagMen,tagWomen,tagKids;
 
 
         public StoreCardView(View itemView) {
@@ -90,8 +155,14 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
             linear_place=(LinearLayout)itemView.findViewById(R.id.linear_place);
             place=(ImageView)itemView.findViewById(R.id.btn_place);
             distance=(TextView)itemView.findViewById(R.id.distance);
-            linear_ratings=(LinearLayout)itemView.findViewById(R.id.linear_ratings);
+            linear_tags=(LinearLayout)itemView.findViewById(R.id.linear_tags);
             ratings=(TextView)itemView.findViewById(R.id.ratings);
+            tagMen=(TextView)itemView.findViewById(R.id.tag_men);
+            tagWomen=(TextView)itemView.findViewById(R.id.tag_women);
+            tagKids=(TextView)itemView.findViewById(R.id.tag_kids);
+            tagMen.setVisibility(View.GONE);
+            tagWomen.setVisibility(View.GONE);
+            tagKids.setVisibility(View.GONE);
 
         }
     }

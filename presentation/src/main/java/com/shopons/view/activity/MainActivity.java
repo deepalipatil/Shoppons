@@ -36,6 +36,7 @@ import com.shopons.domain.Location;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.shopons.domain.User;
 
+import com.shopons.presenter.LoginPresenter;
 import com.shopons.view.fragment.MainFragment;
 
 import butterknife.Bind;
@@ -66,6 +67,8 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     @OnClick(R.id.search)
             void searchById()
     {
+        Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+        startActivity(intent);
     }
 
     ActionBar actionBar;
@@ -79,6 +82,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     private static final String TAG="####MainActivity";
     private int mPosition;
     private LoginPresenter mLoginPresenter;
+    boolean statusOfLoginOp=false;
 
 
     final String[] drawer_login_items={"Home","Favorite","About","Contact Us"};
@@ -121,6 +125,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
                 Log.i(TAG, status.getStatusMessage());
+                Log.d(TAG,"ERROR:(:(");
 
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
@@ -143,20 +148,11 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         //baseScreen.changeStatusBarColor(R.color.colorPrimary);
         MainFragment fragment= new MainFragment();
 
-       /* if(mLocation!=null)
-        {bundle=new Bundle();
-        bundle.putDouble("lat",mLocation.getLatitude());
-        bundle.putDouble("long",mLocation.getLongitude());
-=======
-        //addFragment(R.id.container, MainFragment.getInstance(), MainFragment.TAG);
-        mLoginPresenter = new LoginPresenter();
-        toolbar.setTitle(getString(R.string.home));
-        mLastMenuItemId = -1;
-        mPosition = 0;
-        mIsLoggedIn = user.isLoggedIn();
->>>>>>> 1731b678ee568d551c7b7bd187030d4d4d9104ca
+        Intent intent=getIntent();
+        statusOfLoginOp=intent.getBooleanExtra("userLoginStatus",false);
+        if(statusOfLoginOp)
+            mIsLoggedIn=true;
 
-        fragment.setArguments(bundle);}*/
         FragmentTransaction transaction= getFragmentManager().beginTransaction();
         transaction.replace(R.id.container,fragment);
         transaction.commit();
@@ -198,6 +194,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
     void initNavigationHeader()
     {
+
         //If user is not logged in
         if(mIsLoggedIn)
         {
@@ -230,6 +227,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
 
 
+
         }
         else
         {
@@ -240,7 +238,24 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
            // inflater.inflate(R.menu.navigation_drawer_item,menu);
             Menu menu = navigationView.getMenu();
             navigationView.inflateMenu(R.menu.navigation_drawer_item); //inflate new items.
-
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem item) {
+                    Log.d(TAG,"Inside Listener");
+                    switch (item.getItemId())
+                    {
+                        case R.id.login:
+                        {
+                            Log.d(TAG,"Inside Login");
+                            Intent intent=new Intent(getApplicationContext(),CallSocialLoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                            return true;
+                        }
+                    }
+                    return  true;
+                }
+            });
 
         }
     }
@@ -295,7 +310,8 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             switch (item)
             {
                 case "Login":
-                {}
+                {
+                }
             }
         }
     }

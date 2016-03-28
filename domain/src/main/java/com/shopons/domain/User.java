@@ -1,223 +1,86 @@
 package com.shopons.domain;
 
-/**
- * User model
- *
- * @author : Kaustubh Deshmukh
- * @date : 01/10/15 : 3:42 PM
- * @email : akshay@betacraft.co
- */
 public class User {
-    private String mUserName;
-    private String mFirstName;
-    private String mLastName;
-    private String mFullName;
-    private String mEmailAddress;
-    private String mProfilePicUrl;
-    private String mPhoneNumber;
-    private String mStatus;
-    private String mUserType;
 
-
-    private String mAuthKey;
-    private String mFacebookToken;
-    private String mGooglePlusToken;
-    private String mId;
-    private boolean mIsFacebook;
-    private boolean mIsGplus;
-    private long mFacebookId;
-    private boolean mIsEmailVerified;
-    private boolean mIsPhoneVerified;
-    private String mPassword;
-    private boolean mIsLoggedIn;
-    private String mTemporaryPassword;
-
-    public User() {}
-
-    public User(final String email, final String password) {
-        mEmailAddress = email;
-        mPassword = password;
-    }
-
-
-    public User(final String authkey,final String fullName, final String email, final String phoneNumber,
-                final String password,final String id){
-        mAuthKey = authkey;
-        mFullName = fullName;
-        mEmailAddress = email;
-        mPhoneNumber = phoneNumber;
-        mPassword = password;
-        mId = id;
-    }
-
-    public String getFullName(){
-        return mFullName;
-    }
-
-    public String getUserName(){
-        return mUserName;
-    }
-
-    public String getFirstName(){
-        return mFirstName;
-    }
-
-    public String getLastName(){
-        return mLastName;
-    }
-
-    public String getAuthKey(){
-        return mAuthKey;
-    }
-
-    public String getEmailAddress(){
-        return mEmailAddress;
-    }
-
-    public String getFacebookToken(){
-        return mFacebookToken;
-    }
+    String id;
+    String name;
+    String auth_key;
+    String mobile_number;
+    String email;
+    String photo_url;
+    String fb_token;
+    long fb_id;
+    String google_token;
 
     public String getId() {
-        return mId;
-    }
-
-
-    public void setFullName(final String fullName){
-        mFullName = fullName;
-    }
-
-
-    public void setUserName(String userName) {
-        mUserName = userName;
-    }
-
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        mLastName = lastName;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        mEmailAddress = emailAddress;
-    }
-
-    public void setAuthKey(String authKey) {
-        mAuthKey = authKey;
-    }
-
-    public void setFacebookToken(String facebookToken) {
-        mFacebookToken = facebookToken;
+        return id;
     }
 
     public void setId(String id) {
-        mId = id;
+        this.id = id;
     }
 
-    public long getFacebookId() {
-        return mFacebookId;
+    public String getName() {
+        return name;
     }
 
-    public void setFacebookId(long facebookId) {
-        mFacebookId = facebookId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean isFacebook() {
-        return mIsFacebook;
+    public String getAuth_key() {
+        return auth_key;
     }
 
-    public void setIsFacebook(boolean isFacebook) {
-        mIsFacebook = isFacebook;
+    public void setAuth_key(String auth_key) {
+        this.auth_key = auth_key;
     }
 
-    public boolean isGplus() {
-        return mIsGplus;
+    public String getMobile_number() {
+        return mobile_number;
     }
 
-    public void setIsGplus(boolean isGplus) {
-        mIsGplus = isGplus;
+    public void setMobile_number(String mobile_number) {
+        this.mobile_number = mobile_number;
     }
 
-    public String getGooglePlusToken() {
-        return mGooglePlusToken;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGooglePlusToken(String googlePlusToken) {
-        mGooglePlusToken = googlePlusToken;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getProfilePicUrl() {
-        return mProfilePicUrl;
+    public String getPhoto_url() {
+        return photo_url;
     }
 
-    public boolean isLoggedIn() {
-        return mIsLoggedIn;
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        mIsLoggedIn = isLoggedIn;
+    public String getFb_token() {
+        return fb_token;
     }
 
-    public void setTemporaryPassword(String mTemporaryPassword) {
-        this.mTemporaryPassword = mTemporaryPassword;
+    public void setFb_token(String fb_token) {
+        this.fb_token = fb_token;
     }
 
-    public void setUserType(String mUserType) {
-        this.mUserType = mUserType;
+    public long getFb_id() {
+        return fb_id;
     }
 
-    public String getStatus() {
-        return mStatus;
+    public void setFb_id(long fb_id) {
+        this.fb_id = fb_id;
     }
 
-    public void setStatus(String mStatus) {
-        this.mStatus = mStatus;
+    public String getGoogle_token() {
+        return google_token;
     }
 
-    public void setIsEmailVerified(boolean isEmailVerified) {
-        mIsEmailVerified = isEmailVerified;
+    public void setGoogle_token(String google_token) {
+        this.google_token = google_token;
     }
-
-    public void setIsPhoneVerified(boolean isPhoneVerified) {
-        mIsPhoneVerified = isPhoneVerified;
-    }
-
-    public void setPassword(final String password){
-        mPassword = password;
-    }
-
-    public void setProfilePicUrl(String profilePicUrl) {
-        mProfilePicUrl = profilePicUrl;
-    }
-
-    public String getUserType() {
-        return mUserType;
-    }
-
-    public String getTemporaryPassword() {
-        return mTemporaryPassword;
-    }
-
-    public String getPassword(){
-        return mPassword;
-    }
-
-    public boolean isEmailVerified(){
-        return mIsEmailVerified;
-    }
-
-    public boolean isPhoneVerified(){
-        return mIsPhoneVerified;
-    }
-
-    public String getPhoneNumber(){
-        return mPhoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        mPhoneNumber = phoneNumber;
-    }
-
 }

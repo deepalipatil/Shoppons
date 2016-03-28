@@ -9,9 +9,10 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
     <application
         android:name=".Shopons"
         android:allowBackup="true"
@@ -39,7 +40,8 @@
         <activity
             android:name=".view.activity.CallSocialLoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -63,6 +65,9 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+
+
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -74,6 +79,10 @@
             android:value="@integer/google_play_services_version"/>
 
 
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="cec5a91d34bc64c5a9b1c5a051e204d4bb0cb289" />
     </application>
 
 </manifest>

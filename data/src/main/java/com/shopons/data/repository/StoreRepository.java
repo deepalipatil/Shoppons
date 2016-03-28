@@ -6,14 +6,17 @@ import com.google.gson.GsonBuilder;
 import com.shopons.data.deserializer.StoreDeserializer;
 import com.shopons.data.deserializer.StoreEntityDeserializer;
 import com.shopons.data.entities.AppVersionEntity;
+import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.data.entities.StoreEntity;
 import com.shopons.data.entities.StoreInfo;
 import com.shopons.data.mappers.AppVersionMapper;
+import com.shopons.data.mappers.StoreDetailsMapper;
 import com.shopons.data.mappers.StoreMapper;
 import com.shopons.data.net.StoreApi;
 import com.shopons.data.utils.Urls;
 import com.shopons.domain.AppVersion;
 import com.shopons.domain.Store;
+import com.shopons.domain.StoreDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +46,10 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
         mStoreApi=retrofit.create(StoreApi.class);
     }
 
-    public Observable<List<Store>> getStoreListing(double longitude,double  latitude) {
+    public Observable<List<Store>> getStoreListing(double longitude,double  latitude, int pageNo) {
 
         final List<Store> stores = new ArrayList<Store>();
-        return mStoreApi.getStoreListing(longitude, latitude).map(new Func1<List<StoreInfo>, List<Store>>() {
+        return mStoreApi.getStoreListing(longitude, latitude,pageNo).map(new Func1<List<StoreInfo>, List<Store>>() {
             @Override
             public List<Store> call(List<StoreInfo> list) {
                 if(list!=null) {
@@ -62,4 +65,15 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
         });
 
     }
+    public Observable<StoreDetails> getStoreDetails(String storeId)
+    {
+        return  mStoreApi.getStoreDetails(storeId).map(new Func1<StoreDetailsEntity, StoreDetails>() {
+            @Override
+            public StoreDetails call(StoreDetailsEntity storeDetailsEntity) {
+               return StoreDetailsMapper.transform(storeDetailsEntity);
+            }
+        });
+    }
+
+
 }

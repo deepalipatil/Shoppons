@@ -20,6 +20,8 @@ public class StoreEntityDeserializer implements JsonDeserializer<StoreEntity> {
     @Override
     public StoreEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonElement base_obj=json.getAsJsonObject().get("list");
+        if(base_obj.isJsonNull())
+            return null;
         JsonArray stores=base_obj.getAsJsonArray();
         StoreEntity storeEntity=new StoreEntity();
 

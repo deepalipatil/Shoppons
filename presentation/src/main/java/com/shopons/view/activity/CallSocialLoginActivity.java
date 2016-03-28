@@ -8,7 +8,7 @@ import com.shopons.view.fragment.SocialLoginFragment;
 /**
  * Created by deepali on 6/3/16.
  */
-public class CallSocialLoginActivity extends BaseScreen {
+public class CallSocialLoginActivity extends BaseScreen  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,6 @@ public class CallSocialLoginActivity extends BaseScreen {
      */
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        finish();
     }
 }

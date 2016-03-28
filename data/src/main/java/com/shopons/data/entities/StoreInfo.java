@@ -1,6 +1,7 @@
 package com.shopons.data.entities;
 
 import com.google.gson.annotations.SerializedName;
+import com.shopons.domain.Location;
 
 import java.util.List;
 
@@ -23,14 +24,43 @@ public class StoreInfo {
     @SerializedName("thumbnail")
     private String thumbnail;
     @SerializedName("brand_info")
-    private List<BrandInfo> brand_info;
+    private List<BrandInfo> brandInfoList;
+    @SerializedName("total_reviews")
+    private int reviews;
+    private LocationEntity location;
+    private PhoneNumberEntity phone_numbers;
 
-    public List<BrandInfo> getBrand_info() {
-        return brand_info;
+    public PhoneNumberEntity getPhone_numbers() {
+        return phone_numbers;
     }
 
-    public void setBrand_info(List<BrandInfo> brand_info) {
-        this.brand_info = brand_info;
+    public void setPhone_numbers(PhoneNumberEntity phone_numbers) {
+        this.phone_numbers = phone_numbers;
+    }
+
+    public int getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(int reviews) {
+        this.reviews = reviews;
+    }
+
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+
+        this.location = new LocationEntity(location.getLat(),location.getLng());
+    }
+
+    public List<BrandInfo> getBrandInfoList() {
+        return brandInfoList;
+    }
+
+    public void setBrandInfoList(List<BrandInfo> brandInfoList) {
+        this.brandInfoList = brandInfoList;
     }
 
     public String getThumbnail() {
@@ -88,7 +118,6 @@ public class StoreInfo {
     public void setRating(double rating) {
         this.rating = rating;
     }
-
 
 }
 

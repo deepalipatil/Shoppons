@@ -8,6 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.shopons.data.entities.BrandInfo;
+import com.shopons.data.entities.LocationEntity;
+import com.shopons.data.entities.PhoneNumberEntity;
 import com.shopons.data.entities.StoreInfo;
 
 
@@ -34,6 +36,13 @@ public class StoreDeserializer implements JsonDeserializer<StoreInfo> {
         store.setContact(jsonObject.get("contact").getAsString());
         store.setThumbnail(jsonObject.get("thumbnail").getAsString());
 
+        JsonElement location=jsonObject.get("location");
+        store.setLocation(new Gson().fromJson(location, LocationEntity.class));
+
+        JsonElement phone_numbers=jsonObject.get("phone_numbers");
+        store.setPhone_numbers(new Gson().fromJson(phone_numbers, PhoneNumberEntity.class));
+
+
         JsonArray brand_info=jsonObject.get("brand_info").getAsJsonArray();
         List<BrandInfo> brandInfoList=new ArrayList<>();
 
@@ -42,7 +51,7 @@ public class StoreDeserializer implements JsonDeserializer<StoreInfo> {
             brandInfoList.add(new Gson().fromJson(element,BrandInfo.class));
         }
 
-        store.setBrand_info(brandInfoList);
+        store.setBrandInfoList(brandInfoList);
         return store;
 
 

@@ -72,7 +72,6 @@ public class BaseScreen extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         mGeneralPresenter.destroy();
-        mLoginPresenter.destroy();
     }
 
     @Override

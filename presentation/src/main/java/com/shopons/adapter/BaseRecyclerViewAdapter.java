@@ -251,7 +251,12 @@ public abstract class BaseRecyclerViewAdapter<T, V extends RecyclerView.ViewHold
             mRecyclerView.post(new Runnable() {
                 @Override
                 public void run() {
-                    mItems = items;
+                    if(mItems == null) {
+                        mItems = items;
+                    } else {
+                        mItems.clear();
+                        mItems.addAll(items);
+                    }
                     notifyDataSetChanged();
                 }
             });

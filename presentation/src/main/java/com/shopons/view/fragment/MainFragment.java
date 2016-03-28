@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.shopons.R;
@@ -38,6 +39,7 @@ import com.shopons.view.activity.MainActivity;
 
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -50,18 +52,23 @@ import rx.Subscriber;
 
 
 public class MainFragment extends Fragment {
-    public static final String TAG="####MainFragment";
-    Button btnLoc;
-    BroadcastReceiver mLocationReceiver;
-    BroadcastReceiver mInternetReceiver;
-    LocationPresenter mLocationPresenter;
-    StorePresenter mStorePresenter;
+
+    private static final String TAG="####MainFragment";
+    private Button btnLoc;
+    private BroadcastReceiver mLocationReceiver;
+    private BroadcastReceiver mInternetReceiver;
+    private LocationPresenter mLocationPresenter;
+    private StorePresenter mStorePresenter;
     private boolean mFirstCalled=false;
-    Location mlocation;
-    List<Store> storeList;
-    ProgressBar progressBar;
-    RecyclerView recyclerView;
-    boolean gotUserLocation=false;
+    private Location mlocation;
+    private List<Store> storeList;
+    private ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private boolean gotUserLocation=false;
+    private Location currLoc,searchLoc;
+    private int pageNo=0;
+    private StoreRecyclerAdapter adapter;
+
 
     public MainFragment() {
         // Required empty public constructor
@@ -89,21 +96,18 @@ public class MainFragment extends Fragment {
             }
         };
 
-       /* mInternetReceiver=new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if(isConnected())
-                {
-                    checkGpsStatus();
-                }
-            }
-        };*/
 
         getActivity().registerReceiver(mLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
+
+        storeList=new ArrayList<Store>();
+        currLoc=new Location(-1,-1);
+        searchLoc=new Location(-1,-1);
         mlocation=new Location(-1,-1);
         mStorePresenter=new StorePresenter();
         mLocationPresenter=new LocationPresenter(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new StoreRecyclerAdapter(recyclerView,getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -113,17 +117,19 @@ public class MainFragment extends Fragment {
                 int totalItem=linearLayoutManager.getItemCount();
                 int lastVisibleItemPos=linearLayoutManager.findLastCompletelyVisibleItemPosition();
 
-                if(lastVisibleItemPos==totalItem-1)
+                if(adapter.getItemCount()!=0 && lastVisibleItemPos==totalItem-1)
                 {
                     progressBar.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(),"End of List ",Toast.LENGTH_SHORT).show();
+                    pageNo++;
+                    getStoreListing(mlocation, pageNo);
                 }
 
                 if(progressBar.getVisibility()==View.VISIBLE && lastVisibleItemPos!=totalItem-1)
                     progressBar.setVisibility(View.GONE);
             }
         });
-        storeList=new ArrayList<Store>();
+
 
        return view;
 
@@ -147,10 +153,6 @@ public class MainFragment extends Fragment {
             return;
         }
 
-       // getActivity().registerReceiver(mLocationReceiver, new IntentFilter("android.location.PROVIDERS_CHANGED"));
-        //getActivity().registerReceiver(mInternetReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-
-
         if(!mFirstCalled)
         {
             mFirstCalled=true;
@@ -159,66 +161,72 @@ public class MainFragment extends Fragment {
 
 
         MainActivity mainActivity=(MainActivity)this.getActivity();
-        Location searchedLoc=mainActivity.getSearchLocation();
-        if(searchedLoc!=null){
-            mlocation.setLatitude(searchedLoc.getLatitude());
-            mlocation.setLongitude(searchedLoc.getLongitude());
-            getStoreListing();
+        Location searchPara=mainActivity.getSearchLocation();
+        if(searchPara!=null){
+            searchLoc.setLatitude(searchPara.getLatitude());
+            searchLoc.setLongitude(searchPara.getLongitude());
+            progressBar.setVisibility(View.VISIBLE);
+            pageNo=0;
+            adapter.clearList();
+            getStoreListing(searchLoc, pageNo);
         }
 
 
     }
 
 
-    void getStoreListing() {
-        // mStorePresenter.getStore(mlocation.getLongitude(), mlocation.getLatitude(), new Subscriber<List<Store>>(){
-        //if location is null then get results for some default location
+    void getStoreListing(Location location, final int pageNo) {
+        mlocation.setLatitude(location.getLatitude());
+        mlocation.setLongitude(location.getLongitude());
         if (mlocation != null && mlocation.getLatitude()!=-1 && mlocation.getLongitude()!=-1) {
             Log.d(TAG,"Inside getStorelisting Looking for ");
             Log.d("###ActivityResult",""+mlocation.getLongitude());
             Log.d("###ActivityResult",""+mlocation.getLatitude());
-            mStorePresenter.getStore(mlocation.getLongitude(), mlocation.getLatitude(), new Subscriber<List<Store>>(){
 
-
+            mStorePresenter.getStore( mlocation.getLatitude(),mlocation.getLongitude(),pageNo,new Subscriber<List<Store>>(){
                 @Override
                 public void onCompleted() {
-                    Log.d("#####MainFragment", "onCompleted");
+
                     if (storeList == null)
                     {
                         Log.d("#####MainFragment", "Store list is empty");
                         recyclerView.setVisibility(View.GONE);
                         return;
                     }
-
-
-
-                    StoreRecyclerAdapter adapter = new StoreRecyclerAdapter(storeList,getActivity());
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
-                    storeList.clear();
-
+                   progressBar.setVisibility(View.GONE);
+                   Log.d("#####MainFragment", "onCompleted");
                 }
 
                 @Override
                 public void onError(Throwable e) {
-                    e.printStackTrace();
+                    if(e instanceof SocketTimeoutException)
+                        Toast.makeText(getActivity(),"Time out exception has occured",Toast.LENGTH_SHORT).show();
+                    else
+                        e.printStackTrace();
 
                 }
 
                 @Override
                 public void onNext(List<Store> stores) {
+                    if (stores != null) {
+                        for (Store element : stores) {
+                            Log.d("#####MainFragment", element.getName());
+                            Log.d(TAG,""+pageNo);
+                        }
+                        if(pageNo>0)
+                            adapter.appendList(stores);
+                        else
+                            adapter.setItemArrayList(stores);
 
-                    for (Store element : stores) {
-                        Log.d("#####MainFragment", element.getName());
-                        Log.d("#####MainFragment", element.getBrand_info().get(0).getPerson_type());
-
-                        storeList.add(element);
+                        Log.d("Size of new List", "" + adapter.getItemCount());
                     }
-                    Log.d("Size of new List",""+storeList.size());
+                    else
+                    {
+                        Log.d(TAG,"EndOfList");
+                    }
                 }
-            });
-          //  mStorePresenter.getStore(74.01997938752174, 18.32242280497763, new Subscriber<List<Store>>() {
 
+            });
 
         }
         else
@@ -263,12 +271,14 @@ public class MainFragment extends Fragment {
             @Override
             public void onCompleted() {
                 Log.d(TAG,"OnCompleted");
-                getStoreListing();
+                pageNo=0;
+                getStoreListing(currLoc,pageNo);
             }
 
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
+                Crashlytics.logException(e);
             }
 
             @Override
@@ -276,8 +286,9 @@ public class MainFragment extends Fragment {
                 //if(location!=null){
 
                 location.getLongitude();
-                mlocation.setLongitude(location.getLongitude());
-                mlocation.setLatitude(location.getLatitude());
+                currLoc.setLongitude(location.getLongitude());
+                currLoc.setLatitude(location.getLatitude());
+                adapter.setCurrentUserLocation(location);
                 Log.d(TAG,"OnNext");
                 Log.d(TAG,"latitude "+location.getLatitude());
                 Log.d(TAG,"longitude "+location.getLongitude());
@@ -301,8 +312,8 @@ public class MainFragment extends Fragment {
         }
         else
         {
-            mlocation.setLatitude(-1);
-            mlocation.setLongitude(-1);
+            currLoc.setLatitude(-1);
+            currLoc.setLongitude(-1);
             showNoGpsDialog();
         }
     }
@@ -322,8 +333,9 @@ public class MainFragment extends Fragment {
                 }).onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        mlocation.setLatitude(-1);
+                        mlocation.setLongitude(-1);
                         materialDialog.dismiss();
-
                     }
                 });
         materialDialog.show();

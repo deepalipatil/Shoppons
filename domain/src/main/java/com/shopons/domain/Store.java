@@ -16,11 +16,18 @@ import java.util.List;
     private String contact;
     private double rating;
     private String thumbnail;
-    private List<BrandInfo>brand_info;
+    private List<BrandInfo>brandInfoList;
+    private boolean tag_men=false,tag_women=false,tag_kids=false;
+    private Location location;
+    private int reviews;
+    private PhoneNumber phone_numbers;
 
     public Store(String id,String name, String address,String city, String contact, double rating,
-                 String thumbnail,List<BrandInfo> brand_info)
+                 String thumbnail,List<BrandInfo> brand_info,Location location,int reviews,PhoneNumber phone_numbers)
     {
+        tag_men=false;
+        tag_kids=false;
+        tag_women=false;
         this.id=id;
         this.name=name;
         this.address=address;
@@ -28,18 +35,72 @@ import java.util.List;
         this.contact=contact;
         this.rating=rating;
         this.thumbnail=thumbnail;
-        this.brand_info=new ArrayList<>();
+        this.brandInfoList=new ArrayList<>();
+        if(location!=null)
+        this.location=new Location(location.getLatitude(),location.getLongitude());
+        this.reviews=reviews;
+        this.phone_numbers=phone_numbers;
 
-        for(BrandInfo brandInfo:brand_info)
-            this.brand_info.add(brandInfo);
+
+        for(BrandInfo brandInfo:brand_info) {
+            this.brandInfoList.add(brandInfo);
+            if(brandInfo.getPerson_type().equals("Men") && tag_men==false)
+                tag_men=true;
+            if(brandInfo.getPerson_type().equals("Women") && tag_women==false)
+                tag_women=true;
+            if(brandInfo.getPerson_type().equals("Kids") && tag_kids==false)
+                tag_kids=true;
+        }
     }
 
-    public List<BrandInfo> getBrand_info() {
-        return brand_info;
+    public int getReviews() {
+        return reviews;
     }
 
-    public void setBrand_info(List<BrandInfo> brand_info) {
-        this.brand_info = brand_info;
+    public void setReviews(int reviews) {
+        this.reviews = reviews;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public boolean getTag_men()
+    {
+        return tag_men;
+    }
+
+    public void setTag_men(boolean tag_men) {
+        this.tag_men = tag_men;
+    }
+
+    public boolean getTag_kids(){
+        return tag_kids;
+    }
+
+    public void setTag_kids(boolean tag_kids) {
+        this.tag_kids = tag_kids;
+    }
+
+    public boolean getTag_women()
+    {
+        return  tag_women;
+    }
+
+    public void setTag_women(boolean tag_women) {
+        this.tag_women = tag_women;
+    }
+
+    public List<BrandInfo> getBrandInfoList() {
+        return brandInfoList;
+    }
+
+    public void setBrandInfoList(List<BrandInfo> brandInfoList) {
+        this.brandInfoList = brandInfoList;
     }
 
     public String getThumbnail() {

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 
 
+import com.crashlytics.android.Crashlytics;
 import com.shopons.R;
 import com.shopons.domain.AppVersion;
 import com.shopons.presenter.GeneralPresenter;
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //Crashlytics.start(this);
         setContentView(R.layout.activity_splash);
         if(!isNetworkAvailable())
         {

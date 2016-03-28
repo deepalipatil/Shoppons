@@ -7,229 +7,85 @@ import com.google.gson.annotations.SerializedName;
  */
 public class UserEntity {
 
-    private String userName;
-    private String firstName;
-    private String lastName;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("email")
-    private String email;
-    @SerializedName("auth_key")
-    private String authKey;
-    @SerializedName("phone_number")
-    private String phoneNumber;
-    private String userType;
-    @SerializedName("facebook_access_token")
-    private String facebookToken;
-    @SerializedName("google_plus_id_token")
-    private String googlePlusToken;
-    @SerializedName("facebook_user_id")
-    private long facebookUserId;
-    @SerializedName("id")
-    private String id;
-    private boolean isGplus;
-    private boolean isFacebook;
+    String id;
+    String name;
+    String auth_key;
+    String mobile_number;
+    String email;
+    String photo_url;
+    String fb_token;
+    long fb_id;
+    String google_token;
 
-    @SerializedName("photo_url")
-    private String profilePicUrl;
-    @SerializedName("status")
-    private String status;
-
-    @SerializedName("email_verified")
-    private boolean isEmailVerified;
-    @SerializedName("phone_number_verified")
-    private boolean isPhoneVerified;
-    @SerializedName("password")
-    private String password;
-    private boolean isLoggedIn;
-    @SerializedName("temporary_password")
-    private String temporaryPassword;
-    private String unverifiedNumber = "";
-    @SerializedName("otp")
-    private String otp;
-
-    public UserEntity(){}
-
-    public UserEntity(final String email, final String password){
-        this.email = email;
-        this.password = password;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public String getUserName(){
-        return userName;
-    }
-
-    public String getFirstName(){
-        return firstName;
-    }
-
-    public String getLastName(){
-        return lastName;
-    }
-
-    public String getAuthKey(){
-        return authKey;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public String getFacebookToken(){ return facebookToken;}
-
-    public String getPhoneNumber(){
-        return phoneNumber;
-    }
-
-    public boolean isEmailVerified(){
-        return isEmailVerified;
-    }
-
-    public boolean isPhoneVerified(){
-        return isPhoneVerified;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public String getTemporaryPassword() {
-        return temporaryPassword;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-
-    public void setName(final String name){ this.name = name;}
-
-    public void setAuthKey(String authKey) {
-        this.authKey = authKey;
-    }
-
-    public void setFacebookToken(String facebookToken) {
-        this.facebookToken = facebookToken;
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setIsFacebook(boolean isFacebook) {
-        this.isFacebook = isFacebook;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getAuth_key() {
+        return auth_key;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAuth_key(String auth_key) {
+        this.auth_key = auth_key;
+    }
+
+    public String getMobile_number() {
+        return mobile_number;
+    }
+
+    public void setMobile_number(String mobile_number) {
+        this.mobile_number = mobile_number;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public boolean isFacebook() {
-        return isFacebook;
+    public String getPhoto_url() {
+        return photo_url;
     }
 
-    public void setPhoneNumber(String phone_number) {
-        this.phoneNumber = phone_number;
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 
-    public void setProfilePicUrl(String profilePicUrl) {
-        this.profilePicUrl = profilePicUrl;
+    public String getFb_token() {
+        return fb_token;
     }
 
-    public void setIsEmailVerified(boolean isEmailVerified) {
-        this.isEmailVerified = isEmailVerified;
+    public void setFb_token(String fb_token) {
+        this.fb_token = fb_token;
     }
 
-    public void setIsPhoneVerified(boolean isPhoneVerified) {
-        this.isPhoneVerified = isPhoneVerified;
+    public long getFb_id() {
+        return fb_id;
     }
 
-    public void setPassword(final String password){
-        this.password = password;
+    public void setFb_id(long fb_id) {
+        this.fb_id = fb_id;
     }
 
-    public String getProfilePicUrl() {
-        return profilePicUrl;
+    public String getGoogle_token() {
+        return google_token;
     }
 
-    public boolean isLoggedIn() {
-        return isLoggedIn;
+    public void setGoogle_token(String google_token) {
+        this.google_token = google_token;
     }
-
-    public void setIsLoggedIn(boolean isLoggedIn) {
-        this.isLoggedIn = isLoggedIn;
-    }
-
-    public void setTemporaryPassword(String temporaryPassword) {
-        this.temporaryPassword = temporaryPassword;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setUnverifiedNumber(String unverifiedNumber) {
-        this.unverifiedNumber = unverifiedNumber;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public long getFacebookUserId() {
-        return facebookUserId;
-    }
-
-    public void setFacebookUserId(long facebookUserId) {
-        this.facebookUserId = facebookUserId;
-    }
-
-    public String getOtp() {
-        return otp;
-    }
-
-    public void setOtp(String otp) {
-        this.otp = otp;
-    }
-
-    public boolean isGplus() {
-        return isGplus;
-    }
-
-    public void setIsGplus(boolean isGplus) {
-        this.isGplus = isGplus;
-    }
-
-    public String getGooglePlusToken() {
-        return googlePlusToken;
-    }
-
-    public void setGooglePlusToken(String googlePlusToken) {
-        this.googlePlusToken = googlePlusToken;
-    }
-
 }

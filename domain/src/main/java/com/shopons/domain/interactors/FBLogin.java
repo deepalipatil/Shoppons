@@ -13,22 +13,19 @@ import rx.Observable;
 public class FBLogin extends UseCase<User> {
 
     private UserRepository mUserRepository;
-    private String mEmail;
-    private String mFacebookToken;
-    private long mFacebookUserId;
+    private User mUser;
 
-    public FBLogin(final String email,final String facebookToken, final long facebookUserId,
+    public FBLogin(User user, UserRepository userRepository,
                                  final ThreadExecutor threadExecutor,
                                  final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.mEmail=email;
-        this.mFacebookToken=facebookToken;
-        this.mFacebookUserId=facebookUserId;
+        mUser=user;
+        mUserRepository=userRepository;
     }
 
     @Override
     public Observable<User> buildUseCaseObservable() {
-        return mUserRepository.registerWithFacebook(mEmail,mFacebookToken,mFacebookUserId);
+        return mUserRepository.loginWithFacebook(mUser);
     }
 
 }

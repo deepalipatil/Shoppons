@@ -3,27 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.SocialLoginActivity">
-
-    <ImageView
-        android:layout_above="@+id/container"
+    tools:context=".view.activity.SocialLoginActivity"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196F3"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/action_bar_back"
+            android:background="#2196F3"
+            android:id="@+id/btn_back"/>
+
+      <TextView android:layout_height="wrap_content"
+          android:layout_width="wrap_content"
+          android:text="Login"
+          android:textColor="#FFFFFF"
+          android:textSize="20dp"
+          />
+
+    </android.support.v7.widget.Toolbar>
 
 
     <RelativeLayout
         android:layout_marginTop="37dp"
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/skip"
+        android:layout_height="match_parent"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
         <RelativeLayout
             android:id="@+id/social_button_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -81,19 +100,5 @@
             android:textSize="16sp"/>
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/skip"
-        android:layout_marginTop="54dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="54dp"
-        android:padding="8dp"
-        android:text="Skip"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="16sp"/>
 
 </RelativeLayout>

@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.ResultCallback;
 import com.shopons.R;
 import com.shopons.domain.User;
 import com.shopons.presenter.GeneralPresenter;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.utils.DialogsHelper;
+import com.shopons.view.activity.CallSocialLoginActivity;
+import com.shopons.view.activity.MainActivity;
 import com.shopons.view.activity.SocialLoginActivity;
 
 import butterknife.ButterKnife;
@@ -22,7 +25,7 @@ import rx.Subscriber;
 /**
  * Created by deepali on 5/3/16.
  */
-public class SocialLoginFragment extends BaseFragment {
+public class SocialLoginFragment extends BaseFragment  {
 
     public static final String TAG = "LoginFragment";
     private GeneralPresenter mGeneralPresenter;
@@ -34,6 +37,13 @@ public class SocialLoginFragment extends BaseFragment {
         return new SocialLoginFragment();
     }
 
+    @OnClick(R.id.btn_back)
+    void onBackClick()
+    {
+
+        getActivity().finish();
+    }
+
     @OnClick(R.id.facebook_login_button)
     void onFacebookClick() {
         if(!isConnected()){
@@ -42,7 +52,6 @@ public class SocialLoginFragment extends BaseFragment {
         }
         Log.d(TAG, "Reg Id............. Fb login " );
         Intent intent = new Intent(getActivity(),SocialLoginActivity.class);
-        startActivity(intent);
         startActivityForResult(intent.putExtra("type", SocialLoginActivity.FACEBOOK), SocialLoginActivity.FACEBOOK);
     }
 
@@ -54,7 +63,6 @@ public class SocialLoginFragment extends BaseFragment {
         }
         Log.d(TAG, "Reg Id.............. GPlus login");
         Intent intent = new Intent(getActivity(),SocialLoginActivity.class);
-        startActivity(intent);
         startActivityForResult(intent.putExtra("type", SocialLoginActivity.GOOGLE_PLUS), SocialLoginActivity.GOOGLE_PLUS);
     }
 
@@ -68,6 +76,7 @@ public class SocialLoginFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         mGeneralPresenter = new GeneralPresenter();
         mLoginPresenter = new LoginPresenter();
+        Log.d(TAG,"Inside on CreateView");
         return view;
     }
 
@@ -81,8 +90,7 @@ public class SocialLoginFragment extends BaseFragment {
         Log.d(TAG, "User " + user.toString());
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", "connecting");
         progressDialog.setCancelable(false);
-
-        mLoginPresenter.fbLogin(user, new Subscriber<User>() {
+        mLoginPresenter.loginWithFacebook(user, new Subscriber<User>() {
             @Override
             public void onCompleted() {
 
@@ -106,23 +114,30 @@ public class SocialLoginFragment extends BaseFragment {
     }
 
     public void googlePlusLogin(final User user) {
-        final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", "connecting");
+        final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.connecting));
         progressDialog.setCancelable(false);
-
-        mLoginPresenter.gPlusLogin(user, new Subscriber<User>() {
+        mLoginPresenter.loginWithGooglePlus(user, new Subscriber<User>() {
             @Override
             public void onCompleted() {
 
+                Log.d(TAG,"Completed!!!!!!");
+
+                Intent intent=new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("userLoginStatus",true);
+                startActivity(intent);
+                getActivity().finish();
             }
 
             @Override
             public void onError(Throwable e) {
-                if (e != null && e.getMessage() != null) {
+                e.printStackTrace();
+               /* if (e != null && e.getMessage() != null) {
 
                 } else {
+                    e.printStackTrace();
                     DialogsHelper.showErrorDialog(getActivity(), new Throwable("Please check internet connection!"));
-                }
-                progressDialog.dismiss();
+                }*/
+              //  progressDialog.dismiss();
             }
 
             @Override
@@ -133,4 +148,18 @@ public class SocialLoginFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onDetach() {
+        Log.d("####SocialLoginFragment","Detached :((((((((");
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGeneralPresenter.destroy();
+        if (mLoginPresenter != null) {
+            mLoginPresenter.destroy();
+        }
+    }
 }

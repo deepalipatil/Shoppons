@@ -26,7 +26,7 @@ import com.shopons.view.activity.SocialLoginActivity;
  * @date : 01/10/15 : 8:54 PM
  * @email : akshay@betacraft.co
  */
-public class BaseFragment extends DialogFragment {
+public abstract class  BaseFragment extends DialogFragment {
 
     private static final String TAG = "##BaseFragment";
 
@@ -35,6 +35,9 @@ public class BaseFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+    public abstract void googlePlusLogin(final User user);
+    public abstract void facebookLogin(final User user);
 
     protected boolean isConnected() {
         final ConnectivityManager cm = (ConnectivityManager) getActivity()
@@ -56,6 +59,11 @@ public class BaseFragment extends DialogFragment {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data == null)
@@ -63,27 +71,24 @@ public class BaseFragment extends DialogFragment {
         int response = data.getIntExtra("result", 0);
         if (response == SocialLoginActivity.LOGIN_SUCCESS) {
             final User user = new User();
-            final SocialLoginFragment socialLoginFragment = new SocialLoginFragment();
+           // final SocialLoginFragment socialLoginFragment = new SocialLoginFragment();
             switch (data.getIntExtra("social_network", 0)){
-                case SocialLoginActivity.FACEBOOK:
-                    user.setFullName(data.getStringExtra(Constants.NAME));
-                    user.setEmailAddress(data.getStringExtra(Constants.EMAIL));
-                    user.setIsFacebook(true);
-                    user.setIsGplus(false);
-                    user.setFacebookToken(data.getStringExtra(Constants.TOKEN));
-                    user.setFacebookId(data.getLongExtra(Constants.ID, 0));
-                    socialLoginFragment.facebookLogin(user);
+                case SocialLoginActivity.FACEBOOK:{
+                    user.setName(data.getStringExtra(Constants.NAME));
+                    user.setEmail(data.getStringExtra(Constants.EMAIL));
+                    user.setFb_token(data.getStringExtra(Constants.TOKEN));
+                    user.setFb_id(data.getLongExtra(Constants.ID, 0));
+                    facebookLogin(user);
                     break;
+                }
 
-                case SocialLoginActivity.GOOGLE_PLUS:
-                    user.setFullName(data.getStringExtra(Constants.NAME));
-                    user.setEmailAddress(data.getStringExtra(Constants.EMAIL));
-                    user.setIsFacebook(false);
-                    user.setIsGplus(true);
-                    user.setId(data.getStringExtra(Constants.ID));
-                    user.setGooglePlusToken(data.getStringExtra(Constants.TOKEN));
-                    socialLoginFragment.googlePlusLogin(user);
-                    break;
+
+                case SocialLoginActivity.GOOGLE_PLUS:{
+                    user.setEmail(data.getStringExtra(Constants.EMAIL));
+                    user.setName(data.getStringExtra(Constants.NAME));
+                    user.setGoogle_token(data.getStringExtra(Constants.TOKEN));
+                    googlePlusLogin(user);
+                    break;}
             }
 
         } else {
@@ -109,4 +114,6 @@ public class BaseFragment extends DialogFragment {
             Toast.makeText(getActivity(), "Could not open Camera!", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

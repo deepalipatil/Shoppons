@@ -99,9 +99,8 @@ public interface UserApis {
             "Content-Type : application/json",
             "Accept : application/json"
     })
-    @POST("/user/facebook")
-    Observable<User> signUpWithFacebook(@Path("email") String email,@Body String facebookToken,
-                                              @Body long facebookUserId);
+    @POST("user/facebook")
+    Observable<UserEntity> loginWithFacebook(@Body User user);
 
     @Headers({
             "Content-Type : application/json",
@@ -110,4 +109,14 @@ public interface UserApis {
     @POST("/user/gplus")
     Observable<User> signUpWithGooglePlus(@Path("email") String email,@Body String userName, @Body String googlePlusToken);
 
+    @Headers({
+            "Content-Type : application/json",
+            "Accept : application/json"
+    })
+    @POST("user/gplus")
+    Observable<UserEntity> loginWithGooglePlus(@Body User user);
+
+
+
 }
+

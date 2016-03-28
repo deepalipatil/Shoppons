@@ -7,34 +7,19 @@ import com.shopons.domain.User;
  * Created by deepali on 4/3/16.
  */
 public class UserMapper {
-
-    public static UserEntity transform(final User user) {
-        final UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.getId());
-        userEntity.setName(user.getFullName());
-        userEntity.setEmail(user.getEmailAddress());
-        userEntity.setAuthKey(user.getAuthKey());
-        userEntity.setFacebookToken(user.getFacebookToken());
-        userEntity.setFacebookUserId(user.getFacebookId());
-        userEntity.setIsGplus(user.isGplus());
-        userEntity.setGooglePlusToken(user.getGooglePlusToken());
-        userEntity.setId(user.getId());
-        return userEntity;
+    public static User transform(UserEntity userEntity)
+    {
+        User user= new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setAuth_key(userEntity.getAuth_key());
+        user.setMobile_number(userEntity.getMobile_number());
+        user.setEmail(userEntity.getEmail());
+        user.setPhoto_url(userEntity.getPhoto_url());
+        user.setFb_token(userEntity.getFb_token());
+        user.setFb_id(userEntity.getFb_id());
+        user.setGoogle_token(userEntity.getGoogle_token());
+        return  user;
     }
 
-
-    public static User transform(final UserEntity userEntity) {
-        final User user = new com.shopons.domain.User();
-        user.setId(userEntity.getId());
-        user.setFullName(userEntity.getName());
-        user.setEmailAddress(userEntity.getEmail());
-        user.setAuthKey(userEntity.getAuthKey());
-        user.setFacebookToken(userEntity.getFacebookToken());
-        user.setFacebookId(userEntity.getFacebookUserId());
-        user.setIsGplus(userEntity.isGplus());
-        user.setGooglePlusToken(userEntity.getGooglePlusToken());
-        user.setEmailAddress(userEntity.getEmail());
-        user.setId(userEntity.getId());
-        return user;
-    }
 }

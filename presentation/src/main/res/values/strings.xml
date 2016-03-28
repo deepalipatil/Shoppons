@@ -24,9 +24,7 @@
     <string name="connecting">Connecting…</string>
     <string name="connect_with_facebook">Connect With Facebook</string>
     <string name="connect_with_google">Connect With Google</string>
-
-    <string name="google_map_api_key">AIzaSyAmLwATmBv5NLosIVpGoUrhivOoqvmMUeA</string>
-    <string name="facebook_app_id">750802168386653</string>
+    <string name="facebook_app_id">569754989845753</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
     <string name="success">Success</string>

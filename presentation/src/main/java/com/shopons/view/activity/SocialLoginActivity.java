@@ -26,7 +26,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.shopons.R;
@@ -43,7 +46,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
         .ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "##SocialLoginActivity##";
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 1;
 
@@ -149,7 +152,6 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                 .addOnConnectionFailedListener(this)
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_LOGIN)
-                .addScope(new Scope(Scopes.EMAIL))
                 .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .addScope(new Scope("https://www.googleapis.com/auth/plus.profile.emails.read"))
                 .build();
@@ -247,10 +249,13 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                                     String profilePic =
                                             "https://graph.facebook.com/" +
                                                     user.getId() + "/picture?type=large";
+
                                     resultIntent.putExtra(Constants.TOKEN, session.getAccessToken());
                                     resultIntent.putExtra(Constants.ID, Long.parseLong(user.getId()));
                                     resultIntent.putExtra(Constants.NAME, user.getName());
-                                    resultIntent.putExtra(Constants.PHOTO, profilePic);
+
+                                    Log.d(TAG,"Email:"+email);
+                                    Log.d(TAG,"Name:"+user.getName());
                                     setResult(RESULT_OK, resultIntent);
                                     mProgressDialog.dismiss();
                                     finish();
@@ -331,10 +336,10 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
             final String personName = currentPerson.getDisplayName();
             final Person.Image personPhoto = currentPerson.getImage();
             final String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-            Log.d(TAG, "Name " + personName);
-            Log.d(TAG, "email " + email);
+            //Log.d(TAG, "Name " + personName);
+            //Log.d(TAG, "email " + email);
             // hack to get greater sized profile pic ;)
-            Log.d(TAG, "photo Url " + personPhoto.getUrl().replace("sz=50", "sz=500"));
+            //Log.d(TAG, "photo Url " + personPhoto.getUrl().replace("sz=50", "sz=500"));
 
 
             final Runnable runnable = new Runnable() {
@@ -353,9 +358,10 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                                 resultIntent.putExtra("social_network", mSocialNetwork);
                                 resultIntent.putExtra(Constants.EMAIL, email);
                                 resultIntent.putExtra(Constants.NAME, personName);
-                                resultIntent.putExtra(Constants.ID, currentPerson.getId());
-                                resultIntent.putExtra(Constants.PHOTO, personPhoto.getUrl().replace("sz=50", "sz=500"));
+                                //resultIntent.putExtra(Constants.ID, currentPerson.getId());
+                                //resultIntent.putExtra(Constants.PHOTO, personPhoto.getUrl().replace("sz=50", "sz=500"));
                                 resultIntent.putExtra(Constants.TOKEN, mGooglePlusToken);
+
                                 setResult(RESULT_OK, resultIntent);
                                 mProgressDialog.dismiss();
                                 finish();
@@ -381,10 +387,13 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
             thread.start();
 
         } else {
+          //  Log.d(TAG,"Inside else of onConnected");
             Intent resultIntent = new Intent();
             resultIntent.putExtra("result", LOGIN_FAILURE);
             setResult(RESULT_OK, resultIntent);
+
             mProgressDialog.dismiss();
+            Log.d(TAG,"Inside else of onConnected");
             finish();
         }
 
@@ -441,4 +450,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
         }
 
     }
+
+
+
 }

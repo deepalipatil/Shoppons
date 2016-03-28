@@ -1,10 +1,12 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'io.fabric'
+
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    compileSdkVersion 23
     buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
 
     defaultConfig {
@@ -32,16 +34,16 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("../signing_keys/shopons_staging.jks")
-            storePassword "shopons123"
-            keyAlias "shopons"
-            keyPassword "shopons123"
+            storeFile file('../signing_keys/shopons_debug.jks')
+            storePassword 'shopons'
+            keyAlias 'shopons_debug'
+            keyPassword 'shopons'
         }
         release {
-            storeFile file("../signing_keys/shopons_production.jks")
-            storePassword "shopons123"
-            keyAlias "shopons"
-            keyPassword "shopons123"
+            storeFile file('../signing_keys/shopons_release.jks')
+            storePassword 'shopons'
+            keyAlias 'shopons_releases'
+            keyPassword 'shopons'
         }
     }
 
@@ -57,7 +59,7 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders = [google_map_api_key: "AIzaSyBlznsn1clWfk76-vm15YQWqokVfxKsUrA",
+            manifestPlaceholders = [google_map_api_key: "AIzaSyAWqcUfGwFHOciDCxfvBVVIY9RdGg1v-Vw",
                                     name              : "Shopons debug",
                                     scheme            : "com.shopons.debug"]
             resValue "string", "app_name", "Shopons Staging"
@@ -66,7 +68,7 @@ android {
             minifyEnabled false
         }
         release {
-            manifestPlaceholders = [google_map_api_key: "AIzaSyALJEC1zyeycN8TmyQ3uAnM03ZUBduH-Hs",
+            manifestPlaceholders = [google_map_api_key: "AIzaSyC2bPVZ93j-ARdhV9Gmn-LVru1-eoREnCU",
                                     name              : "Shopons",
                                     scheme            : "com.shopons"]
             resValue "string", "app_name", "Shopons"
@@ -83,9 +85,12 @@ android {
     }
 }
 repositories {
-    jcenter()
+    jcenter {
+        url "http://jcenter.bintray.com/"
+    }
     mavenCentral()
     maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 dependencies {
@@ -122,5 +127,4 @@ dependencies {
     }
     compile 'org.jetbrains:annotations:13.0'
     compile presentationDependencies.locationPlayServices
-
 }

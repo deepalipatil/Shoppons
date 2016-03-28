@@ -13,23 +13,19 @@ import rx.Observable;
 public class GPlusLogin extends UseCase<User> {
 
     private UserRepository mUserRepository;
-    private String mEmail;
-    private String mUserName;
-    private String mGooglePlusToken;
-
+    User user;
     private User mUser;
 
-    public GPlusLogin(final String email, final String userName, final String googlePlusToken,
+    public GPlusLogin(User user,UserRepository userRepository,
                       final ThreadExecutor threadExecutor,
                       final PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
-        this.mEmail=email;
-        this.mUserName=userName;
-        this.mGooglePlusToken=googlePlusToken;
+        mUserRepository=userRepository;
+        this.user=user;
     }
 
     @Override
     public Observable<User> buildUseCaseObservable() {
-        return mUserRepository.registerWithGooglePlus(mEmail,mUserName,mGooglePlusToken);
+        return mUserRepository.loginWithGooglePlus(user);
     }
 }

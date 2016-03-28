@@ -64,7 +64,7 @@ public class Validation {
 
 
 
-    public static void validateUser(final User user) throws Exception {
+    /*public static void validateUser(final User user) throws Exception {
         final StringBuilder errorStringBuilder = new StringBuilder();
         if (!user.isPhoneVerified()) {
             errorStringBuilder.append("You have not verified your phone yet");
@@ -72,7 +72,7 @@ public class Validation {
         }
         if (!errorStringBuilder.toString().isEmpty())
             throw new Exception(errorStringBuilder.toString());
-    }
+    }*/
 
 
 
