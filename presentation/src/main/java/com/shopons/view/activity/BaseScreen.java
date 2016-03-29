@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.shopons.domain.User;
 import com.shopons.presenter.GeneralPresenter;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.utils.DialogsHelper;
+
+import rx.Subscriber;
 
 /**
  * Base screen
@@ -23,6 +27,7 @@ public class BaseScreen extends AppCompatActivity{
 
     private GeneralPresenter mGeneralPresenter;
     protected int mLastMenuItemId;
+
     private LoginPresenter mLoginPresenter;
 
     private static final String TAG = "##BaseScreen";
@@ -62,6 +67,42 @@ public class BaseScreen extends AppCompatActivity{
             window.setStatusBarColor(color);
         }
     }*/
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d(TAG, "REalm");
+        mLoginPresenter.getUserInfo(new Subscriber<User>() {
+            @Override
+            public void onCompleted() {}
+
+            @Override
+            public void onError(final Throwable e) {}
+
+            @Override
+            public void onNext(final User user) {
+                if (user != null) {
+                    if (!user.getIs_info_pushed()) {
+                        mLoginPresenter.saveUserInfo(user, new Subscriber<User>() {
+                            @Override
+                            public void onCompleted() {
+                                Log.d(TAG, "REalm done");
+                            }
+
+                            @Override
+                            public void onError(final Throwable e) {
+                            }
+
+                            @Override
+                            public void onNext(User u) {
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     protected void onStop() {

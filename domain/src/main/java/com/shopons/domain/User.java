@@ -11,6 +11,24 @@ public class User {
     String fb_token;
     long fb_id;
     String google_token;
+    boolean is_logged_in;
+    boolean is_info_pushed;
+
+    public User(){}
+
+    public User(final String authKey, final String fullName, final String emailAddress, final String id) {
+        this.name = fullName;
+        this.email = emailAddress;
+        this.id = id;
+        this.auth_key = authKey;
+    }
+    public boolean getIs_info_pushed(){return is_info_pushed;}
+
+    public void setIs_info_pushed(boolean infopushed){this.is_info_pushed=infopushed;}
+
+    public boolean get_is_logged_in(){return is_logged_in;}
+
+    public void set_is_logged_in(boolean loggedin){ this.is_logged_in = loggedin;}
 
     public String getId() {
         return id;

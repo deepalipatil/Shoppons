@@ -16,19 +16,14 @@ public final class UserModel implements Parcelable {
     private String mEmailAddress;
     private String mName;
     private String mFullName;
-    private String mPhoneNumber;
-    private String mPassword;
     private String mAuthKey;
     private boolean mIsLoggedIn;
 
     public UserModel(){}
 
-    public UserModel(final String authKey, final String fullName, final String emailAddress, final String phoneNumber,
-                     final String password, final String id) {
+    public UserModel(final String authKey, final String fullName, final String emailAddress, final String id) {
         this.mFullName = fullName;
         mEmailAddress = emailAddress;
-        mPhoneNumber = phoneNumber;
-        mPassword = password;
         mId = id;
         mAuthKey = authKey;
     }
@@ -37,8 +32,6 @@ public final class UserModel implements Parcelable {
         mId = in.readString();
         mFullName = in.readString();
         mEmailAddress = in.readString();
-        mPhoneNumber = in.readString();
-        mPassword = in.readString();
         mAuthKey = in.readString();
         mIsLoggedIn = in.readByte() != 0;
     }
@@ -67,8 +60,6 @@ public final class UserModel implements Parcelable {
         parcel.writeString(mName);
         parcel.writeString(mFullName);
         parcel.writeString(mEmailAddress);
-        parcel.writeString(mPhoneNumber);
-        parcel.writeString(mPassword);
         parcel.writeString(mAuthKey);
         parcel.writeByte((byte) (mIsLoggedIn ? 1 : 0));
     }
@@ -91,14 +82,6 @@ public final class UserModel implements Parcelable {
 
     public String getEmailAddress() {
         return mEmailAddress;
-    }
-
-    public String getPhoneNumber() {
-        return mPhoneNumber;
-    }
-
-    public String getPassword() {
-        return mPassword;
     }
 
     public String getAuthKey() {

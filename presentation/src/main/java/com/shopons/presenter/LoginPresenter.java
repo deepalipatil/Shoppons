@@ -1,10 +1,10 @@
 package com.shopons.presenter;
 
-import com.shopons.domain.MsgFromServer;
 import com.shopons.domain.User;
-
 import com.shopons.domain.interactors.FBLogin;
 import com.shopons.domain.interactors.GPlusLogin;
+import com.shopons.domain.interactors.GetUserInfo;
+import com.shopons.domain.interactors.SaveUserInfo;
 import com.shopons.domain.repositories.UserRepository;
 
 import rx.Subscriber;
@@ -33,6 +33,16 @@ public final class LoginPresenter extends Presenter {
     public void loginWithFacebook(User user, Subscriber<User> subscriber)
     {
         mSubscriptions.add(new FBLogin(user,mUserRepository,mThreadExecutor,mPostExecutionThread).execute(subscriber));
+    }
+
+    public void saveUserInfo(final User user, final Subscriber<User> subscriber) {
+        mSubscriptions.add(new SaveUserInfo(user, mUserRepository,
+                mThreadExecutor, mPostExecutionThread).execute(subscriber));
+    }
+
+    public void getUserInfo(final Subscriber<User> subscriber) {
+        mSubscriptions.add(new GetUserInfo(mUserRepository,
+                mThreadExecutor, mPostExecutionThread).execute(subscriber));
     }
 
     @Override

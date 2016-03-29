@@ -2,22 +2,18 @@ package com.shopons.data.repository;
 
 import android.util.Log;
 
-import com.shopons.data.entities.GenericEntity;
-import com.shopons.data.entities.MsgEntity;
 import com.shopons.data.entities.UserEntity;
-import com.shopons.data.mappers.MsgMapper;
 import com.shopons.data.mappers.UserMapper;
 import com.shopons.data.net.UserApis;
+import com.shopons.data.realmdb.UserInfo;
 import com.shopons.data.utils.Urls;
-import com.shopons.domain.MsgFromServer;
 import com.shopons.domain.User;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.realm.Realm;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -88,8 +84,8 @@ public final class UserRepository implements com.shopons.domain.repositories.Use
         return mUserApis.loginWithGooglePlus(user).map(new Func1<UserEntity, User>() {
             @Override
             public User call(UserEntity userEntity) {
-                if(userEntity==null)
-                    Log.d("###UserRepository","UserEntity is null");
+                if (userEntity == null)
+                    Log.d("###UserRepository", "UserEntity is null");
                 return UserMapper.transform(userEntity);
             }
         });
@@ -98,7 +94,57 @@ public final class UserRepository implements com.shopons.domain.repositories.Use
 
     }
 
+    @Override
+    public Observable<Void> saveUserInfo(final User user) {
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber) {
+                UserInfo.SaveUserInfo(user);
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        });
+    }
 
+    @Override
+    public Observable<Void> deleteUserInfo() {
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+            @Override
+            public void call(Subscriber<? super Void> subscriber) {
+                UserInfo.clearUserInfo();
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        });
+    }
+
+
+    @Override
+    public Observable<User> getUserInfo() {
+        return Observable.create(new Observable.OnSubscribe<User>() {
+            @Override
+            public void call(Subscriber<? super User> subscriber) {
+                final Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                /**
+                 * For now we are returning just the first and only saved user
+                 */
+                final UserEntity userEntity = realm.where(UserEntity.class).findFirst();
+                if (userEntity == null) {
+                    realm.commitTransaction();
+                    realm.close();
+                    subscriber.onNext(null);
+                    subscriber.onCompleted();
+                    return;
+                }
+                final User user = UserMapper.transform(userEntity);
+                realm.commitTransaction();
+                realm.close();
+                subscriber.onNext(user);
+                subscriber.onCompleted();
+            }
+        });
+    }
 
 
 

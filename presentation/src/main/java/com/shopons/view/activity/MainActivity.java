@@ -16,26 +16,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import android.widget.TextView;
-
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
-
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.shopons.R;
 import com.shopons.domain.Location;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.shopons.domain.User;
-
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.view.fragment.MainFragment;
 
@@ -83,6 +77,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     private int mPosition;
     private LoginPresenter mLoginPresenter;
     boolean statusOfLoginOp=false;
+    private User user;
 
 
     final String[] drawer_login_items={"Home","Favorite","About","Contact Us"};

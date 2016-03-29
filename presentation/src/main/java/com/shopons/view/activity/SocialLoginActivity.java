@@ -26,13 +26,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Result;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.shopons.R;
+import com.shopons.domain.User;
 import com.shopons.domain.constants.Constants;
 import com.shopons.utils.DialogsHelper;
 
@@ -71,6 +69,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
     private UiLifecycleHelper mUIHelper;
     private Handler mHandler;
     private String mGooglePlusToken = "";
+    private User myuser;
     private Session.StatusCallback mCallback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -255,8 +254,9 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                                     resultIntent.putExtra(Constants.NAME, user.getName());
 
                                     Log.d(TAG,"Email:"+email);
-                                    Log.d(TAG,"Name:"+user.getName());
+                                    Log.d(TAG, "Name:" + user.getName());
                                     setResult(RESULT_OK, resultIntent);
+
                                     mProgressDialog.dismiss();
                                     finish();
                                 }

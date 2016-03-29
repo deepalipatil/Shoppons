@@ -1,10 +1,6 @@
 package com.shopons.domain.repositories;
 
-import com.shopons.domain.MsgFromServer;
 import com.shopons.domain.User;
-
-import java.util.List;
-import java.util.Map;
 
 import rx.Observable;
 
@@ -21,4 +17,7 @@ public interface UserRepository {
     Observable<User> loginWithGooglePlus(final User user);
     Observable<User> loginWithFacebook(final User user);
     Observable<Void> logout();
+    Observable<Void> saveUserInfo(final User user);
+    Observable<User> getUserInfo();
+    Observable<Void> deleteUserInfo();
 }

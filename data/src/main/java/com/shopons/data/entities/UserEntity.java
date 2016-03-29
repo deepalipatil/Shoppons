@@ -1,21 +1,33 @@
 package com.shopons.data.entities;
 
-import com.google.gson.annotations.SerializedName;
+import io.realm.RealmObject;
 
 /**
  * Created by deepali on 4/3/16.
  */
-public class UserEntity {
+public class UserEntity extends RealmObject {
 
-    String id;
-    String name;
-    String auth_key;
-    String mobile_number;
-    String email;
-    String photo_url;
-    String fb_token;
-    long fb_id;
-    String google_token;
+    private String id;
+    private String name;
+    private String auth_key;
+    private String mobile_number;
+    private String email;
+    private String photo_url;
+    private String fb_token;
+    private long fb_id;
+    private String google_token;
+    private boolean is_logged_in;
+    private boolean is_info_pushed;
+
+    public UserEntity(){}
+
+    public boolean getIs_info_pushed(){return is_info_pushed;}
+
+    public void setIs_info_pushed(boolean infopushed){this.is_info_pushed=infopushed;}
+
+    public boolean getis_logged_in(){return is_logged_in;}
+
+    public void setis_logged_in(boolean loggedin){ this.is_logged_in = loggedin;}
 
     public String getId() {
         return id;

@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.api.ResultCallback;
+import com.crashlytics.android.Crashlytics;
 import com.shopons.R;
 import com.shopons.domain.User;
 import com.shopons.presenter.GeneralPresenter;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.utils.DialogsHelper;
-import com.shopons.view.activity.CallSocialLoginActivity;
 import com.shopons.view.activity.MainActivity;
 import com.shopons.view.activity.SocialLoginActivity;
 
@@ -84,8 +83,7 @@ public class SocialLoginFragment extends BaseFragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-    public void facebookLogin(final User user) {
+       public void facebookLogin(final User user) {
         // make API call here
         Log.d(TAG, "User " + user.toString());
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", "connecting");
@@ -93,7 +91,7 @@ public class SocialLoginFragment extends BaseFragment  {
         mLoginPresenter.loginWithFacebook(user, new Subscriber<User>() {
             @Override
             public void onCompleted() {
-
+                Log.d(TAG,"Saving user");
             }
 
             @Override
@@ -109,6 +107,44 @@ public class SocialLoginFragment extends BaseFragment  {
             @Override
             public void onNext(final User registeredUser) {
                 mUser = registeredUser;
+                mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG,"realm");
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+                        DialogsHelper.showErrorDialog(getActivity(), e);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(User u) {
+                        mUser.set_is_logged_in(true);
+                        mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(final Throwable e) {
+                                progressDialog.dismiss();
+                                DialogsHelper.showErrorDialog(getActivity(), e);
+                            }
+
+                            @Override
+                            public void onNext(final User user) {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getContext(),MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
             }
         });
     }
@@ -144,6 +180,43 @@ public class SocialLoginFragment extends BaseFragment  {
             public void onNext(final User registeredUser) {
                 progressDialog.dismiss();
                 mUser = registeredUser;
+                mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Crashlytics.logException(e);
+                        DialogsHelper.showErrorDialog(getActivity(), e);
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(User u) {
+                        mUser.set_is_logged_in(true);
+                        mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(final Throwable e) {
+                                progressDialog.dismiss();
+                                DialogsHelper.showErrorDialog(getActivity(), e);
+                            }
+
+                            @Override
+                            public void onNext(final User user) {
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
             }
         });
     }

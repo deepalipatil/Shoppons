@@ -2,10 +2,12 @@ package com.shopons;
 
 import android.support.multidex.MultiDexApplication;
 
-
 import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+import com.shopons.data.utils.RealmFactory;
+
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * @author : Kaustubh Deshmukh
@@ -27,7 +29,7 @@ public class Shopons extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(getApplicationContext(), new Crashlytics());
-
+        RealmFactory.Init(getApplicationContext());
         JodaTimeAndroid.init(getApplicationContext());
         //RealmFactory.Init(getApplicationContext());
         //AppversionSave.init();
