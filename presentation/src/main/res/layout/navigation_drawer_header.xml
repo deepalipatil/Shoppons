@@ -22,7 +22,7 @@
 
 
     <TextView
-        android:id="@+id/tit"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -32,7 +32,7 @@
         android:textColor="@color/black" />
 
     <TextView
-
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

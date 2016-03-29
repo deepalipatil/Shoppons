@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shopons.R;
 import com.shopons.adapter.StoreRecyclerAdapter;
@@ -47,14 +48,13 @@ public class MapsActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
         }
         mMap = mapFragment.getMap();
-        //LatLngBounds India = new LatLngBounds(new LatLng(34.0836708, 74.7972825), new LatLng(8.0883064, 77.5384507));
-
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
 
         mMap.moveCamera(center);
         mMap.animateCamera(zoom);
         mMap.addMarker(new MarkerOptions().position(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng)).title(""));
+
     }
 
     @Override

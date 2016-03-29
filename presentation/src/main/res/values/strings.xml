@@ -36,5 +36,8 @@
     <string name="resending_otp">Resending OTP</string>
     <string name="updating_password">Updating password...</string>
     <string name="verifying">Verifying...</string>
+    <string name="opening_hours">OPENING HOURS</string>
+    <string name="discount_on">Catalogue</string>
+    <string name="payment_modes">PAYMENT MODES</string>
 
 </resources>

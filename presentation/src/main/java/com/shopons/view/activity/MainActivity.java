@@ -189,7 +189,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
     void initNavigationHeader()
     {
-
+        //mIsLoggedIn = user.get_is_logged_in();
         //If user is not logged in
         if(mIsLoggedIn)
         {
@@ -208,6 +208,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
     void initMenu()
     {
+        //mIsLoggedIn = user.get_is_logged_in();
         if(mIsLoggedIn)
         {
 
@@ -219,7 +220,6 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
             Menu menu = navigationView.getMenu();
             navigationView.inflateMenu(R.menu.navigation_drawer_item1); //inflate new items.
-
 
 
 

@@ -1,5 +1,6 @@
 package com.shopons.data.net;
 
+import com.shopons.data.entities.SearchResultEntity;
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.data.entities.StoreEntity;
 import com.shopons.data.entities.StoreInfo;
@@ -27,6 +28,9 @@ public interface StoreApi {
                                                    @Query("lat") double latitude,@Query("page_id") int pageNo);
     @GET("store/{store_id}")
     public Observable<StoreDetailsEntity> getStoreDetails(@Path("store_id") String storeId);
+
+    @GET("stores/search/{query}")
+    public Observable<SearchResultEntity> searchResults(@Path("query") String query,@Query("page_id") int page_id);
 
 
 
