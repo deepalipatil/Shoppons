@@ -65,9 +65,10 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     ImageView search;
 
     @OnClick(R.id.search)
-            void searchById()
+    void searchById()
     {
-        Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+        Log.d("###MainActivity","Inside Search on Click");
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(intent);
     }
 

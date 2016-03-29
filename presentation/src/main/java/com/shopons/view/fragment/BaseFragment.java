@@ -25,6 +25,8 @@ import com.shopons.utils.ExceptionTypes;
 import com.shopons.utils.FontUtils;
 import com.shopons.view.activity.SocialLoginActivity;
 
+import javax.security.auth.callback.CallbackHandler;
+
 /**
  * Base fragment
  *
@@ -35,6 +37,7 @@ import com.shopons.view.activity.SocialLoginActivity;
 public abstract class  BaseFragment extends DialogFragment {
 
     private static final String TAG = "##BaseFragment";
+    protected CallbackHandler mHandler;
 
     @Nullable
     @Override

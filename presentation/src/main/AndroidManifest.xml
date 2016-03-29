@@ -38,6 +38,23 @@
         </activity>
 
         <activity
+            android:name=".view.activity.SearchActivity"
+            android:label="SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="android"
+                    android:pathPrefix="/search/"
+                    android:scheme="shopons"/>
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".view.activity.CallSocialLoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
@@ -81,7 +98,7 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="874554775961836" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${google_map_api_key}"/>
