@@ -4,21 +4,24 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
-
-
-import com.crashlytics.android.Crashlytics;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.shopons.R;
 import com.shopons.domain.AppVersion;
 import com.shopons.presenter.GeneralPresenter;
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.shopons.utils.DialogsHelper;
+import com.shopons.view.fragment.BaseFragment;
 
 import rx.Subscriber;
 
@@ -33,7 +36,19 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         if(!isNetworkAvailable())
         {
-            Toast.makeText(SplashActivity.this,"Please Check network connectivity",Toast.LENGTH_LONG).show();
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.toast_layout,
+                    (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            BaseFragment.setLightFont(text);
+            text.setText("Please Check network connectivity");
+
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
         }
         else {
 
@@ -59,18 +74,12 @@ public class SplashActivity extends AppCompatActivity {
                 public void onNext(AppVersion appVersion) {
 
                     if (appVersion.isForceUpdate() && appVersion.isUpdateAvailable()) {
-                        MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(SplashActivity.this)
-                                .title("Update Available").content("Update App to latest version")
-                                .positiveText("Update Now").negativeText("")
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                        materialDialog.dismiss();
-
-                                    }
-                                });
-
-                        materialDialog.show();
+                        DialogsHelper.showInteractiveDialog(SplashActivity.this, "UPDATE NOW", "", "Update Available", "Update App to latest version", new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                                materialDialog.dismiss();
+                            }
+                        });
                     } else {
                         MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(SplashActivity.this)
                                 .title("Update Available").content("Update App to latest version")

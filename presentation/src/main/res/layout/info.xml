@@ -56,12 +56,13 @@
                     android:id="@+id/share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/action_bar_shear_"
+
                     android:onClick="share_method"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="38dp"/>
+                <!--android:src="@drawable/action_bar_shear_"-->
 
             </RelativeLayout>
         </RelativeLayout>

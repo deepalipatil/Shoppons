@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,7 @@ public abstract class  BaseFragment extends DialogFragment {
                     user.setEmail(data.getStringExtra(Constants.EMAIL));
                     user.setFb_token(data.getStringExtra(Constants.TOKEN));
                     user.setFb_id(data.getLongExtra(Constants.ID, 0));
+                    Log.d(TAG,"Name"+user.getName());
                     facebookLogin(user);
                     break;
                 }
