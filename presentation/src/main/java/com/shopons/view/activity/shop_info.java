@@ -39,6 +39,7 @@ import rx.Subscriber;
  * Created by Win7 on 11-Feb-16.
  */
 public class shop_info extends AppCompatActivity{
+    Boolean details_added=false;
 
 
     private ActionBar actionBar;
@@ -136,27 +137,31 @@ public class shop_info extends AppCompatActivity{
         });
     }
     public void add_row(List<BrandInfo> list) {
-        TextView t1v, t2v;
-        // View v;
-        TableLayout stk = (TableLayout) findViewById(R.id.tableLayout2);
-        for (int i = 0; i < list.size(); i++) {
-            TableRow tbrow = new TableRow(this);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-            tbrow.setLayoutParams(lp);
-            t1v = new TextView(this);
-            t1v.setText(list.get(i).getCategory());
-            t1v.setLines(1);
-            t1v.setGravity(Gravity.LEFT);
-            t1v.setPadding(15, 15, 8, 0);
+        if(details_added==false) {
+            details_added=true;
 
-            t2v = new TextView(this);
-            t2v.setText("20");
-            t2v.setGravity(Gravity.RIGHT);
+            TextView t1v, t2v;
+            // View v;
+            TableLayout stk = (TableLayout) findViewById(R.id.tableLayout2);
+            for (int i = 0; i < list.size(); i++) {
+                TableRow tbrow = new TableRow(this);
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                tbrow.setLayoutParams(lp);
+                t1v = new TextView(this);
+                t1v.setText(list.get(i).getCategory());
+                t1v.setLines(1);
+                t1v.setGravity(Gravity.LEFT);
+                t1v.setPadding(15, 15, 8, 0);
 
-            tbrow.addView(t1v);
-            stk.addView(tbrow,i);
+                t2v = new TextView(this);
+                t2v.setText("20");
+                t2v.setGravity(Gravity.RIGHT);
+
+                tbrow.addView(t1v);
+                stk.addView(tbrow, i);
 
 
+            }
         }
     }
 
