@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shopons.domain.User;
-import com.shopons.domain.constants.Constants;
 import com.shopons.utils.ExceptionTypes;
 import com.shopons.utils.FontUtils;
-import com.shopons.view.activity.SocialLoginActivity;
 
 import javax.security.auth.callback.CallbackHandler;
 
@@ -46,8 +42,6 @@ public abstract class  BaseFragment extends DialogFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public abstract void googlePlusLogin(final User user);
-    public abstract void facebookLogin(final User user);
 
     protected boolean isConnected() {
         final ConnectivityManager cm = (ConnectivityManager) getActivity()
@@ -73,41 +67,7 @@ public abstract class  BaseFragment extends DialogFragment {
         super.onDetach();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(data == null)
-            return;
-        int response = data.getIntExtra("result", 0);
-        if (response == SocialLoginActivity.LOGIN_SUCCESS) {
-            final User user = new User();
-           // final SocialLoginFragment socialLoginFragment = new SocialLoginFragment();
-            switch (data.getIntExtra("social_network", 0)){
-                case SocialLoginActivity.FACEBOOK:{
-                    user.setName(data.getStringExtra(Constants.NAME));
-                    user.setEmail(data.getStringExtra(Constants.EMAIL));
-                    user.setFb_token(data.getStringExtra(Constants.TOKEN));
-                    user.setFb_id(data.getLongExtra(Constants.ID, 0));
-                    Log.d(TAG,"Name"+user.getName());
-                    facebookLogin(user);
-                    break;
-                }
 
-
-                case SocialLoginActivity.GOOGLE_PLUS:{
-                    user.setEmail(data.getStringExtra(Constants.EMAIL));
-                    user.setName(data.getStringExtra(Constants.NAME));
-                    user.setGoogle_token(data.getStringExtra(Constants.TOKEN));
-                    googlePlusLogin(user);
-                    break;}
-            }
-
-        } else {
-            //TODO change this
-            Toast.makeText(getActivity(), "There was some issue with social login, " +
-                    "please try again !!", Toast.LENGTH_LONG).show();
-        }
-    }
 
     protected void setBoldFont(final TextView textView) {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Sansation_Bold.ttf");

@@ -29,7 +29,7 @@ public class BaseScreen extends AppCompatActivity{
     protected int mLastMenuItemId;
 
     private LoginPresenter mLoginPresenter;
-
+    protected String mLastTag;
     private static final String TAG = "##BaseScreen";
 
     @Override
@@ -42,6 +42,7 @@ public class BaseScreen extends AppCompatActivity{
     protected void addFragment(int id, Fragment fragment, String tag) {
         getSupportFragmentManager().beginTransaction()
                 .replace(id, fragment, tag).commit();
+        mLastTag = tag;
     }
 
     protected void displayHomeAsUpEnabled(boolean homeAsEnabled) {
@@ -71,7 +72,7 @@ public class BaseScreen extends AppCompatActivity{
     @Override
     protected void onStart(){
         super.onStart();
-        Log.d(TAG, "REalm");
+
         mLoginPresenter.getUserInfo(new Subscriber<User>() {
             @Override
             public void onCompleted() {}
@@ -83,6 +84,7 @@ public class BaseScreen extends AppCompatActivity{
             public void onNext(final User user) {
                 if (user != null) {
                     if (!user.getIs_info_pushed()) {
+                        user.setIs_info_pushed(true);
                         mLoginPresenter.saveUserInfo(user, new Subscriber<User>() {
                             @Override
                             public void onCompleted() {

@@ -82,6 +82,15 @@ public abstract class BaseListAdapter<T> extends BaseAdapter implements IListVie
         mAbsListView = listView;
     }
 
+    public BaseListAdapter(final AbsListView listView) {
+        Log.d(TAG, "BaseListAdapter constructor thread name : " + Thread.currentThread().getName());
+        mAbsListView = listView;
+    }
+
+    public void clearAllItems(){
+        mItems.clear();
+        notifyDataSetChanged();
+    }
 
     /**
      * Method to append an existing list

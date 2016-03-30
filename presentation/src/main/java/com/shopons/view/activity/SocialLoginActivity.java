@@ -451,6 +451,4 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
 
     }
 
-
-
 }

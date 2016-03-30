@@ -9,8 +9,6 @@ import android.content.IntentFilter;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -22,8 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
@@ -33,10 +31,13 @@ import com.shopons.R;
 import com.shopons.adapter.StoreRecyclerAdapter;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
+import com.shopons.domain.User;
+import com.shopons.mapper.UserMapper;
+import com.shopons.model.UserModel;
 import com.shopons.presenter.LocationPresenter;
+import com.shopons.presenter.LoginPresenter;
 import com.shopons.presenter.StorePresenter;
 import com.shopons.view.activity.MainActivity;
-
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -51,9 +52,9 @@ import rx.Subscriber;
  */
 
 
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment {
 
-    private static final String TAG="####MainFragment";
+    public static final String TAG="####MainFragment";
     private Button btnLoc;
     private BroadcastReceiver mLocationReceiver;
     private BroadcastReceiver mInternetReceiver;
@@ -68,6 +69,8 @@ public class MainFragment extends Fragment {
     private Location currLoc,searchLoc;
     private int pageNo=0;
     private StoreRecyclerAdapter adapter;
+    private LoginPresenter loginPresenter;
+    private UserModel mUserModel;
 
 
     public MainFragment() {
@@ -91,7 +94,7 @@ public class MainFragment extends Fragment {
         mLocationReceiver= new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d("Inside BroadCast receiver","");
+                Log.d(TAG,"Inside BroadCast receiver");
                 checkGpsStatus();
             }
         };
@@ -104,6 +107,7 @@ public class MainFragment extends Fragment {
         searchLoc=new Location(-1,-1);
         mlocation=new Location(-1,-1);
         mStorePresenter=new StorePresenter();
+        loginPresenter= new LoginPresenter();
         mLocationPresenter=new LocationPresenter(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new StoreRecyclerAdapter(recyclerView,getActivity());
@@ -129,20 +133,32 @@ public class MainFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
             }
         });
-
+        init();
 
        return view;
 
     }
 
+    private void init() {
+        loginPresenter.getUserInfo(new Subscriber<User>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG,"getting user info");
+            }
 
-      boolean isConnected()
-      {
-          final ConnectivityManager cm = (ConnectivityManager) getActivity()
-                  .getSystemService(Context.CONNECTIVITY_SERVICE);
-          final NetworkInfo netInfo = cm.getActiveNetworkInfo();
-          return (netInfo != null && netInfo.isConnected());
-      }
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(User user) {
+                mUserModel = UserMapper.transform(user);
+            }
+        });
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();

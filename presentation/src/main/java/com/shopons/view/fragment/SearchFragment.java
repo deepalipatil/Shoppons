@@ -24,7 +24,6 @@ import android.widget.ProgressBar;
 import com.shopons.R;
 import com.shopons.adapter.SearchAdapter;
 import com.shopons.domain.Store;
-import com.shopons.domain.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -156,15 +155,6 @@ public  class SearchFragment extends BaseFragment {
         return view;
     }
 
-    @Override
-    public void googlePlusLogin(User user) {
-
-    }
-
-    @Override
-    public void facebookLogin(User user) {
-
-    }
 
     private void getSearchResults(final String query) {
         if(mPageNo == -1) {

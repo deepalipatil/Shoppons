@@ -39,5 +39,21 @@
     <string name="opening_hours">OPENING HOURS</string>
     <string name="discount_on">Catalogue</string>
     <string name="payment_modes">PAYMENT MODES</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string-array name="home_drawer_loggedin_menu">
+        <item>Home</item>
+        <item>Favorite</item>
+        <item>About</item>
+        <item>Contact Us</item>
+        <item>Logout</item>
+    </string-array>
+
+    <string-array name="home_drawer_menu">
+        <item>Home</item>
+        <item>Login</item>
+        <item>Contact Us</item>
+        <item>About Us</item>
+    </string-array>
 
 </resources>

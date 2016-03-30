@@ -24,7 +24,7 @@ import rx.Subscriber;
 /**
  * Created by deepali on 5/3/16.
  */
-public class SocialLoginFragment extends BaseFragment  {
+public class SocialLoginFragment extends BaseLoginFragment  {
 
     public static final String TAG = "LoginFragment";
     private GeneralPresenter mGeneralPresenter;
@@ -83,6 +83,8 @@ public class SocialLoginFragment extends BaseFragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
        public void facebookLogin(final User user) {
         // make API call here
         Log.d(TAG, "User " + user.toString());
@@ -149,6 +151,7 @@ public class SocialLoginFragment extends BaseFragment  {
         });
     }
 
+    @Override
     public void googlePlusLogin(final User user) {
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.connecting));
         progressDialog.setCancelable(false);
@@ -183,7 +186,7 @@ public class SocialLoginFragment extends BaseFragment  {
                 mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.d(TAG,"Saving user");
                     }
 
                     @Override
@@ -199,7 +202,7 @@ public class SocialLoginFragment extends BaseFragment  {
                         mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
                             @Override
                             public void onCompleted() {
-
+                                Log.d(TAG,"Saving user");
                             }
 
                             @Override
