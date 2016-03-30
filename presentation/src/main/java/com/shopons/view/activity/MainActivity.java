@@ -43,7 +43,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import rx.Subscriber;
 
 public class MainActivity extends BaseScreen  implements AdapterView.OnItemClickListener {
 
@@ -135,7 +134,16 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     }
 
     private void init() {
-        mLoginPresenter.getUserInfo(new Subscriber<User>() {
+        mHeaderView = LayoutInflater.from(MainActivity.this)
+                .inflate(R.layout.navigation_drawer_header, drawer_list, false);
+        ((ImageView) mHeaderView.findViewById(R.id.profile_image)).setImageResource(R.drawable.placeholder);
+        ((TextView) mHeaderView.findViewById(R.id.username)).setAllCaps(true);
+        ((TextView) mHeaderView.findViewById(R.id.username)).setText("Shopons");
+        ((TextView) mHeaderView.findViewById(R.id.username))
+                .setTypeface(FontUtils.getFonts(this.getBaseContext(), "Arcon-Regular.otf"));
+        drawer_list.addHeaderView(mHeaderView);
+        mListAdapter.setSelected(0);
+        /*mLoginPresenter.getUserInfo(new Subscriber<User>() {
             @Override
             public void onCompleted() {
                 Log.d(TAG, "getting user info");
@@ -150,7 +158,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 //initToolbar();
                 initNavigationView(user);
             }
-        });
+        });*/
     }
 
     @Override
