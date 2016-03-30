@@ -3,10 +3,12 @@ package com.shopons.data.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.shopons.data.deserializer.SearchResultDeserializer;
 import com.shopons.data.deserializer.StoreDeserializer;
 import com.shopons.data.deserializer.StoreDetailsDeserializer;
 import com.shopons.data.deserializer.StoreEntityDeserializer;
 import com.shopons.data.entities.AppVersionEntity;
+import com.shopons.data.entities.SearchResultEntity;
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.data.entities.StoreEntity;
 import com.shopons.data.entities.StoreInfo;
@@ -48,7 +50,8 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
         GsonBuilder gsonBuilder=new GsonBuilder()
                 .registerTypeAdapter(StoreEntity.class, new StoreEntityDeserializer())
                 .registerTypeAdapter(StoreInfo.class, new StoreDeserializer())
-                .registerTypeAdapter(StoreDetailsEntity.class,new StoreDetailsDeserializer());
+                .registerTypeAdapter(StoreDetailsEntity.class, new StoreDetailsDeserializer())
+                .registerTypeAdapter(SearchResultEntity.class, new SearchResultDeserializer());
         Gson gson=gsonBuilder.create();
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -97,5 +100,23 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
         });
     }
 
+    public Observable<List<StoreDetails>> searchResults(String query,int page_no)
+    {
+        final List<StoreDetails> searchResult=new ArrayList<>();
+        return mStoreApi.searchResults(query,page_no).map(new Func1<List<StoreDetailsEntity>, List<StoreDetails>>() {
+
+            @Override
+            public List<StoreDetails> call(List<StoreDetailsEntity> list) {
+
+                if(list!=null) {
+                    for (StoreDetailsEntity element : list) {
+                        searchResult.add(StoreDetailsMapper.transform(element));
+                    }
+                    return searchResult;
+                }
+                return null;
+            }
+        });
+    }
 
 }
