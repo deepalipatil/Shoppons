@@ -37,6 +37,7 @@ import com.shopons.model.UserModel;
 import com.shopons.presenter.LocationPresenter;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.presenter.StorePresenter;
+import com.shopons.utils.DialogsHelper;
 import com.shopons.view.activity.MainActivity;
 
 import java.io.IOException;
@@ -335,7 +336,7 @@ public class MainFragment extends BaseFragment {
     }
     void showNoGpsDialog()
     {
-        MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(getActivity())
+        /*MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(getActivity())
                 .title("Location Service Disabled").content("To detect your location  automatically, you need to enable Location services")
                 .positiveText("Settings").negativeText("Dismiss")
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -354,7 +355,21 @@ public class MainFragment extends BaseFragment {
                         materialDialog.dismiss();
                     }
                 });
-        materialDialog.show();
+        materialDialog.show();*/
+
+        DialogsHelper.showInteractiveDialog(getActivity(), "Settings", "Dismiss", "Location Service Disabled", "To detect your location  automatically, you need to enable Location services", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                materialDialog.dismiss();
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        }, new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                materialDialog.dismiss();
+            }
+        });
     }
 
 

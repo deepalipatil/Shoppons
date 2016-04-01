@@ -4,7 +4,6 @@ package com.shopons.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -34,7 +34,6 @@ import com.shopons.model.DrawerMenu;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.utils.FontUtils;
 import com.shopons.view.fragment.MainFragment;
-import com.shopons.view.fragment.SocialLoginFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,6 +42,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import rx.Subscriber;
 
 public class MainActivity extends BaseScreen  implements AdapterView.OnItemClickListener {
 
@@ -134,16 +134,10 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     }
 
     private void init() {
+        Log.d(TAG, "getting user info");
         mHeaderView = LayoutInflater.from(MainActivity.this)
                 .inflate(R.layout.navigation_drawer_header, drawer_list, false);
-        ((ImageView) mHeaderView.findViewById(R.id.profile_image)).setImageResource(R.drawable.placeholder);
-        ((TextView) mHeaderView.findViewById(R.id.username)).setAllCaps(true);
-        ((TextView) mHeaderView.findViewById(R.id.username)).setText("Shopons");
-        ((TextView) mHeaderView.findViewById(R.id.username))
-                .setTypeface(FontUtils.getFonts(this.getBaseContext(), "Arcon-Regular.otf"));
-        drawer_list.addHeaderView(mHeaderView);
-        mListAdapter.setSelected(0);
-        /*mLoginPresenter.getUserInfo(new Subscriber<User>() {
+        mLoginPresenter.getUserInfo(new Subscriber<User>() {
             @Override
             public void onCompleted() {
                 Log.d(TAG, "getting user info");
@@ -158,7 +152,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 //initToolbar();
                 initNavigationView(user);
             }
-        });*/
+        });
     }
 
     @Override
@@ -180,11 +174,6 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         super.onBackPressed();
     }
 
-
-    Location getSearchedLocation()
-    {
-        return mLocation;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -383,51 +372,62 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         switch (position) {
             case 0:
                 //showToolbarMenu();
-                removeFragment(mLastTag);
-                replaceFragmentAndUpdateId(MainFragment.getInstance(),
-                        MainFragment.TAG, mListAdapter.getItem(position).getText());
+                Intent intent=new Intent(getBaseContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
                 break;
             case 1:
-                removeFragment(mLastTag);
-                replaceFragmentAndUpdateId(SocialLoginFragment.getInstance(),
-                        MainFragment.TAG, mListAdapter.getItem(position).getText());
+                Intent intent1 =new Intent(getBaseContext(),CallSocialLoginActivity.class);
+                startActivity(intent1);
+                finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
+        switch (item.getItemId()){
+            case R.id.login: {
+                Log.d(TAG,"######Login clicked");
+                Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+                startActivity(intent);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void switchFragmentLogin(final int position) {
         switch (position) {
             case 1:
                 //showToolbarMenu();
+                Intent intent =new Intent(getBaseContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
                 removeFragment(mLastTag);
-                replaceFragmentAndUpdateId(MainFragment.getInstance(),
-                        MainFragment.TAG, mListAdapter.getItem(position - 1).getText());
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position - 1);
                 break;
             case 2:
                 removeFragment(mLastTag);
-                replaceFragmentAndUpdateId(SocialLoginFragment.getInstance(),
-                        MainFragment.TAG, mListAdapter.getItem(position).getText());
+                Intent intent1 =new Intent(getBaseContext(),CallSocialLoginActivity.class);
+                startActivity(intent1);
+                finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
                 break;
         }
-    }
-
-    private void replaceFragmentAndUpdateId(final Fragment fragment, final String tag,
-                                            final String toolBarTitle) {
-        mLastMenuItemId = mPosition;
-        addFragment(R.id.container, fragment, tag);
-        //toolbar.setTitle(toolBarTitle);
     }
 
 }

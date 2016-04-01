@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/presentation/src/main/res/drawable/actionbarback.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/presentation/src/main/res/drawable/bg_pattern.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/presentation/src/main/res/drawable/image_overlay.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/presentation/src/main/res/drawable/love.png" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/presentation/src/main/res/drawable/placeholder.png" charset="UTF-8" />
+  </component>
+</project>
+

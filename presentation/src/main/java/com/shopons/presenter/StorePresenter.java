@@ -4,6 +4,7 @@ import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
 import com.shopons.domain.interactors.GetStoreDetails;
 import com.shopons.domain.interactors.GetStoreListingByLocation;
+import com.shopons.domain.interactors.SearchByShopName;
 import com.shopons.domain.repositories.StoreRepository;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class StorePresenter extends Presenter {
                 mPostExecutionThread).execute(subscriber));
     }
 
+    public void searchResults(String query,int page_no,Subscriber<List<StoreDetails>> subscriber)
+    {
+        mSubscriptions.add(new SearchByShopName(query,page_no,mStoreRepository,
+                mThreadExecutor,mPostExecutionThread).execute(subscriber));
+    }
     @Override
     void resume() {
         cancelRunningUseCases();

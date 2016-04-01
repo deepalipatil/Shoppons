@@ -2,7 +2,6 @@ package com.shopons.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -69,25 +68,24 @@ public abstract class  BaseFragment extends DialogFragment {
 
 
 
-    protected void setBoldFont(final TextView textView) {
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/Sansation_Bold.ttf");
-        textView.setTypeface(font);
+    public static void setBoldFont(final TextView textView) {
+        textView.setTypeface(FontUtils.getFonts(textView.getContext(),"Sansation_Bold.ttf"));
     }
 
     public static void setLightFont(final TextView textView) {
         textView.setTypeface(FontUtils.getFonts(textView.getContext(),"Sansation_Light.ttf"));
     }
 
-    protected void setRegularFont(final TextView textView) {
-        textView.setTypeface(FontUtils.getFonts(getContext(),"Sansation_Regular.ttf"));
+    public static void setRegularFont(final TextView textView) {
+        textView.setTypeface(FontUtils.getFonts(textView.getContext(),"Sansation_Regular.ttf"));
     }
 
-    protected void setRegularFont(final TextInputLayout textInputLayout) {
-        textInputLayout.setTypeface(FontUtils.getFonts(getContext(),"Arcon-Regular.ttf"));
+    public static void setRegularFont(final TextInputLayout textInputLayout) {
+        textInputLayout.setTypeface(FontUtils.getFonts(textInputLayout.getContext(),"Arcon-Regular.otf"));
     }
 
-    protected void setRegularFont(final EditText editText) {
-        editText.setTypeface(FontUtils.getFonts(getContext(), "Arcon-Regular.ttf"));
+    public static void setRegularFont(final EditText editText) {
+        editText.setTypeface(FontUtils.getFonts(editText.getContext(), "Arcon-Regular.otf"));
     }
 
     protected View tryInflate(String name, Context context, AttributeSet attrs) {
@@ -104,8 +102,8 @@ public abstract class  BaseFragment extends DialogFragment {
         return v;
     }
 
-    protected void setTypeFace(TextView tv) {
-        tv.setTypeface(FontUtils.getFonts(getContext(), "Arcon-Regular"));
+    public static void setTypeFace(TextView tv) {
+        tv.setTypeface(FontUtils.getFonts(tv.getContext(), "Arcon-Regular.otf"));
     }
 
     protected void hideSoftKeyboard() {
@@ -124,6 +122,4 @@ public abstract class  BaseFragment extends DialogFragment {
             Toast.makeText(getActivity(), "Could not open Camera!", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

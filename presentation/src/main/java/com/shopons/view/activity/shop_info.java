@@ -1,28 +1,31 @@
 
 package com.shopons.view.activity;
 
-import android.support.v7.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.shopons.R;
+import com.shopons.domain.BrandInfo;
 import com.shopons.domain.StoreDetails;
 import com.shopons.presenter.StorePresenter;
+import com.shopons.view.fragment.BaseFragment;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +36,7 @@ import rx.Subscriber;
  * Created by Win7 on 11-Feb-16.
  */
 public class shop_info extends AppCompatActivity{
+    Boolean details_added=false;
 
 
     private ActionBar actionBar;
@@ -52,6 +56,9 @@ public class shop_info extends AppCompatActivity{
 
     @Bind(R.id.store_city)
     TextView city;
+
+    @Bind(R.id.info_label)
+    TextView info;
 
     @OnClick(R.id.call)
     void callStorePerson()
@@ -91,6 +98,19 @@ public class shop_info extends AppCompatActivity{
 
         Intent intent=getIntent();
         store_id=intent.getStringExtra("store_id");
+        city.setTextSize(25);
+        city.setTextColor(getResources().getColor(R.color.white));
+        BaseFragment.setRegularFont(city);
+        info.setTextColor(getResources().getColor(R.color.white));
+        BaseFragment.setTypeFace(info);
+        store_name.setTextSize(32);
+        store_name.setAllCaps(true);
+        BaseFragment.setRegularFont(store_name);
+        store_name.setTextColor(getResources().getColor(R.color.white));
+        store_addr.setTextColor(getResources().getColor(R.color.black));
+        review_count.setTextColor(getResources().getColor(R.color.white));
+        BaseFragment.setRegularFont(review_count);
+        return;
     }
 
     @Override
@@ -107,6 +127,8 @@ public class shop_info extends AppCompatActivity{
                     review_count.setVisibility(View.INVISIBLE);
                 review_count.setText(""+store.getReviews());
                 city.setText(store.getCity());
+
+                add_row(store.getBrandInfoList());
                 Log.d("###Shop_info","Completed!!!!");
             }
 
@@ -120,10 +142,46 @@ public class shop_info extends AppCompatActivity{
             public void onNext(StoreDetails storeDetails) {
                 store=storeDetails;
 
+
+
                 Log.d("###Shop_info","Got details");
 
             }
         });
+    }
+    public void add_row(List<BrandInfo> list) {
+        if(details_added==false) {
+            details_added=true;
+
+            TextView t1v, t2v;
+            // View v;
+            TableLayout stk = (TableLayout) findViewById(R.id.tableLayout2);
+            for (int i = 0; i < list.size(); i++) {
+                TableRow tbrow = new TableRow(this);
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                tbrow.setLayoutParams(lp);
+                t1v = new TextView(this);
+                t1v.setText(list.get(i).getCategory());
+                t1v.setLines(1);
+                t1v.setGravity(Gravity.LEFT);
+                t1v.setPadding(15, 15, 8, 0);
+
+                t2v = new TextView(this);
+                t2v.setText("20");
+                t2v.setGravity(Gravity.RIGHT);
+
+                tbrow.addView(t1v);
+                stk.addView(tbrow, i);
+
+
+            }
+        }
+    }
+
+    public void address_map(View view)
+    {
+        Intent intent=new Intent(getApplicationContext(),MapsActivity.class);
+        startActivity(intent);
     }
 
     public void share_method(View view)

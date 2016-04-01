@@ -2,6 +2,7 @@ package com.shopons.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -10,10 +11,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shopons.R;
 import com.shopons.adapter.StoreRecyclerAdapter;
+import com.shopons.view.fragment.BaseFragment;
 
 /**
  * Created by deepali on 24/3/16.
@@ -36,10 +37,14 @@ public class MapsActivity extends AppCompatActivity
 
     private GoogleMap mMap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        TextView map_label = (TextView)findViewById(R.id.map_label);
+        BaseFragment.setBoldFont(map_label);
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -54,7 +59,7 @@ public class MapsActivity extends AppCompatActivity
         mMap.moveCamera(center);
         mMap.animateCamera(zoom);
         mMap.addMarker(new MarkerOptions().position(new LatLng(StoreRecyclerAdapter.lat,StoreRecyclerAdapter.lng)).title(""));
-
+        return;
     }
 
     @Override
@@ -70,6 +75,12 @@ public class MapsActivity extends AppCompatActivity
         mMap = map;
 
         mMap.setOnMyLocationButtonClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }

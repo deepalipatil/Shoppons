@@ -81,26 +81,20 @@ public class SplashActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        MaterialDialog.Builder materialDialog = new MaterialDialog.Builder(SplashActivity.this)
-                                .title("Update Available").content("Update App to latest version")
-                                .positiveText("Update").negativeText("Not Now")
-                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        DialogsHelper.showInteractiveDialog(SplashActivity.this, "Update", "Not Now", "Update Available", "Please update app to the latest version",
+                                new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                                        materialDialog.dismiss();
+                                    }
+                                }, new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                                         materialDialog.dismiss();
                                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                         startActivity(intent);
-                                        finish();
-
-                                    }
-                                }).onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                        materialDialog.dismiss();
                                     }
                                 });
-                        materialDialog.show();
-
                     }
 
                 }

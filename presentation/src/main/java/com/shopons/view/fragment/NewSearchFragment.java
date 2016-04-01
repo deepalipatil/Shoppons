@@ -1,8 +1,5 @@
 package com.shopons.view.fragment;
 
-
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,8 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,32 +19,33 @@ import android.widget.ProgressBar;
 
 import com.shopons.R;
 import com.shopons.adapter.SearchAdapter;
-import com.shopons.domain.Store;
 import com.shopons.domain.User;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//import butterknife.InjectView;
-
 /**
- * A simple {@link Fragment} subclass.
+ * Created by komal on 29/3/16.
  */
-public class SearchFragment extends BaseLoginFragment {
+public class NewSearchFragment extends BaseLoginFragment {
     public static final String TAG = "##SearchFragment##";
     private int mPageNo;
     //public static final int LOCATION_SELECTED = 1;
     public static final int RESTAURANT_SELECTED = 2;
 
+    ArrayList<String> temp_array;
+
     @Bind(R.id.search)
-     EditText mSearch;
+    EditText mSearch;
 
     @Bind (R.id.progress)
-     ProgressBar mProgress;
+    ProgressBar mProgress;
 
     @Bind (R.id.list)
-     ListView mList;
+    ListView mList;
 
     @Bind (R.id.card_view)
     CardView mCardView;
@@ -56,7 +53,7 @@ public class SearchFragment extends BaseLoginFragment {
     private View mFooterLoadingView;
     private SearchAdapter mAdapter;
 
-    public SearchFragment() {
+    public NewSearchFragment() {
         // Required empty public constructor
     }
 
@@ -85,6 +82,12 @@ public class SearchFragment extends BaseLoginFragment {
         final View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
 
+        temp_array=new ArrayList<String>();
+        temp_array.add("Baner");
+        temp_array.add("Kothrud");
+        temp_array.add("Kolhapur");
+
+
         //mSearch.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA));
         mPageNo = 0;
         mProgress.getIndeterminateDrawable().setColorFilter(getActivity().getResources()
@@ -97,14 +100,15 @@ public class SearchFragment extends BaseLoginFragment {
         //mFooterLoadingView.setPadding(0, 0, 0, padding);
         mFooterLoadingView.setVisibility(View.INVISIBLE);
         mList.addFooterView(mFooterLoadingView);
-        mAdapter = new SearchAdapter(getActivity(), mList);
+        mList.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,temp_array));
+        //mAdapter = new SearchAdapter(getActivity(), mList);
 
-      mAdapter.setSearchAdapterListener(new SearchAdapter.ISearchAdapterListener() {
+        /*mAdapter.setSearchAdapterListener(new SearchAdapter.ISearchAdapterListener() {
             @Override
             public void onRestaurantSelected(Store stoar) {
                 Log.d(TAG, "stoar selected" + stoar.getName());
                 final Intent resultIntent = new Intent();
-               // resultIntent.putExtra(Constants.NAME, (Parcelable) stoar);
+                // resultIntent.putExtra(Constants.NAME, (Parcelable) stoar);
                 getActivity().setResult(RESTAURANT_SELECTED, resultIntent);
                 getActivity().finish();
             }
@@ -130,7 +134,7 @@ public class SearchFragment extends BaseLoginFragment {
                     getSearchResults(mSearch.getText().toString().trim());
                 }
             }
-        });
+        });*/
         mSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -139,12 +143,12 @@ public class SearchFragment extends BaseLoginFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.d(TAG, s.toString());
-                mList.setVisibility(View.INVISIBLE);
+               // mList.setVisibility(View.INVISIBLE);
                 mCardView.setVisibility(View.INVISIBLE);
                 mAdapter.clearList();
                 mProgress.setVisibility(View.VISIBLE);
                 mPageNo = 0;
-                getSearchResults(s.toString().trim());
+                //getSearchResults(s.toString().trim());
             }
 
             @Override
@@ -158,7 +162,7 @@ public class SearchFragment extends BaseLoginFragment {
 
     @Override
     public void googlePlusLogin(User user) {
-        
+
     }
 
     @Override
@@ -166,77 +170,4 @@ public class SearchFragment extends BaseLoginFragment {
 
     }
 
-    private void getSearchResults(final String query) {
-        if(mPageNo == -1) {
-            mFooterLoadingView.setVisibility(View.GONE);
-            return;
-        }
-        if (mPageNo == 0) {
-            mProgress.setVisibility(View.VISIBLE);
-        } else {
-            mFooterLoadingView.setVisibility(View.VISIBLE);
-        }
-        Log.d(TAG, "Fetching restaurants");
-
-        //write method
-       /* User.SearchRestaurantOrLocation(query, mPageNo, new ModelListener<List<SearchResult>>() {
-            @Override
-            public void onSuccess(final List<SearchResult> result) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Multiple requests are made here, so multiple responses may receive
-                        // So check for most recent response.
-                        if (!query.equals(mSearch.getText().toString().trim())) {
-                            mFooterLoadingView.setVisibility(View.GONE);
-                            return;
-                        }
-                        mCardView.setVisibility(View.VISIBLE);
-                        mList.setVisibility(View.VISIBLE);
-                        mProgress.setVisibility(View.INVISIBLE);
-                        if (result.size() == 0 && mPageNo == 0) {
-                            mPageNo = -1;
-                            Toast.makeText(getActivity(), "No match found",
-                                    Toast.LENGTH_LONG).show();
-                            mCardView.setVisibility(View.INVISIBLE);
-                           // mFooterLoadingView.setVisibility(View.GONE);
-                            return;
-                        }
-                        if (mPageNo == 0) {
-                            result.add(0, SearchResult.Get(Place.Create(Place.SEARCH, "Current Location")));
-                            mAdapter.clearList();
-                            mAdapter.setItemArrayList(result);
-                        } else if (mPageNo > 0) {
-                            mAdapter.appendList(result);
-                        } else {
-                            mFooterLoadingView.setVisibility(View.GONE);
-                            return;
-                        }
-                        if (result.size() < Constants.MAX_RESULTS) {
-                            mPageNo = -1;
-                        } else {
-                            mPageNo += 1;
-                        }
-                        mFooterLoadingView.setVisibility(View.GONE);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(final Throwable throwable) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgress.setVisibility(View.INVISIBLE);
-                        mFooterLoadingView.setVisibility(View.GONE);
-                    }
-                });
-            }
-        });*/
-    }
-
-    /*public static boolean isLocationEnabled(Context context) {
-        LocationManager manager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }*/
 }

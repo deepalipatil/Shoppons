@@ -15,6 +15,7 @@
 
         <ImageButton
             android:layout_width="wrap_content"
+            android:layout_gravity="start"
             android:layout_height="wrap_content"
             android:src="@drawable/action_bar_back"
             android:background="#2196F3"
@@ -25,6 +26,8 @@
           android:text="Login"
           android:textColor="#FFFFFF"
           android:textSize="20dp"
+          android:id="@+id/login_label"
+          android:layout_marginLeft="5dp"
           />
 
     </android.support.v7.widget.Toolbar>

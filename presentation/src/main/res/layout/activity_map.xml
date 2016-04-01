@@ -5,9 +5,40 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196F3"
+        >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/action_bar_back"
+            android:background="#2196F3"
+            android:id="@+id/btn_back"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Map"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:id="@+id/map_label"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 </FrameLayout>

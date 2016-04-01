@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.shopons.R;
 import com.shopons.view.fragment.SocialLoginFragment;
 
+import butterknife.OnClick;
+
 /**
  * Created by deepali on 6/3/16.
  */
@@ -25,8 +27,11 @@ public class CallSocialLoginActivity extends BaseScreen  {
      * Take care of popping the fragment back stack or finishing the activity
      * as appropriate.
      */
-    @Override
-    public void onBackPressed() {
+
+    @OnClick(R.id.btn_back)
+    void closeActivity()
+    {
         finish();
     }
+
 }

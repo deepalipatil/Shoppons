@@ -9,7 +9,6 @@
     <facet type="java-gradle" name="Java-Gradle">
       <configuration>
         <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
-        <option name="BUILDABLE" value="true" />
       </configuration>
     </facet>
   </component>
@@ -32,4 +31,9 @@
     <orderEntry type="library" exported="" name="javax.inject-1" level="project" />
     <orderEntry type="library" exported="" name="domain.domain" level="project" />
   </component>
+<<<<<<< HEAD
 </module>
+=======
+</module>
+
+>>>>>>> 5121c6aa50eeec9b04ae445f00b2000aec7a40e9

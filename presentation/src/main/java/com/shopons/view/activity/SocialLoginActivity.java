@@ -387,7 +387,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
             thread.start();
 
         } else {
-          //  Log.d(TAG,"Inside else of onConnected");
+            //  Log.d(TAG,"Inside else of onConnected");
             Intent resultIntent = new Intent();
             resultIntent.putExtra("result", LOGIN_FAILURE);
             setResult(RESULT_OK, resultIntent);
@@ -450,5 +450,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
         }
 
     }
+
+
 
 }

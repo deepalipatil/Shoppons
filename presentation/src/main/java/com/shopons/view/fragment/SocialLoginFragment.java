@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.shopons.R;
@@ -39,7 +40,6 @@ public class SocialLoginFragment extends BaseLoginFragment  {
     @OnClick(R.id.btn_back)
     void onBackClick()
     {
-
         getActivity().finish();
     }
 
@@ -75,7 +75,13 @@ public class SocialLoginFragment extends BaseLoginFragment  {
         ButterKnife.bind(this, view);
         mGeneralPresenter = new GeneralPresenter();
         mLoginPresenter = new LoginPresenter();
-        Log.d(TAG,"Inside on CreateView");
+        Log.d(TAG, "Inside on CreateView");
+        TextView gpb = (TextView)view.findViewById(R.id.google_login_button);
+        BaseFragment.setRegularFont(gpb);
+        TextView fbb = (TextView)view.findViewById(R.id.facebook_login_button);
+        BaseFragment.setRegularFont(fbb);
+        TextView ll = (TextView)view.findViewById(R.id.login_label);
+        BaseFragment.setBoldFont(ll);
         return view;
     }
 
@@ -83,9 +89,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-    @Override
-       public void facebookLogin(final User user) {
+    public void facebookLogin(final User user) {
         // make API call here
         Log.d(TAG, "User " + user.toString());
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", "connecting");
@@ -151,7 +155,6 @@ public class SocialLoginFragment extends BaseLoginFragment  {
         });
     }
 
-    @Override
     public void googlePlusLogin(final User user) {
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.connecting));
         progressDialog.setCancelable(false);
@@ -176,7 +179,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                     e.printStackTrace();
                     DialogsHelper.showErrorDialog(getActivity(), new Throwable("Please check internet connection!"));
                 }*/
-              //  progressDialog.dismiss();
+                //  progressDialog.dismiss();
             }
 
             @Override
@@ -186,7 +189,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                 mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
-                        Log.d(TAG,"Saving user");
+
                     }
 
                     @Override
@@ -202,7 +205,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                         mLoginPresenter.saveUserInfo(mUser, new Subscriber<User>() {
                             @Override
                             public void onCompleted() {
-                                Log.d(TAG,"Saving user");
+
                             }
 
                             @Override

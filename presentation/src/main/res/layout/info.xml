@@ -5,11 +5,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/webView"
-        android:layout_gravity="right" />
 
     <android.support.v7.widget.Toolbar
         android:layout_height="wrap_content"
@@ -21,17 +16,34 @@
             android:layout_width="match_parent"
             android:layout_height="48dp">
 
-            <ImageView
-                android:id="@+id/back"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:src="@drawable/actionbarback"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/relativeLayout"
-                android:layout_toStartOf="@+id/relativeLayout"
-                android:layout_marginRight="220dp"
-                android:layout_marginEnd="220dp" />
+                android:layout_alignParentLeft="true"
+                android:id="@+id/relativeLayout1">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:src="@drawable/action_bar_back"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Shop info"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:id="@+id/info_label"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/back"
+                    android:layout_toEndOf="@+id/back" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -61,8 +73,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginLeft="38dp"/>
-                <!--android:src="@drawable/action_bar_shear_"-->
+                    android:layout_marginLeft="38dp"
+                android:src="@drawable/action_bar_shear_"/>
 
             </RelativeLayout>
         </RelativeLayout>
@@ -203,7 +215,7 @@
         <FrameLayout
             android:id="@+id/deal_container"
             android:layout_width="match_parent"
-            android:layout_height="113dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/deal"
             android:layout_marginLeft="@dimen/shop_info_margin_left"
             android:layout_marginRight="30dp"
@@ -216,66 +228,6 @@
                 android:layout_height="fill_parent" >
 
                 <!-- 2 columns -->
-                <TableRow
-                    android:id="@+id/tableRow2"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-
-                    >
-
-                    <TextView
-                        android:text="Jeans"
-                        android:textSize="15sp"/><![CDATA[
-
-                    />
-
-                ]]>
-                </TableRow>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/black"/>
-
-
-                <TableRow
-                    android:id="@+id/tableRow3"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp">
-
-                    <TextView
-                        android:text="Saree"
-                        android:textSize="15sp"/>
-
-                </TableRow>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/black"/>
-
-                <TableRow
-                    android:id="@+id/tableRow4"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp">
-
-                    <TextView
-                        android:text="Lehenga"
-                        android:textSize="15sp"/><![CDATA[
-
-                    />
-
-                ]]>
-                </TableRow>
 
 
             </TableLayout>
@@ -340,6 +292,18 @@
 
     </LinearLayout>
 
+
+    <ImageView
+        android:id="@+id/addr_image"
+        android:layout_width="55dp"
+        android:layout_below="@+id/info"
+        android:layout_height="57dp"
+        android:layout_marginLeft="@dimen/shop_info_margin_left"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:onClick="address_map"
+        android:src="@drawable/tmaps"
+        />
 
 </RelativeLayout>
 

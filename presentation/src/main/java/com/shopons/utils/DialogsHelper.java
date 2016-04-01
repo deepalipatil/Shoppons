@@ -24,7 +24,7 @@ public class DialogsHelper {
                 .content(content)
                 .positiveColor(activity.getResources().getColor(R.color.colorPrimary))
                 .positiveText(okText)
-                .backgroundColor(activity.getResources().getColor(R.color.black))
+                .backgroundColor(activity.getResources().getColor(R.color.white))
                 .typeface(FontUtils.getFonts(activity.getBaseContext(), "Sansation_Regular.ttf"), FontUtils.getFonts(activity.getBaseContext(), "Sansation_Light.ttf"));
         ;
 
@@ -251,6 +251,7 @@ public class DialogsHelper {
                 listeners[1].onClick(materialDialog, dialogAction);
             }
         });
+        final MaterialDialog dialog = builder.build();
+        dialog.show();
     }
 }
-
