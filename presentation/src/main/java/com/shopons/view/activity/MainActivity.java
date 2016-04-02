@@ -69,8 +69,8 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     void searchById()
     {
         Log.d("###MainActivity","Inside Search on Click");
-       // Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-       // startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+        startActivity(intent);
     }
 
     ActionBar actionBar;
@@ -137,22 +137,31 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         Log.d(TAG, "getting user info");
         mHeaderView = LayoutInflater.from(MainActivity.this)
                 .inflate(R.layout.navigation_drawer_header, drawer_list, false);
-        mLoginPresenter.getUserInfo(new Subscriber<User>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "getting user info");
-            }
+        //if(!mIsLoggedIn)
+        initNavigationView(user);
+        // {
+            mLoginPresenter.getUserInfo(new Subscriber<User>() {
+                @Override
+                public void onCompleted() {
+                    Log.d(TAG, "getting user info");
+                }
 
-            @Override
-            public void onError(final Throwable e) {
-            }
+                @Override
+                public void onError(final Throwable e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onNext(final User user) {
-                //initToolbar();
-                initNavigationView(user);
-            }
-        });
+                @Override
+                public void onNext(final User user) {
+                    //initToolbar();
+
+
+                    Log.d(TAG, "User name:" + user.getName());
+                    Log.d(TAG, "User Email" + user.getEmail());
+                    initNavigationView(user);
+                }
+            });
+       // }
     }
 
     @Override
@@ -273,7 +282,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             mHeaderView = LayoutInflater.from(MainActivity.this)
                     .inflate(R.layout.navigation_drawer_header, drawer_list, false);
 
-            Picasso.with(this).load(user.getPhoto_url())
+            Picasso.with(this).load(R.drawable.profile_pic)
                     .placeholder(R.drawable.placeholder)
                     .into((CircleImageView) mHeaderView.findViewById(R.id.profile_image));
             ((TextView) mHeaderView.findViewById(R.id.username)).setAllCaps(true);

@@ -87,6 +87,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("####SocialLoginActivity","Inside onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
     }
     public void facebookLogin(final User user) {
@@ -158,6 +159,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
     public void googlePlusLogin(final User user) {
         final ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "", getString(R.string.connecting));
         progressDialog.setCancelable(false);
+        Log.d("####SocialLoginFragment","Inside googlePlusLogin");
         mLoginPresenter.loginWithGooglePlus(user, new Subscriber<User>() {
             @Override
             public void onCompleted() {
@@ -206,6 +208,7 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                             @Override
                             public void onCompleted() {
 
+                                Log.d("####SocialFragment","User Saved successfully");
                             }
 
                             @Override

@@ -93,6 +93,7 @@ public class SplashActivity extends AppCompatActivity {
                                         materialDialog.dismiss();
                                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                         startActivity(intent);
+                                        finish();
                                     }
                                 });
                     }

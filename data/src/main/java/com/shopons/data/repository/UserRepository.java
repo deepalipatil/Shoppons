@@ -2,6 +2,19 @@ package com.shopons.data.repository;
 
 import android.util.Log;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.shopons.data.deserializer.GPlusDeserializer;
+import com.shopons.data.deserializer.SearchResultDeserializer;
+import com.shopons.data.deserializer.StoreDeserializer;
+import com.shopons.data.deserializer.StoreDetailsDeserializer;
+import com.shopons.data.deserializer.StoreEntityDeserializer;
+import com.shopons.data.entities.SearchResultEntity;
+import com.shopons.data.entities.StoreDetailsEntity;
+import com.shopons.data.entities.StoreEntity;
+import com.shopons.data.entities.StoreInfo;
 import com.shopons.data.entities.UserEntity;
 import com.shopons.data.mappers.UserMapper;
 import com.shopons.data.net.UserApis;
@@ -14,6 +27,7 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -44,9 +58,24 @@ public final class UserRepository implements com.shopons.domain.repositories.Use
 // add logging as last interceptor
         okHttpClient.interceptors().add(logging);
 
+        GsonBuilder gsonBuilder=new GsonBuilder()
+                .registerTypeAdapter(UserEntity.class, new GPlusDeserializer())
+                .setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getDeclaringClass().equals(RealmObject.class);
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        });
+        Gson gson=gsonBuilder.create();
+
         Retrofit retrofit=new Retrofit.Builder().baseUrl(Urls.shopons_base)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
         mUserApis=retrofit.create(UserApis.class);
@@ -127,8 +156,8 @@ public final class UserRepository implements com.shopons.domain.repositories.Use
                 final Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 /**
-                 * For now we are returning just the first and only saved user
-                 */
+                  For now we are returning just the first and only saved user
+                */
                 final UserEntity userEntity = realm.where(UserEntity.class).findFirst();
                 if (userEntity == null) {
                     realm.commitTransaction();

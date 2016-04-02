@@ -44,6 +44,7 @@ public abstract class BaseLoginFragment extends BaseFragment {
                     user.setEmail(data.getStringExtra(Constants.EMAIL));
                     user.setFb_token(data.getStringExtra(Constants.TOKEN));
                     user.setFb_id(data.getLongExtra(Constants.ID, 0));
+
                     Log.d(TAG, "Name" + user.getName());
                     facebookLogin(user);
                     break;
@@ -54,9 +55,10 @@ public abstract class BaseLoginFragment extends BaseFragment {
                     user.setEmail(data.getStringExtra(Constants.EMAIL));
                     user.setName(data.getStringExtra(Constants.NAME));
                     user.setGoogle_token(data.getStringExtra(Constants.TOKEN));
+                    user.set_is_logged_in(false);
+                    user.setIs_info_pushed(true);
                     googlePlusLogin(user);
-                    Log.d(TAG, "Name" + user.getName());
-                    break;}
+                    }
             }
 
         } else {
