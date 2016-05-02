@@ -197,8 +197,8 @@ public class MainFragment extends BaseFragment {
         mlocation.setLongitude(location.getLongitude());
         if (mlocation != null && mlocation.getLatitude()!=-1 && mlocation.getLongitude()!=-1) {
             Log.d(TAG,"Inside getStorelisting Looking for ");
-            Log.d("###ActivityResult",""+mlocation.getLongitude());
-            Log.d("###ActivityResult",""+mlocation.getLatitude());
+            Log.d("###MainActivity","longitude"+mlocation.getLongitude());
+            Log.d("###MainActivity","latitude"+mlocation.getLatitude());
 
             mStorePresenter.getStore( mlocation.getLatitude(),mlocation.getLongitude(),pageNo,new Subscriber<List<Store>>(){
                 @Override
@@ -229,6 +229,7 @@ public class MainFragment extends BaseFragment {
                         for (Store element : stores) {
                             Log.d("#####MainFragment", element.getName());
                             Log.d(TAG,""+pageNo);
+
                         }
                         if(pageNo>0)
                             adapter.appendList(stores);

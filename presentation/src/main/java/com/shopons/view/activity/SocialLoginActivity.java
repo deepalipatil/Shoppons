@@ -131,7 +131,6 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
             }
 
         } else if (mSocialNetwork == FACEBOOK) {
-            //AccessToken accessToken = AccessToken.getCurrentAccessToken();
             mUIHelper = new UiLifecycleHelper(this, mCallback);
             mUIHelper.onCreate(savedInstanceState);
             Session session = Session.getActiveSession();
@@ -359,7 +358,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                                 resultIntent.putExtra(Constants.EMAIL, email);
                                 resultIntent.putExtra(Constants.NAME, personName);
                                 //resultIntent.putExtra(Constants.ID, currentPerson.getId());
-                                //resultIntent.putExtra(Constants.PHOTO, personPhoto.getUrl().replace("sz=50", "sz=500"));
+                                resultIntent.putExtra(Constants.PHOTO, personPhoto.getUrl().replace("sz=50", "sz=500"));
                                 resultIntent.putExtra(Constants.TOKEN, mGooglePlusToken);
 
                                 setResult(RESULT_OK, resultIntent);

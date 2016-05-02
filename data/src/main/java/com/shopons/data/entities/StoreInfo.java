@@ -15,6 +15,8 @@ public class StoreInfo {
     private String name;
     @SerializedName("address")
     private String address;
+    @SerializedName("sub_locality")
+    private String locality;
     @SerializedName("city")
     private String city;
     @SerializedName("contact")
@@ -27,8 +29,10 @@ public class StoreInfo {
     private List<BrandInfo> brandInfoList;
     @SerializedName("total_reviews")
     private int reviews;
+
     private LocationEntity location;
     private PhoneNumberEntity phone_numbers;
+
 
     public PhoneNumberEntity getPhone_numbers() {
         return phone_numbers;
@@ -94,6 +98,14 @@ public class StoreInfo {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 
     public String getCity() {

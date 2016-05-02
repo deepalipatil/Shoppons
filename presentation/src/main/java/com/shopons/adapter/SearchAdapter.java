@@ -62,7 +62,7 @@ public final class SearchAdapter extends BaseListAdapter<SearchResult> {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_search,
                     parent, false);
             holder = new Holder(convertView);
-            holder.title.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA));
+           // holder.title.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA));
            // holder.type.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA_LIGHT));
             convertView.setTag(holder);
         } else {

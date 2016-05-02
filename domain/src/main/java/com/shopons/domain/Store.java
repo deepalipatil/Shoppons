@@ -12,6 +12,7 @@ import java.util.List;
     private String id;
     private String name;
     private String address;
+    private String locality;
     private String city;
     private String contact;
     private double rating;
@@ -22,7 +23,9 @@ import java.util.List;
     private int reviews;
     private PhoneNumber phone_numbers;
 
-    public Store(String id,String name, String address,String city, String contact, double rating,
+
+
+    public Store(String id,String name, String address,String locality,String city, String contact, double rating,
                  String thumbnail,List<BrandInfo> brand_info,Location location,int reviews,PhoneNumber phone_numbers)
     {
         tag_men=false;
@@ -31,6 +34,7 @@ import java.util.List;
         this.id=id;
         this.name=name;
         this.address=address;
+        this.locality=locality;
         this.city=city;
         this.contact=contact;
         this.rating=rating;
@@ -133,6 +137,14 @@ import java.util.List;
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 
     public String getCity() {

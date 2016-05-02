@@ -87,8 +87,6 @@ public class NewSearchFragment extends BaseLoginFragment {
         temp_array.add("Kothrud");
         temp_array.add("Kolhapur");
 
-
-        //mSearch.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA));
         mPageNo = 0;
         mProgress.getIndeterminateDrawable().setColorFilter(getActivity().getResources()
                 .getColor(R.color.black), PorterDuff.Mode.SRC_IN);

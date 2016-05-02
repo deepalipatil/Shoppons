@@ -69,7 +69,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     void searchById()
     {
         Log.d("###MainActivity","Inside Search on Click");
-        Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
         startActivity(intent);
     }
 
@@ -110,20 +110,15 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 LatLng latLng=place.getLatLng();
-                mLocation=new Location(latLng.longitude,latLng.latitude);
-
-                Log.d("###ActivityResult","longitude "+latLng.longitude);
-                Log.d("###ActivityResult","latitude "+latLng.latitude);
-
-                Log.i(TAG, "Place: " + place.getName());
+                mLocation=new Location(latLng.latitude,latLng.longitude);
+                Log.d(TAG, "Place: " + place.getName());
                 btn_location.setText(place.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
-                Log.i(TAG, status.getStatusMessage());
+                Log.d(TAG, status.getStatusMessage());
                 Log.d(TAG,"ERROR:(:(");
 
             } else if (resultCode == RESULT_CANCELED) {
@@ -219,6 +214,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 //hideToolbarMenu();
             }
         };
+
         actionBarDrawerToggle.syncState();
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         init();
@@ -252,10 +248,12 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         updateAdapter(user);
         if (user != null) {
             mIsLoggedIn= true;
-            mHeaderView = LayoutInflater.from(MainActivity.this)
-                    .inflate(R.layout.navigation_drawer_header, drawer_list, false);
+            mHeaderView=navigationView.getHeaderView(0);
+            //mHeaderView = LayoutInflater.from(MainActivity.this)
+              //      .inflate(R.layout.navigation_drawer_header, drawer_list, false);
             if (!user.getPhoto_url().isEmpty()) {
                 Log.d("##HomeActivity", "Height ");
+                //cLog.d()
                 if (user.getPhoto_url().contains("facebook") || user.getPhoto_url().contains("goo")) {
                     Picasso.with(this).load(user.getPhoto_url())
                             .placeholder(R.drawable.placeholder)
@@ -274,7 +272,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                     .setText(user.getName());
             ((TextView) mHeaderView.findViewById(R.id.username))
                     .setTypeface(FontUtils.getFonts(this.getBaseContext(), "Arcon-Regular.otf"));
-            drawer_list.addHeaderView(mHeaderView);
+           // drawer_list.addHeaderView(mHeaderView);
             mListAdapter.setSelected(1);
 
         }
@@ -289,7 +287,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             ((TextView) mHeaderView.findViewById(R.id.username)).setText("Shopons");
             ((TextView) mHeaderView.findViewById(R.id.username))
                     .setTypeface(FontUtils.getFonts(this.getBaseContext(), "Arcon-Regular.otf"));
-            drawer_list.addHeaderView(mHeaderView);
+            navigationView.addHeaderView(mHeaderView);
             mListAdapter.setSelected(0);
         }
     }

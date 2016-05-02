@@ -36,7 +36,7 @@ public class StoreMapper {
             mappedBrandInfo.add(new com.shopons.domain.BrandInfo(element.getPerson_type(),element.getCategory()));
         }
 
-        return new Store(storeInfo.getId(),storeInfo.getName(),storeInfo.getAddress(),
+        return new Store(storeInfo.getId(),storeInfo.getName(),storeInfo.getAddress(),storeInfo.getLocality(),
                 storeInfo.getCity(),storeInfo.getContact(),storeInfo.getRating(),
                 storeInfo.getThumbnail(),mappedBrandInfo,location,storeInfo.getReviews(),mappedPhoneNumber);
     }

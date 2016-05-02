@@ -55,6 +55,7 @@ public abstract class BaseLoginFragment extends BaseFragment {
                     user.setEmail(data.getStringExtra(Constants.EMAIL));
                     user.setName(data.getStringExtra(Constants.NAME));
                     user.setGoogle_token(data.getStringExtra(Constants.TOKEN));
+                    user.setPhoto_url(data.getStringExtra(Constants.PHOTO));
                     user.set_is_logged_in(false);
                     user.setIs_info_pushed(true);
                     googlePlusLogin(user);

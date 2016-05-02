@@ -10,4 +10,6 @@ public class Urls {
 
     public static final String loginUrl="https://shopons.herokuapp.com/api/v1/";
 
+    public static final String iryd="https://api.iryd.in/api/v1/";
+
 }
