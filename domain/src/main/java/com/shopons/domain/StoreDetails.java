@@ -10,6 +10,7 @@ public class StoreDetails {
     private String id;
     private String name;
     private String address;
+    private String locality;
     private String city;
     private String contact;
     private double rating;
@@ -19,6 +20,8 @@ public class StoreDetails {
     private Location location;
     private int reviews;
     private PhoneNumber phone_numbers;
+
+    public StoreDetails(){}
 
     public StoreDetails(String id,String name, String address,String city, String contact, double rating,
                  String thumbnail,List<BrandInfo> brand_info,Location location,int reviews,PhoneNumber phone_numbers)
@@ -133,6 +136,14 @@ public class StoreDetails {
         this.address = address;
     }
 
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
     public String getCity() {
         return city;
     }
@@ -152,9 +163,16 @@ public class StoreDetails {
     public double getRating() {
         return rating;
     }
+
     public void setRating(double rating) {
         this.rating = rating;
     }
 
+    public PhoneNumber getPhone_numbers() {
+        return phone_numbers;
+    }
 
+    public void setPhone_numbers(PhoneNumber phone_numbers) {
+        this.phone_numbers = phone_numbers;
+    }
 }

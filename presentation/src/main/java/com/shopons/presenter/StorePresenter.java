@@ -1,5 +1,6 @@
 package com.shopons.presenter;
 
+import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
 import com.shopons.domain.interactors.GetStoreDetails;
@@ -34,6 +35,12 @@ public class StorePresenter extends Presenter {
     public void searchResults(String query,int page_no,Subscriber<List<StoreDetails>> subscriber)
     {
         mSubscriptions.add(new SearchByShopName(query,page_no,mStoreRepository,
+                mThreadExecutor,mPostExecutionThread).execute(subscriber));
+    }
+
+    public void searchResults(String query,Location userLoc,int page_no,Subscriber<List<StoreDetails>> subscriber)
+    {
+        mSubscriptions.add(new SearchByShopName(query,userLoc,page_no,mStoreRepository,
                 mThreadExecutor,mPostExecutionThread).execute(subscriber));
     }
     @Override

@@ -44,7 +44,7 @@ public abstract class BaseLoginFragment extends BaseFragment {
                     user.setEmail(data.getStringExtra(Constants.EMAIL));
                     user.setFb_token(data.getStringExtra(Constants.TOKEN));
                     user.setFb_id(data.getLongExtra(Constants.ID, 0));
-
+                    user.setPhoto_url(data.getStringExtra(Constants.PHOTO));
                     Log.d(TAG, "Name" + user.getName());
                     facebookLogin(user);
                     break;

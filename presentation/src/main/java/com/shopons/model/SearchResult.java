@@ -9,24 +9,24 @@ public class SearchResult
 {
     public static final int RESTAURANT = 1;
     private int mType;
-    private Store mStoar;
+    private Store mStore;
     public int getType() {
         return mType;
     }
 
 
     public Store getName() {
-        return mStoar;
+        return mStore;
     }
 
 
     private SearchResult(final Store store) {
         mType = RESTAURANT;
-        mStoar = store;
+        mStore = store;
     }
 
-    public static SearchResult Get(final Store stoar) {
-        return new SearchResult(stoar);
+    public static SearchResult Get(final Store store) {
+        return new SearchResult(store);
     }
 
 

@@ -32,6 +32,10 @@ public interface StoreApi {
     @GET("stores/search/{query}")
     public Observable<SearchResultEntity> searchResults(@Path("query") String query,@Query("page_id") int page_id);
 
+    @GET("stores/search/{query}")
+    public Observable<SearchResultEntity> searchResults(@Path("query") String query,@Query("long") double longitude,
+                                                        @Query("lat") double latitude,@Query("page_id") int page_id);
+
 
 
 }

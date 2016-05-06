@@ -251,7 +251,7 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
                                     resultIntent.putExtra(Constants.TOKEN, session.getAccessToken());
                                     resultIntent.putExtra(Constants.ID, Long.parseLong(user.getId()));
                                     resultIntent.putExtra(Constants.NAME, user.getName());
-
+                                    resultIntent.putExtra(Constants.PHOTO, profilePic);
                                     Log.d(TAG,"Email:"+email);
                                     Log.d(TAG, "Name:" + user.getName());
                                     setResult(RESULT_OK, resultIntent);
@@ -335,11 +335,6 @@ public class SocialLoginActivity extends BaseScreen implements GoogleApiClient
             final String personName = currentPerson.getDisplayName();
             final Person.Image personPhoto = currentPerson.getImage();
             final String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-            //Log.d(TAG, "Name " + personName);
-            //Log.d(TAG, "email " + email);
-            // hack to get greater sized profile pic ;)
-            //Log.d(TAG, "photo Url " + personPhoto.getUrl().replace("sz=50", "sz=500"));
-
 
             final Runnable runnable = new Runnable() {
                 @Override

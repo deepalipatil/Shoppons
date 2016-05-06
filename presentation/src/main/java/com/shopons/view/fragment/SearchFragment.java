@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import com.shopons.R;
 import com.shopons.adapter.SearchAdapter;
 import com.shopons.domain.Store;
+import com.shopons.domain.StoreDetails;
 import com.shopons.domain.User;
 
 import butterknife.Bind;
@@ -101,7 +102,7 @@ public class SearchFragment extends BaseLoginFragment {
 
       mAdapter.setSearchAdapterListener(new SearchAdapter.ISearchAdapterListener() {
             @Override
-            public void onRestaurantSelected(Store stoar) {
+            public void onRestaurantSelected(StoreDetails stoar) {
                 Log.d(TAG, "stoar selected" + stoar.getName());
                 final Intent resultIntent = new Intent();
                // resultIntent.putExtra(Constants.NAME, (Parcelable) stoar);

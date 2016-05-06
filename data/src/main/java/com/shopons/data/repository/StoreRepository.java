@@ -1,6 +1,8 @@
 package com.shopons.data.repository;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shopons.data.deserializer.SearchResultDeserializer;
@@ -18,6 +20,7 @@ import com.shopons.data.mappers.StoreMapper;
 import com.shopons.data.net.StoreApi;
 import com.shopons.data.utils.Urls;
 import com.shopons.domain.AppVersion;
+import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
 import com.squareup.okhttp.OkHttpClient;
@@ -39,10 +42,6 @@ import rx.functions.Func1;
 public class StoreRepository implements com.shopons.domain.repositories.StoreRepository {
 
    StoreApi mStoreApi;
-
-
-
-
 
 
     public StoreRepository(){
@@ -102,6 +101,7 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
 
     public Observable<List<StoreDetails>> searchResults(String query,int page_no)
     {
+        Log.d("##StoreRepository","Inside search Results");
         final List<StoreDetails> searchResult=new ArrayList<>();
         return mStoreApi.searchResults(query,page_no).map(new Func1<List<StoreDetailsEntity>, List<StoreDetails>>() {
 
@@ -114,6 +114,28 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
                     }
                     return searchResult;
                 }
+
+                return null;
+            }
+        });
+    }
+
+    public Observable<List<StoreDetails>> searchResults(String query,Location userLoc,int page_no)
+    {
+        Log.d("##StoreRepository","Inside search Results");
+        final List<StoreDetails> searchResult=new ArrayList<>();
+        return mStoreApi.searchResults(query,userLoc.getLongitude(),userLoc.getLatitude(),page_no).map(new Func1<List<StoreDetailsEntity>, List<StoreDetails>>() {
+
+            @Override
+            public List<StoreDetails> call(List<StoreDetailsEntity> list) {
+
+                if(list!=null) {
+                    for (StoreDetailsEntity element : list) {
+                        searchResult.add(StoreDetailsMapper.transform(element));
+                    }
+                    return searchResult;
+                }
+
                 return null;
             }
         });

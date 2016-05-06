@@ -368,7 +368,10 @@ public class MainFragment extends BaseFragment {
         }, new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                Location temp_location=new Location(18.545833,73.935833);
+                getStoreListing(temp_location,0);
                 materialDialog.dismiss();
+
             }
         });
     }

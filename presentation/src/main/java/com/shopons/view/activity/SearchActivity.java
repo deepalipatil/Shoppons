@@ -15,7 +15,7 @@ public class SearchActivity extends BaseScreen {
         setContentView(R.layout.activity_search);
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, NewSearchFragment.GetInstance(),
-                SearchFragment.TAG);
+                NewSearchFragment.TAG);
         transaction.commit();
     }
 }

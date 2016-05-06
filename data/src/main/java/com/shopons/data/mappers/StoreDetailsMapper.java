@@ -32,8 +32,24 @@ public class StoreDetailsMapper {
         {
             mappedBrandInfo.add(new BrandInfo(element.getPerson_type(),element.getCategory()));
         }
-        return new StoreDetails(storeDetailsEntity.getId(),storeDetailsEntity.getName(),storeDetailsEntity.getAddress(),
-                storeDetailsEntity.getCity(),storeDetailsEntity.getContact(),storeDetailsEntity.getRating(),
-                storeDetailsEntity.getThumbnail(),mappedBrandInfo,location,storeDetailsEntity.getReviews(),mappedPhoneNumber);
+
+        StoreDetails storeDetails=new StoreDetails();
+
+        storeDetails.setId(storeDetailsEntity.getId());
+        storeDetails.setName(storeDetailsEntity.getName());
+        storeDetails.setAddress(storeDetailsEntity.getAddress());
+        storeDetails.setCity(storeDetailsEntity.getCity());
+        storeDetails.setContact(storeDetailsEntity.getContact());
+        storeDetails.setRating(storeDetailsEntity.getRating());
+        storeDetails.setThumbnail(storeDetailsEntity.getThumbnail());
+        storeDetails.setBrandInfoList(mappedBrandInfo);
+        storeDetails.setLocality(storeDetailsEntity.getLocality());
+        storeDetails.setLocation(location);
+        storeDetails.setReviews(storeDetailsEntity.getReviews());
+        storeDetails.setPhone_numbers(mappedPhoneNumber);
+
+        return storeDetails;
+
+
     }
 }

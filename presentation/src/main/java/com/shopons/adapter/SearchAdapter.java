@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.shopons.R;
 import com.shopons.domain.Store;
+import com.shopons.domain.StoreDetails;
 import com.shopons.model.SearchResult;
 import com.shopons.utils.Typefaces;
 
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  *
  */
-public final class SearchAdapter extends BaseListAdapter<SearchResult> {
+public final class SearchAdapter extends BaseListAdapter<StoreDetails> {
 
     private static final String TAG = "##PlacesAdapter##";
     private ISearchAdapterListener mListener;
@@ -35,7 +36,7 @@ public final class SearchAdapter extends BaseListAdapter<SearchResult> {
 
     public interface ISearchAdapterListener {
 
-        void onRestaurantSelected(final Store stoar);
+        void onRestaurantSelected(final StoreDetails stoar);
 
     }
 
@@ -59,7 +60,7 @@ public final class SearchAdapter extends BaseListAdapter<SearchResult> {
 
         Holder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_search,
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.view_search_entry,
                     parent, false);
             holder = new Holder(convertView);
            // holder.title.setTypeface(Typefaces.get(Typefaces.Type.PROXIMA_NOVA));
@@ -72,28 +73,19 @@ public final class SearchAdapter extends BaseListAdapter<SearchResult> {
       convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (getItem(position).getType()) {
-                    case SearchResult.RESTAURANT:
-                        mListener.onRestaurantSelected(getItem(position).getName());
-                        break;
-                }
+
+      mListener.onRestaurantSelected(getItem(position));
+
             }
         });
-        /*switch (getItem(position).getType()) {
-            case Place.HISTORY:
-                break;
-            case Place.POPULAR:
-                break;
-            case Place.SEARCH:
-                break;
-        }*/
-        switch (getItem(position).getType()) {
-            case SearchResult.RESTAURANT:
-                holder.title.setText((CharSequence) getItem(position).getName());
-                holder.type.setText("RESTAURANT");
-                break;
-        }
-        return convertView;
+
+      if(getItem(position).getLocality()!="")
+        holder.title.setText(getItem(position).getName()+","+ getItem(position).getLocality());
+      else
+          holder.title.setText(getItem(position).getName());
+
+      holder.type.setText("RESTAURANT");
+      return convertView;
     }
 
 

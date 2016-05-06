@@ -14,6 +14,8 @@ public class StoreDetailsEntity {
     private String name;
     @SerializedName("address")
     private String address;
+    @SerializedName("sub_locality")
+    private String locality;
     @SerializedName("city")
     private String city;
     @SerializedName("contact")
@@ -101,6 +103,14 @@ public class StoreDetailsEntity {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 
     public String getContact() {

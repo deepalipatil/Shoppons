@@ -6,15 +6,6 @@
     android:weightSum="1"
               android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/icontype"
-        android:layout_gravity="center_vertical|start"
-        android:gravity="center_vertical|right"
-        android:layout_weight="0.1"
-        android:layout_marginLeft="-4dp"
-        android:layout_width="0dp"
-        android:layout_height="24dp"/>
-
 
     <TextView
         android:id="@+id/result_title"
@@ -25,7 +16,8 @@
         android:gravity="center_vertical"
         android:layout_weight="0.9"
         android:layout_width="0dp"
-        android:layout_height="48dp"/>
+        android:layout_height="48dp"
+        android:text="result"/>
 
 
     <TextView
@@ -37,5 +29,6 @@
         android:layout_weight="0.3"
         android:visibility="gone"
         android:layout_width="0dp"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:text="type"/>
 </LinearLayout>

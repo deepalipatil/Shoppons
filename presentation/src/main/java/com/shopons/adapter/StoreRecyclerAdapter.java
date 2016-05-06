@@ -76,7 +76,10 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
     @Override
     public void onBindViewHolder(final StoreCardView holder, final int position) {
         holder.store_name.setText(getItem(position).getName());
-        holder.store_address.setText(getItem(position).getLocality()+","+getItem(position).getCity());
+        if(getItem(position).getLocality()!="")
+            holder.store_address.setText(getItem(position).getLocality()+","+getItem(position).getCity());
+        else
+            holder.store_address.setText(getItem(position).getCity());
         //Ratings
         if(getItem(position).getRating()==0.0)
         {

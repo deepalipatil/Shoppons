@@ -1,5 +1,6 @@
 package com.shopons.domain.repositories;
 
+import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
 
@@ -13,5 +14,6 @@ import rx.Observable;
 public interface StoreRepository {
     Observable<List<Store>> getStoreListing(double latitude, double longitude,int pageNo);
     Observable<StoreDetails> getStoreDetails(String storeId);
-    public Observable<List<StoreDetails>> searchResults(String query,int page_no);
+    Observable<List<StoreDetails>> searchResults(String query,int page_no);
+    Observable<List<StoreDetails>> searchResults(String query,Location userLoc,int page_no);
 }

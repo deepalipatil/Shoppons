@@ -2,10 +2,12 @@ package com.shopons.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
@@ -106,6 +108,18 @@ public abstract class  BaseFragment extends DialogFragment {
         tv.setTypeface(FontUtils.getFonts(tv.getContext(), "Arcon-Regular.otf"));
     }
 
+
+    boolean isGpsOn(Context context)
+    {
+        String allowedLocationProviders =
+                Settings.System.getString(context.getContentResolver(),
+                        Settings.System.LOCATION_PROVIDERS_ALLOWED);
+        if (allowedLocationProviders == null) {
+            allowedLocationProviders = "";
+        }
+        return allowedLocationProviders.contains(LocationManager.GPS_PROVIDER);
+    }
+
     protected void hideSoftKeyboard() {
         final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         if(getActivity().getCurrentFocus() != null) {
@@ -113,6 +127,7 @@ public abstract class  BaseFragment extends DialogFragment {
                     0);
         }
     }
+
 
     protected void openCameraIntent() {
         final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
