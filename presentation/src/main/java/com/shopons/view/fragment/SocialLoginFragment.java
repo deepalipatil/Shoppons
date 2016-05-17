@@ -15,6 +15,7 @@ import com.shopons.domain.User;
 import com.shopons.presenter.GeneralPresenter;
 import com.shopons.presenter.LoginPresenter;
 import com.shopons.utils.DialogsHelper;
+import com.shopons.view.activity.CallSocialLoginActivity;
 import com.shopons.view.activity.MainActivity;
 import com.shopons.view.activity.SocialLoginActivity;
 
@@ -146,8 +147,11 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                             @Override
                             public void onNext(final User user) {
                                 progressDialog.dismiss();
-                                Intent intent = new Intent(getContext(),MainActivity.class);
-                                startActivity(intent);
+                                CallSocialLoginActivity activity=(CallSocialLoginActivity)getActivity();
+                                activity.setLoginStatus(true);
+                                getActivity().finish();
+                                //Intent intent = new Intent(getContext(),MainActivity.class);
+                                //startActivity(intent);
                             }
                         });
                     }
@@ -166,9 +170,11 @@ public class SocialLoginFragment extends BaseLoginFragment  {
 
                 Log.d(TAG,"Completed!!!!!!");
 
-                Intent intent=new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("userLoginStatus",true);
-                startActivity(intent);
+                CallSocialLoginActivity activity=(CallSocialLoginActivity)getActivity();
+                activity.setLoginStatus(true);
+                //Intent intent=new Intent(getActivity(), MainActivity.class);
+                //intent.putExtra("userLoginStatus",true);
+                //startActivity(intent);
                 getActivity().finish();
             }
 

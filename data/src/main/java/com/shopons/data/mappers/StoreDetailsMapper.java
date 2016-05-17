@@ -1,8 +1,10 @@
 package com.shopons.data.mappers;
 
 
+import com.shopons.data.entities.DealsInfo;
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.domain.BrandInfo;
+import com.shopons.domain.Deals;
 import com.shopons.domain.Location;
 import com.shopons.domain.PhoneNumber;
 import com.shopons.domain.StoreDetails;
@@ -17,6 +19,7 @@ public class StoreDetailsMapper {
     public static StoreDetails transform(StoreDetailsEntity storeDetailsEntity)
     {
         List<BrandInfo> mappedBrandInfo=new ArrayList<>();
+        List<Deals> mappedDealsList=new ArrayList<>();
         Location location;
 
 
@@ -33,6 +36,14 @@ public class StoreDetailsMapper {
             mappedBrandInfo.add(new BrandInfo(element.getPerson_type(),element.getCategory()));
         }
 
+
+        for(DealsInfo element:storeDetailsEntity.getDealsInfoList())
+        {
+            Deals obj=new com.shopons.domain.Deals();
+            obj.setInfo(element.getInfo());
+            mappedDealsList.add(obj);
+        }
+
         StoreDetails storeDetails=new StoreDetails();
 
         storeDetails.setId(storeDetailsEntity.getId());
@@ -47,7 +58,7 @@ public class StoreDetailsMapper {
         storeDetails.setLocation(location);
         storeDetails.setReviews(storeDetailsEntity.getReviews());
         storeDetails.setPhone_numbers(mappedPhoneNumber);
-
+        storeDetails.setDealsInfoList(mappedDealsList);
         return storeDetails;
 
 

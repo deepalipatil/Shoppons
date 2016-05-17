@@ -16,12 +16,16 @@ public class StoreDetails {
     private double rating;
     private String thumbnail;
     private List<BrandInfo>brandInfoList;
+    private List<Deals>dealsInfoList;
     private boolean tag_men=false,tag_women=false,tag_kids=false;
     private Location location;
     private int reviews;
     private PhoneNumber phone_numbers;
 
-    public StoreDetails(){}
+    public StoreDetails(){
+        brandInfoList=new ArrayList<>();
+        dealsInfoList=new ArrayList<>();
+    }
 
     public StoreDetails(String id,String name, String address,String city, String contact, double rating,
                  String thumbnail,List<BrandInfo> brand_info,Location location,int reviews,PhoneNumber phone_numbers)
@@ -101,7 +105,17 @@ public class StoreDetails {
     }
 
     public void setBrandInfoList(List<BrandInfo> brandInfoList) {
-        this.brandInfoList = brandInfoList;
+        for(BrandInfo brandInfo:brandInfoList) {
+            this.brandInfoList.add(brandInfo);
+            if(brandInfo.getPerson_type().equals("Men") && tag_men==false)
+                tag_men=true;
+            if(brandInfo.getPerson_type().equals("Women") && tag_women==false)
+                tag_women=true;
+            if(brandInfo.getPerson_type().equals("Kids") && tag_kids==false)
+                tag_kids=true;
+        }
+
+        //this.brandInfoList = brandInfoList;
     }
 
     public String getThumbnail() {
@@ -175,4 +189,15 @@ public class StoreDetails {
     public void setPhone_numbers(PhoneNumber phone_numbers) {
         this.phone_numbers = phone_numbers;
     }
+
+    public List<Deals> getDealsInfoList() {
+        return dealsInfoList;
+    }
+
+    public void setDealsInfoList(List<Deals> dealsInfoList) {
+        for(Deals element:dealsInfoList)
+            this.dealsInfoList.add(element);
+    }
+
+
 }

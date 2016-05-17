@@ -94,6 +94,10 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
             Picasso.with(context).load(getItem(position).getThumbnail()).fit().centerCrop().into(holder.img_background);
         }
 
+        //Tags
+        if((!getItem(position).getTag_men()) && (!getItem(position).getTag_women()) && (!getItem(position).getTag_kids()))
+            holder.linear_tags.setVisibility(View.GONE);
+
         if(getItem(position).getTag_men() )
         {
             Log.d("Adapter", "Inside if condition of men "+getItem(position).getTag_men() );
@@ -112,10 +116,17 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
         else
             holder.tagKids.setVisibility(View.GONE);
 
+        //Discount
+        if(getItem(position).getDeals().get(0).getInfo()=="")
+            holder.discount.setVisibility(View.GONE);
+        else
+            holder.discount.setText(getItem(position).getDeals().get(0).getInfo());
+
+        //Location
         if(currentLoc.getLatitude()==-1 && currentLoc.getLongitude()==-1)
             holder.linear_place.setVisibility(View.GONE);
 
-       else
+        else
         {
             double distance=getDistanceFromLatLonInKm(currentLoc.getLatitude(),currentLoc.getLongitude(),
                     getItem(position).getLocation().getLatitude(),getItem(position).getLocation().getLongitude());
@@ -158,6 +169,8 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
         LinearLayout linear_tags;
         TextView ratings;
         TextView tagMen,tagWomen,tagKids;
+        TextView discount;
+        LinearLayout discount_container;
 
 
         public StoreCardView(View itemView) {
@@ -176,6 +189,8 @@ public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRec
             tagMen=(TextView)itemView.findViewById(R.id.tag_men);
             tagWomen=(TextView)itemView.findViewById(R.id.tag_women);
             tagKids=(TextView)itemView.findViewById(R.id.tag_kids);
+            discount=(TextView)itemView.findViewById(R.id.discount);
+            discount_container=(LinearLayout)itemView.findViewById(R.id.discount_container);
             tagMen.setVisibility(View.GONE);
             tagWomen.setVisibility(View.GONE);
             tagKids.setVisibility(View.GONE);

@@ -74,7 +74,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     }
 
     ActionBar actionBar;
-    boolean mIsLoggedIn;
+    //boolean mIsLoggedIn;
     private DrawerListAdapter mListAdapter;
     private View mHeaderView;
 
@@ -248,6 +248,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         updateAdapter(user);
         if (user != null) {
             mIsLoggedIn= true;
+            Log.d(TAG,"Set to true");
             mHeaderView=navigationView.getHeaderView(0);
             //mHeaderView = LayoutInflater.from(MainActivity.this)
               //      .inflate(R.layout.navigation_drawer_header, drawer_list, false);

@@ -25,67 +25,86 @@
         android:layout_height="match_parent"
         android:id="@+id/relative_store_info">
 
-        <TextView
-            android:id="@+id/store_name"
+        <LinearLayout
+            android:layout_height="40dp"
             android:layout_width="match_parent"
+            android:id="@+id/discount_container"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="20% off"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:id="@+id/discount"
+                android:textColor="#FFFFFF"
+                android:background="#FF0000"
+                android:layout_gravity="right"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:text="Levis shop "
-            android:textColor="#FFFFFF"
-            android:textStyle="bold|italic"
-            android:textSize="28dp"
-            android:gravity="left"
-            android:fontFamily="sans-serif"
-            android:layout_marginTop="42dp"
-            android:paddingRight="2dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/store_addr"
-            android:layout_alignStart="@+id/store_addr"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:layout_marginRight="20dp"
-            />
-        <TextView
-            android:id="@+id/store_addr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rajarampuri, Kolhapur"
-            android:textSize="20dp"
-            android:textColor="#FFFFFF"
+            android:layout_below="@+id/discount_container"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="25dp"
-            android:layout_below="@+id/store_name"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:layout_marginRight="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ratings"
-            android:text="4.0"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:textColor="#ffffff"
-            android:drawableLeft="@drawable/star_filled_25"
-            android:layout_marginRight="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-           />
+            android:layout_marginRight="100dp"
+            android:id="@+id/basic_info">
+
+            <TextView
+                android:id="@+id/store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XXXXX "
+                android:textColor="#FFFFFF"
+                android:textStyle="bold|italic"
+                android:textSize="28dp"
+                android:fontFamily="sans-serif"
+                android:ellipsize="end"
+                android:singleLine="true"/>
+
+            <TextView
+                android:id="@+id/store_addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="xxxxx"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF"
+                android:layout_below="@+id/store_name"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginTop="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratings"
+                android:text="4.0"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textColor="#ffffff"
+                android:drawableLeft="@drawable/star_filled_25"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
 
 
         <LinearLayout android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="36dp"
             android:layout_marginEnd="36dp"
-            android:layout_marginBottom="38dp"
+            android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:orientation="vertical"
-            android:id="@+id/linear_place"
-        >
+            android:id="@+id/linear_place">
 
         <ImageView android:layout_width="30dp"
             android:layout_height="30dp"
@@ -98,8 +117,7 @@
                 android:layout_height="match_parent"
                 android:text="20km"
                 android:textColor="#ffffff"
-                android:textSize="15dp"
-            />
+                android:textSize="15dp"/>
 
         </LinearLayout>
 
@@ -107,10 +125,9 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="38dp"
+            android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/store_addr"
-            android:layout_alignStart="@+id/store_addr"
+            android:layout_marginLeft="30dp"
             android:id="@+id/linear_tags"
             >
 
@@ -137,7 +154,9 @@
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 android:id="@+id/tag_kids"/>
-            </LinearLayout>
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 

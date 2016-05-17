@@ -31,6 +31,7 @@ public class BaseScreen extends AppCompatActivity{
     private LoginPresenter mLoginPresenter;
     protected String mLastTag;
     private static final String TAG = "##BaseScreen";
+    protected static boolean mIsLoggedIn=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,14 @@ public class BaseScreen extends AppCompatActivity{
         }
     }
 
+    public void setLoginStatus(boolean value)
+    {
+        mIsLoggedIn=value;
+    }
+    public boolean isUserLoggedIn()
+    {
+        return mIsLoggedIn;
+    }
     /*protected void changeStatusBarColor(final int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = getWindow();

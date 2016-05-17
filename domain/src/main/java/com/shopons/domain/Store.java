@@ -22,8 +22,13 @@ import java.util.List;
     private Location location;
     private int reviews;
     private PhoneNumber phone_numbers;
+    private List<Deals> deals;
 
 
+    public Store(){
+        this.brandInfoList=new ArrayList<>();
+        this.deals=new ArrayList<>();
+    }
 
     public Store(String id,String name, String address,String locality,String city, String contact, double rating,
                  String thumbnail,List<BrandInfo> brand_info,Location location,int reviews,PhoneNumber phone_numbers)
@@ -104,7 +109,16 @@ import java.util.List;
     }
 
     public void setBrandInfoList(List<BrandInfo> brandInfoList) {
-        this.brandInfoList = brandInfoList;
+        for(BrandInfo brandInfo:brandInfoList) {
+            this.brandInfoList.add(brandInfo);
+            if(brandInfo.getPerson_type().equals("Men") && tag_men==false)
+                tag_men=true;
+            if(brandInfo.getPerson_type().equals("Women") && tag_women==false)
+                tag_women=true;
+            if(brandInfo.getPerson_type().equals("Kids") && tag_kids==false)
+                tag_kids=true;
+        }
+       // this.brandInfoList = brandInfoList;
     }
 
     public String getThumbnail() {
@@ -170,5 +184,20 @@ import java.util.List;
         this.rating = rating;
     }
 
+    public PhoneNumber getPhone_numbers() {
+        return phone_numbers;
+    }
 
+    public void setPhone_numbers(PhoneNumber phone_numbers) {
+        this.phone_numbers = phone_numbers;
+    }
+
+    public void setDeals(List<Deals> deals) {
+        for(Deals element:deals)
+            this.deals.add(element);
+    }
+
+    public List<Deals> getDeals() {
+        return deals;
+    }
 }

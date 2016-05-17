@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -35,7 +37,7 @@ import rx.Subscriber;
 /**
  * Created by Win7 on 11-Feb-16.
  */
-public class shop_info extends AppCompatActivity{
+public class shop_info extends BaseScreen{
     Boolean details_added=false;
 
 
@@ -44,6 +46,7 @@ public class shop_info extends AppCompatActivity{
     String store_id;
     StorePresenter mStorePresenter;
     StoreDetails store;
+    final String TAG="###Shop_Info";
 
     @Bind(R.id.store_name)
     TextView store_name;
@@ -59,6 +62,8 @@ public class shop_info extends AppCompatActivity{
 
     @Bind(R.id.info_label)
     TextView info;
+
+
 
     @OnClick(R.id.call)
     void callStorePerson()
@@ -192,6 +197,22 @@ public class shop_info extends AppCompatActivity{
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
+    public void coupon_detail(View view)
+    {
+        if(isUserLoggedIn())
+        {
+            Intent intent=new Intent(getApplicationContext(),detail_coupon.class);
+            intent.putExtra("dealId",store.getDealsInfoList().get(0).getId());
+            intent.putExtra("shop_name",store.getName());
+            startActivity(intent);
+        }
+        else
+        {
+            Log.d(TAG,""+isUserLoggedIn());
+            Intent intent=new Intent(getApplicationContext(), CallSocialLoginActivity.class);
+            startActivity(intent);
+        }
+    }
 
    /* public void addButtonClickListner() {
 

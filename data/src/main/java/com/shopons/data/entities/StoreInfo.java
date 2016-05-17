@@ -29,9 +29,11 @@ public class StoreInfo {
     private List<BrandInfo> brandInfoList;
     @SerializedName("total_reviews")
     private int reviews;
-
     private LocationEntity location;
     private PhoneNumberEntity phone_numbers;
+    private List<DealsInfo> dealsInfoList;
+
+
 
 
     public PhoneNumberEntity getPhone_numbers() {
@@ -131,5 +133,12 @@ public class StoreInfo {
         this.rating = rating;
     }
 
+    public List<DealsInfo> getDealsInfoList() {
+        return dealsInfoList;
+    }
+
+    public void setDealsInfoList(List<DealsInfo> dealsInfoList) {
+        this.dealsInfoList = dealsInfoList;
+    }
 }
 
