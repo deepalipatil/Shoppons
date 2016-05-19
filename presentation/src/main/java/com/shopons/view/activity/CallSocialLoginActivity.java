@@ -1,6 +1,8 @@
 package com.shopons.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.shopons.R;
 import com.shopons.view.fragment.SocialLoginFragment;
@@ -28,9 +30,18 @@ public class CallSocialLoginActivity extends BaseScreen  {
      * as appropriate.
      */
 
-    @OnClick(R.id.btn_back)
-    void closeActivity()
+    // @OnClick(R.id.btn_back)
+    // void closeActivity(){finish();}
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    public void BackActivity()
     {
+        Intent intent = new Intent(getBaseContext(),MainActivity.class);
+        startActivity(intent);
         finish();
     }
 

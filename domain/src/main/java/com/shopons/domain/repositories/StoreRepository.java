@@ -1,5 +1,6 @@
 package com.shopons.domain.repositories;
 
+import com.shopons.domain.Coupon;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
@@ -16,4 +17,5 @@ public interface StoreRepository {
     Observable<StoreDetails> getStoreDetails(String storeId);
     Observable<List<StoreDetails>> searchResults(String query,int page_no);
     Observable<List<StoreDetails>> searchResults(String query,Location userLoc,int page_no);
+    Observable<Coupon>getCouponCode(String authKey,String DealId);
 }

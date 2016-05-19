@@ -43,9 +43,9 @@ public class SearchByShopName extends UseCase<List<StoreDetails>> {
     }
     @Override
     protected Observable<List<StoreDetails>> buildUseCaseObservable() {
-        if(userLoc==null)
+       // if(userLoc==null)
             return mStoreRepository.searchResults(query,page_no);
-        else
-            return mStoreRepository.searchResults(query,userLoc,page_no);
+       // else
+         //   return mStoreRepository.searchResults(query,userLoc,page_no);
     }
 }

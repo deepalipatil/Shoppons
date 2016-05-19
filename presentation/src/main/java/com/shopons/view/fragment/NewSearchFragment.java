@@ -195,7 +195,7 @@ public class NewSearchFragment extends BaseFragment {
         mStorePresenter.searchResults(query,mPageNo,new Subscriber<List<StoreDetails>>() {
             @Override
             public void onCompleted() {
-                //Log.d()
+                Log.d(TAG,"Done fetching search results");
 
             }
 
@@ -228,6 +228,7 @@ public class NewSearchFragment extends BaseFragment {
                 if (mPageNo == 0) {
                     mAdapter.clearList();
                     mAdapter.setItemArrayList(storeDetailses);
+                    Log.d(TAG,"Got following number of results "+storeDetailses.size());
                 } else if (mPageNo > 0) {
                     mAdapter.appendList(storeDetailses);
                 } else {

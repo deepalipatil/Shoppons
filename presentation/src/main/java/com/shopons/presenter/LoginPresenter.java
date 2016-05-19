@@ -4,6 +4,7 @@ import com.shopons.domain.User;
 import com.shopons.domain.interactors.FBLogin;
 import com.shopons.domain.interactors.GPlusLogin;
 import com.shopons.domain.interactors.GetUserInfo;
+import com.shopons.domain.interactors.LogoutUser;
 import com.shopons.domain.interactors.SaveUserInfo;
 import com.shopons.domain.repositories.UserRepository;
 
@@ -42,6 +43,11 @@ public final class LoginPresenter extends Presenter {
 
     public void getUserInfo(final Subscriber<User> subscriber) {
         mSubscriptions.add(new GetUserInfo(mUserRepository,
+                mThreadExecutor, mPostExecutionThread).execute(subscriber));
+    }
+
+    public void logoutUser(final Subscriber<Void> subscriber){
+        mSubscriptions.add(new LogoutUser(mUserRepository,
                 mThreadExecutor, mPostExecutionThread).execute(subscriber));
     }
 

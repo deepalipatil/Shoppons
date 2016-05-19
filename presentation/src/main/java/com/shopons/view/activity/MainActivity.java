@@ -3,6 +3,7 @@ package com.shopons.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +19,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -32,6 +36,7 @@ import com.shopons.domain.Location;
 import com.shopons.domain.User;
 import com.shopons.model.DrawerMenu;
 import com.shopons.presenter.LoginPresenter;
+import com.shopons.utils.DialogsHelper;
 import com.shopons.utils.FontUtils;
 import com.shopons.view.fragment.MainFragment;
 import com.squareup.picasso.Picasso;
@@ -69,12 +74,12 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     void searchById()
     {
         Log.d("###MainActivity","Inside Search on Click");
-        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(intent);
     }
 
     ActionBar actionBar;
-    //boolean mIsLoggedIn;
+    boolean mIsLoggedIn;
     private DrawerListAdapter mListAdapter;
     private View mHeaderView;
 
@@ -97,14 +102,14 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                             .build(this);
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException e) {
-        // TODO: Handle the error.
+            // TODO: Handle the error.
         } catch (GooglePlayServicesNotAvailableException e) {
-        // TODO: Handle the error.
+            // TODO: Handle the error.
         }
 
     }
-        public Location getSearchLocation()
-        {return mLocation;}
+    public Location getSearchLocation()
+    {return mLocation;}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -134,33 +139,47 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 .inflate(R.layout.navigation_drawer_header, drawer_list, false);
         //if(!mIsLoggedIn)
         initNavigationView(user);
+
         // {
-            mLoginPresenter.getUserInfo(new Subscriber<User>() {
-                @Override
-                public void onCompleted() {
-                    Log.d(TAG, "getting user info");
-                }
+        mLoginPresenter.getUserInfo(new Subscriber<User>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "getting user info");
+            }
 
-                @Override
-                public void onError(final Throwable e) {
-                    e.printStackTrace();
-                }
+            @Override
+            public void onError(final Throwable e) {
+                e.printStackTrace();
+            }
 
-                @Override
-                public void onNext(final User user) {
-                    //initToolbar();
+            @Override
+            public void onNext(final User user) {
+                //initToolbar();
 
 
-                    Log.d(TAG, "User name:" + user.getName());
-                    Log.d(TAG, "User Email" + user.getEmail());
-                    initNavigationView(user);
-                }
-            });
-       // }
+               // Log.d(TAG, "User name:" + user.getName());
+               // Log.d(TAG, "User Email" + user.getEmail());
+                initNavigationView(user);
+            }
+        });
+        // }
     }
 
     @Override
     public void onBackPressed() {
+        DialogsHelper.showInteractiveDialog(this, "OK", "CANCEL", "Close Application?", "Do you want to close application?",
+                new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        materialDialog.dismiss();
+                        finish();
+                    }
+                }, new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        materialDialog.dismiss();
+                    }
+                });
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
             return;
@@ -175,7 +194,8 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             drawerLayout.closeDrawers();
             return;
         }
-        super.onBackPressed();
+        finish();
+        // super.onBackPressed();
     }
 
     @Override
@@ -239,7 +259,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     }
 
     protected void showToolbarMenu() {
-        toolbar.getMenu().getItem(0).setVisible(true);
+        toolbar.getMenu().getItem(mPosition).setVisible(true);
     }
 
     private void initNavigationView(final User user) {
@@ -248,10 +268,9 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         updateAdapter(user);
         if (user != null) {
             mIsLoggedIn= true;
-            Log.d(TAG,"Set to true");
             mHeaderView=navigationView.getHeaderView(0);
             //mHeaderView = LayoutInflater.from(MainActivity.this)
-              //      .inflate(R.layout.navigation_drawer_header, drawer_list, false);
+            //      .inflate(R.layout.navigation_drawer_header, drawer_list, false);
             if (!user.getPhoto_url().isEmpty()) {
                 Log.d("##HomeActivity", "Height ");
                 //cLog.d()
@@ -273,7 +292,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                     .setText(user.getName());
             ((TextView) mHeaderView.findViewById(R.id.username))
                     .setTypeface(FontUtils.getFonts(this.getBaseContext(), "Arcon-Regular.otf"));
-           // drawer_list.addHeaderView(mHeaderView);
+            // drawer_list.addHeaderView(mHeaderView);
             mListAdapter.setSelected(1);
 
         }
@@ -331,7 +350,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             case "login":
                 return R.drawable.menu_logout;
 
-            case "about":
+            case "about us":
                 return R.drawable.menu_contact;
 
             case "contact us":
@@ -352,7 +371,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             case "login":
                 return R.drawable.menu_login_select;
 
-            case "about":
+            case "about us":
                 return R.drawable.menu_contact_select;
 
             case "contact us":
@@ -379,18 +398,34 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     private void switchFragmentSkip(final int position) {
         switch (position) {
             case 0:
-                //showToolbarMenu();
                 Intent intent=new Intent(getBaseContext(),MainActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
+                //showToolbarMenu();
                 break;
             case 1:
                 Intent intent1 =new Intent(getBaseContext(),CallSocialLoginActivity.class);
                 startActivity(intent1);
-                finish();
+                //finish();
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+            case 2:
+                Intent intent2 =new Intent(getBaseContext(),About.class);
+                startActivity(intent2);
+                //finish();
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+            case 3:
+                Intent intent3 =new Intent(getBaseContext(),contact.class);
+                startActivity(intent3);
+               // finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
@@ -398,7 +433,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         }
     }
 
-    @Override
+    /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
@@ -408,33 +443,73 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 Log.d(TAG,"######Login clicked");
                 Intent intent = new Intent(getApplicationContext(), CallSocialLoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void switchFragmentLogin(final int position) {
         switch (position) {
-            case 1:
+            case 0:
                 //showToolbarMenu();
-                Intent intent =new Intent(getBaseContext(),MainActivity.class);
+                Intent intent =new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
-                finish();
+               // finish();
                 removeFragment(mLastTag);
-                drawerLayout.closeDrawers();
-                mPosition = position;
-                mListAdapter.setSelected(position - 1);
-                break;
-            case 2:
-                removeFragment(mLastTag);
-                Intent intent1 =new Intent(getBaseContext(),CallSocialLoginActivity.class);
-                startActivity(intent1);
-                finish();
                 drawerLayout.closeDrawers();
                 mPosition = position;
                 mListAdapter.setSelected(position);
                 break;
+            case 1:
+                //showToolbarMenu();
+                Intent intent2 =new Intent(getBaseContext(),About.class);
+                startActivity(intent2);
+                //finish();
+                removeFragment(mLastTag);
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+            case 2:
+                //showToolbarMenu();
+                Intent intent3 =new Intent(getBaseContext(),contact.class);
+                startActivity(intent3);
+                //finish();
+                removeFragment(mLastTag);
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+            case 3:
+                removeFragment(mLastTag);
+                mIsLoggedIn=false;
+                mLoginPresenter.logoutUser(new Subscriber<Void>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(final Throwable e) {
+                        Toast.makeText(getBaseContext(), "Error while logging out!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(Void aVoid) {
+                        Intent intent1 =new Intent(getBaseContext(),CallSocialLoginActivity.class);
+                        startActivity(intent1);
+                        //finish();
+                    }
+                });
+                switchFragmentSkip(0);
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+
         }
     }
 

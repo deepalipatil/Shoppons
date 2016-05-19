@@ -43,6 +43,18 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name="com.shopons.view.activity.contact"
+            android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name="com.shopons.view.activity.About"
+            android:label="@string/title_activity_splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".view.activity.SearchActivity"
             android:label="SearchActivity"

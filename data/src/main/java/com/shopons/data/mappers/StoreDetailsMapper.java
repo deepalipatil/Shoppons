@@ -1,6 +1,8 @@
 package com.shopons.data.mappers;
 
 
+import android.util.Log;
+
 import com.shopons.data.entities.DealsInfo;
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.domain.BrandInfo;
@@ -23,6 +25,7 @@ public class StoreDetailsMapper {
         Location location;
 
 
+        Log.d("#######StoreDetailsMapper","Inside mapper");
         if(storeDetailsEntity.getLocation()!=null)
             location=new Location(storeDetailsEntity.getLocation().getLat(),storeDetailsEntity.getLocation().getLng());
         else
@@ -37,13 +40,22 @@ public class StoreDetailsMapper {
         }
 
 
-        for(DealsInfo element:storeDetailsEntity.getDealsInfoList())
+        if(storeDetailsEntity.getDealsInfoList()!=null)
         {
-            Deals obj=new com.shopons.domain.Deals();
-            obj.setInfo(element.getInfo());
-            mappedDealsList.add(obj);
+            Log.d("######Mapper#######", "Deals is not null");
+            for (DealsInfo element : storeDetailsEntity.getDealsInfoList()) {
+                Deals obj = new com.shopons.domain.Deals();
+                obj.setInfo(element.getInfo());
+                obj.setId(element.getId());
+                mappedDealsList.add(obj);
+                if (obj.getId() != null) ;
+                Log.d("######Mapper#######", obj.getId());
+            }
         }
-
+        else {
+            Log.d("######Mapper#######", "Deals is null");
+            mappedDealsList = null;
+        }
         StoreDetails storeDetails=new StoreDetails();
 
         storeDetails.setId(storeDetailsEntity.getId());
@@ -58,7 +70,9 @@ public class StoreDetailsMapper {
         storeDetails.setLocation(location);
         storeDetails.setReviews(storeDetailsEntity.getReviews());
         storeDetails.setPhone_numbers(mappedPhoneNumber);
+        if(mappedDealsList!=null)
         storeDetails.setDealsInfoList(mappedDealsList);
+
         return storeDetails;
 
 

@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -38,10 +40,10 @@ public class SocialLoginFragment extends BaseLoginFragment  {
         return new SocialLoginFragment();
     }
 
-    @OnClick(R.id.btn_back)
-    void onBackClick()
+    @OnClick(R.id.back)
+    void BackButton()
     {
-        getActivity().finish();
+        ((CallSocialLoginActivity)getActivity()).BackActivity();
     }
 
     @OnClick(R.id.facebook_login_button)
@@ -82,7 +84,8 @@ public class SocialLoginFragment extends BaseLoginFragment  {
         TextView fbb = (TextView)view.findViewById(R.id.facebook_login_button);
         BaseFragment.setRegularFont(fbb);
         TextView ll = (TextView)view.findViewById(R.id.login_label);
-        BaseFragment.setBoldFont(ll);
+        BaseFragment.setTypeFace(ll);
+        ImageView button = (ImageView) view.findViewById(R.id.back);
         return view;
     }
 
@@ -147,11 +150,8 @@ public class SocialLoginFragment extends BaseLoginFragment  {
                             @Override
                             public void onNext(final User user) {
                                 progressDialog.dismiss();
-                                CallSocialLoginActivity activity=(CallSocialLoginActivity)getActivity();
-                                activity.setLoginStatus(true);
-                                getActivity().finish();
-                                //Intent intent = new Intent(getContext(),MainActivity.class);
-                                //startActivity(intent);
+                                Intent intent = new Intent(getContext(),MainActivity.class);
+                                startActivity(intent);
                             }
                         });
                     }
@@ -170,11 +170,9 @@ public class SocialLoginFragment extends BaseLoginFragment  {
 
                 Log.d(TAG,"Completed!!!!!!");
 
-                CallSocialLoginActivity activity=(CallSocialLoginActivity)getActivity();
-                activity.setLoginStatus(true);
-                //Intent intent=new Intent(getActivity(), MainActivity.class);
-                //intent.putExtra("userLoginStatus",true);
-                //startActivity(intent);
+                Intent intent=new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("userLoginStatus",true);
+                startActivity(intent);
                 getActivity().finish();
             }
 

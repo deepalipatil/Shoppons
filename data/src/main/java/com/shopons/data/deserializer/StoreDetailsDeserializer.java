@@ -1,5 +1,7 @@
 package com.shopons.data.deserializer;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -53,12 +55,19 @@ public class StoreDetailsDeserializer implements JsonDeserializer<StoreDetailsEn
 
         arry_json=baseObj.get("deals").getAsJsonArray();
         List<DealsInfo> dealsInfoList=new ArrayList<>();
+        DealsInfo deal=new DealsInfo();
 
+        if(arry_json==null)
+            store.setDealsInfoList(null);
+        else
         for(JsonElement element:arry_json)
         {
-            dealsInfoList.add(new Gson().fromJson(element,DealsInfo.class));
+            deal=new Gson().fromJson(element,DealsInfo.class);
+            Log.d("Deserialize", deal.getId());
+            dealsInfoList.add(deal);
         }
 
+        Log.d("Desearlizer","No of deals "+dealsInfoList.size());
         store.setDealsInfoList(dealsInfoList);
 
         return store;

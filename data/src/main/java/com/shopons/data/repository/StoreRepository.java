@@ -10,16 +10,19 @@ import com.shopons.data.deserializer.StoreDeserializer;
 import com.shopons.data.deserializer.StoreDetailsDeserializer;
 import com.shopons.data.deserializer.StoreEntityDeserializer;
 import com.shopons.data.entities.AppVersionEntity;
+import com.shopons.data.entities.CouponEntity;
 import com.shopons.data.entities.SearchResultEntity;
 import com.shopons.data.entities.StoreDetailsEntity;
 import com.shopons.data.entities.StoreEntity;
 import com.shopons.data.entities.StoreInfo;
 import com.shopons.data.mappers.AppVersionMapper;
+import com.shopons.data.mappers.CouponMapper;
 import com.shopons.data.mappers.StoreDetailsMapper;
 import com.shopons.data.mappers.StoreMapper;
 import com.shopons.data.net.StoreApi;
 import com.shopons.data.utils.Urls;
 import com.shopons.domain.AppVersion;
+import com.shopons.domain.Coupon;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
@@ -91,6 +94,9 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
     }
     public Observable<StoreDetails> getStoreDetails(String storeId)
     {
+        Log.d("TESTINGG","GJGJGGHJGGJGGJHGGHGHGHG");
+        mStoreApi.generateCoupon(" 25efc6bf-4cde-4868-986b-faed2b7b8bf5","5727193e5132624542dab6cc");
+        Log.d("TESTINGG","############################################################################");
         return  mStoreApi.getStoreDetails(storeId).map(new Func1<StoreDetailsEntity, StoreDetails>() {
             @Override
             public StoreDetails call(StoreDetailsEntity storeDetailsEntity) {
@@ -112,6 +118,7 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
                     for (StoreDetailsEntity element : list) {
                         searchResult.add(StoreDetailsMapper.transform(element));
                     }
+                    Log.d("#####StoreRepository","No of results"+searchResult.size());
                     return searchResult;
                 }
 
@@ -133,12 +140,31 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
                     for (StoreDetailsEntity element : list) {
                         searchResult.add(StoreDetailsMapper.transform(element));
                     }
+                    Log.d("#####StoreRepository","No of results"+searchResult.size());
                     return searchResult;
                 }
 
                 return null;
             }
         });
+    }
+
+    @Override
+    public Observable<Coupon> getCouponCode(String authKey, String DealId) {
+
+        Log.d("###Coupon Repository","Inside method of getCouponCode");
+        mStoreApi.getStoreDetails("ffdfdfdfdgf");
+        //Log.d("###Coupon Repository","NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+       /* return mStoreApi.generateCoupon(authKey,DealId).map(new Func1<CouponEntity, Coupon>() {
+            @Override
+            public Coupon call(CouponEntity couponEntity) {
+                Log.d("###Coupon Repository","Mapping Info");
+                return CouponMapper.transform(couponEntity);
+            }
+        });*/
+
+
+        return null;
     }
 
 }

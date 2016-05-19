@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
 
@@ -105,7 +105,7 @@
                 <FrameLayout
                     android:id="@+id/images_container"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="280dp">
 
                     <RelativeLayout
 
@@ -124,7 +124,7 @@
                             android:id="@+id/store_name"
                             android:text="Levis"
                             android:textStyle="bold|italic"
-                            android:layout_marginTop="50dp"
+                            android:layout_marginTop="70dp"
                             android:layout_marginLeft="@dimen/shop_info_margin_left"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -292,40 +292,67 @@
 
             </LinearLayout>
 
-
-            <ImageView
-                android:id="@+id/addr_image"
-                android:layout_width="55dp"
-                android:layout_below="@+id/info"
-                android:layout_height="57dp"
-                android:layout_marginLeft="@dimen/shop_info_margin_left"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:onClick="address_map"
-                android:src="@drawable/tmaps"
-                />
-
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_below="@+id/addr_image"
-                android:background="@color/light_gray"
-                android:orientation="horizontal"
-                android:gravity="right"
-                android:id="@+id/coupon_button_container">
+                android:id="@+id/map"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_below="@+id/info"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                >
 
 
-            <Button
-                android:id="@+id/coupon_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/coupon_button"
-                android:text="Coupon"
-                android:onClick="coupon_detail"
-                android:layout_gravity="right"
-                />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addr_image"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="address_map"
+                    android:src="@drawable/tmaps"/>
+
             </LinearLayout>
 
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/map"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="7dp"
+                android:background="@android:color/transparent"
+                app:cardBackgroundColor="#2196F3"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="4dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+
+                <Button
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/detail"
+                    android:background="#2196F3"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="Get Coupon"
+                    android:onClick="coupon_detail"/>
+
+            </android.support.v7.widget.CardView>
+
         </RelativeLayout>
+
     </ScrollView>
 </LinearLayout>

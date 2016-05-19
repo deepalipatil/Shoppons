@@ -203,6 +203,7 @@ public class shop_info extends BaseScreen{
         {
             Intent intent=new Intent(getApplicationContext(),detail_coupon.class);
             intent.putExtra("dealId",store.getDealsInfoList().get(0).getId());
+            Log.d(TAG,"Deal Id"+store.getDealsInfoList().get(0).getId());
             intent.putExtra("shop_name",store.getName());
             startActivity(intent);
         }

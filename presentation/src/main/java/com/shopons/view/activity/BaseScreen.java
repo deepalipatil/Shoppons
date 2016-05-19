@@ -31,7 +31,7 @@ public class BaseScreen extends AppCompatActivity{
     private LoginPresenter mLoginPresenter;
     protected String mLastTag;
     private static final String TAG = "##BaseScreen";
-    protected static boolean mIsLoggedIn=false;
+    protected static boolean mIsLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class BaseScreen extends AppCompatActivity{
         mGeneralPresenter.destroy();
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
 
         DialogsHelper.showInteractiveDialog(this, "OK", "CANCEL", "Close Application?", "Do you want to close application?",
@@ -142,5 +142,5 @@ public class BaseScreen extends AppCompatActivity{
                         materialDialog.dismiss();
                     }
                 });
-    }
+    }*/
 }

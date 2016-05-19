@@ -98,7 +98,13 @@ public final class UserRepository implements com.shopons.domain.repositories.Use
 
     @Override
     public Observable<Void> logout() {
-        return null;
+        return Observable.create(new Observable.OnSubscribe<Void>() {
+            public void call(Subscriber<? super Void> subscriber) {
+                UserInfo.clearUserInfo();
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        });
     }
 
 

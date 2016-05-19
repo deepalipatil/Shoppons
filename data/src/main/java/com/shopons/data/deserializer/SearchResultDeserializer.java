@@ -42,6 +42,7 @@ public class SearchResultDeserializer implements JsonDeserializer<SearchResultEn
         for(JsonElement element:stores)
         {
             StoreDetailsEntity store=new Gson().fromJson(element, StoreDetailsEntity.class);
+            Log.d("###SearchResultDeserializer",":"+store.getDealsInfoList());
             searchResult.add(store);
         }
 

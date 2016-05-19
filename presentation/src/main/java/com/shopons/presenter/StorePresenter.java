@@ -1,8 +1,11 @@
 package com.shopons.presenter;
 
+import com.shopons.domain.Coupon;
 import com.shopons.domain.Location;
 import com.shopons.domain.Store;
 import com.shopons.domain.StoreDetails;
+import com.shopons.domain.interactors.GenerateCoupon;
+import com.shopons.domain.interactors.GetCouponCode;
 import com.shopons.domain.interactors.GetStoreDetails;
 import com.shopons.domain.interactors.GetStoreListingByLocation;
 import com.shopons.domain.interactors.SearchByShopName;
@@ -43,6 +46,14 @@ public class StorePresenter extends Presenter {
         mSubscriptions.add(new SearchByShopName(query,userLoc,page_no,mStoreRepository,
                 mThreadExecutor,mPostExecutionThread).execute(subscriber));
     }
+
+
+    public void generateCoupon(String authKey, String dealId, Subscriber<Coupon> subscriber)
+    {
+        mSubscriptions.add(new GetCouponCode(authKey,dealId,mStoreRepository,
+                mThreadExecutor,mPostExecutionThread).execute(subscriber));
+    }
+
     @Override
     void resume() {
         cancelRunningUseCases();
