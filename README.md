@@ -1,18 +1,5 @@
 # Android App Structure
 
-Base repository for Android apps.
-
-## Introduction
-
-We at BetaCraft, have been continuously working on Android applications, libraries and some
-embedded apps. The biggest common issue we had faced was managing a continuously expanding
-codebase with quality, when we are delivering the app at faster rate (our usual sprint cycle is
-of 6 days) and multiple minds are working on the same codebase. Continuous research and some of
-our experience landed us onto this architecture. This is hugely inspired from
-AndroidCleanArchitecture, with some of our own beliefs.
-
-
-## Structure
 
 App is divided into three main modules.
 
@@ -76,4 +63,3 @@ Which is very specific to the presentation logic.
 ##### Activities
 ##### Fragments
 ##### Components
-
