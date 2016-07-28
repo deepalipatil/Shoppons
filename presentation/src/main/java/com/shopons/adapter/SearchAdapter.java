@@ -80,9 +80,9 @@ public final class SearchAdapter extends BaseListAdapter<StoreDetails> {
         });
 
       if(getItem(position).getLocality()!="")
-        holder.title.setText(getItem(position).getName()+" ,"+ getItem(position).getLocality()+" ,"+getItem(position).getCity());
+        holder.title.setText(getItem(position).getName()+", "+ getItem(position).getLocality()+", "+getItem(position).getCity());
       else
-          holder.title.setText(getItem(position).getName());
+          holder.title.setText(getItem(position).getName()+", "+getItem(position).getCity());
 
       holder.type.setText("RESTAURANT");
       return convertView;

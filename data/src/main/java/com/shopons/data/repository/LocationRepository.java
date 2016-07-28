@@ -9,9 +9,6 @@ import com.shopons.domain.Location;
 import rx.Observable;
 import rx.Subscriber;
 
-/**
- * Created by komal on 19/2/16.
- */
 public class LocationRepository implements com.shopons.domain.repositories.LocationRepository{
 
     Context mContext;

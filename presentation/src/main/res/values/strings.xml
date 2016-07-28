@@ -43,17 +43,16 @@
     <string name="close">Close</string>
     <string-array name="home_drawer_loggedin_menu">
         <item>Home</item>
-        <item>Favorite</item>
         <item>About Us</item>
         <item>Contact Us</item>
+        <item>Coupons</item>
         <item>Logout</item>
     </string-array>
-
     <string-array name="home_drawer_menu">
         <item>Home</item>
         <item>Login</item>
-        <item>Contact Us</item>
         <item>About Us</item>
+        <item>Contact Us</item>
     </string-array>
 
 </resources>

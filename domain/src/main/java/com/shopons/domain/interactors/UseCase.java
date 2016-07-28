@@ -8,13 +8,6 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
-/**
- * This is the base class for all the use cases related with the domain of the app.
- *
- * @author : Kaustubh Deshmukh
- * @date : 01/10/15 : 3:47 PM
- * @email : akshay@betacraft.co
- */
 public abstract class UseCase<T> {
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;

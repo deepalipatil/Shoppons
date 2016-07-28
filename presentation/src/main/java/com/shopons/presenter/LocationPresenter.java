@@ -8,9 +8,6 @@ import com.shopons.domain.interactors.GetUserLocation;
 import rx.Observable;
 import rx.Subscriber;
 
-/**
- * Created by komal on 20/2/16.
- */
 public class LocationPresenter extends Presenter {
 
     LocationRepository mLocationRepository;

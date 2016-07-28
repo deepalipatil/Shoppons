@@ -1,8 +1,5 @@
 package com.shopons.domain;
 
-/**
- * Created by komal on 25/3/16.
- */
 public class PhoneNumber {
     private String telephone;
     private String mobile;

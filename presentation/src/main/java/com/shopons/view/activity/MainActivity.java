@@ -79,7 +79,6 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
     }
 
     ActionBar actionBar;
-    boolean mIsLoggedIn;
     private DrawerListAdapter mListAdapter;
     private View mHeaderView;
 
@@ -167,19 +166,6 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
     @Override
     public void onBackPressed() {
-        DialogsHelper.showInteractiveDialog(this, "OK", "CANCEL", "Close Application?", "Do you want to close application?",
-                new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        materialDialog.dismiss();
-                        finish();
-                    }
-                }, new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        materialDialog.dismiss();
-                    }
-                });
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
             return;
@@ -267,7 +253,7 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
         drawer_list.setOnItemClickListener(this);
         updateAdapter(user);
         if (user != null) {
-            mIsLoggedIn= true;
+            setLoginStatus(true);
             mHeaderView=navigationView.getHeaderView(0);
             //mHeaderView = LayoutInflater.from(MainActivity.this)
             //      .inflate(R.layout.navigation_drawer_header, drawer_list, false);
@@ -356,6 +342,9 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
             case "contact us":
                 return R.drawable.menu_login;
 
+            case "coupons":
+                return R.drawable.coupon;
+
         }
         throw new Exception("No icon found to map! " + text);
     }
@@ -376,6 +365,9 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
 
             case "contact us":
                 return R.drawable.menu_login_select;
+
+            case "coupons":
+                return R.drawable.coupons_select;
 
         }
         throw new Exception("No icon found to map! " + text);
@@ -483,12 +475,21 @@ public class MainActivity extends BaseScreen  implements AdapterView.OnItemClick
                 mListAdapter.setSelected(position);
                 break;
             case 3:
+                Intent intent4 =new Intent(getBaseContext(),CouponList.class);
+                startActivity(intent4);
+                //finish();
+                removeFragment(mLastTag);
+                drawerLayout.closeDrawers();
+                mPosition = position;
+                mListAdapter.setSelected(position);
+                break;
+            case 4:
                 removeFragment(mLastTag);
                 mIsLoggedIn=false;
                 mLoginPresenter.logoutUser(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
-
+                        mIsLoggedIn=false;
                     }
 
                     @Override

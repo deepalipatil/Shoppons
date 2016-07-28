@@ -12,13 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * This is base class of activity_application_details_category_all the list adapters which covers activity_application_details_category_all the basic
- * functionality of an adapter
- * Author : Akshay Deo
- * Date   : 11/8/12
- * Time   : 2:28 PM
- */
 public abstract class BaseListAdapter<T> extends BaseAdapter implements IListViewAdapter<T> {
     /**
      * Constant to be used while logging

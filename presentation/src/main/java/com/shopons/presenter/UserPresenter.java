@@ -8,9 +8,6 @@ import com.shopons.domain.repositories.UserRepository;
 
 import rx.Subscriber;
 
-/**
- * Created by deepali on 9/3/16.
- */
 public class UserPresenter extends Presenter {
 
     private UserRepository mUserRepository;

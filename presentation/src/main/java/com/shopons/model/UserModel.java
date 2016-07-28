@@ -3,13 +3,6 @@ package com.shopons.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * User model parcelable to trade in-between the activities
- *
- * @author : Kaustubh Deshmukh
- * @date : 01/10/15 : 8:54 PM
- * @email : akshay@betacraft.co
- */
 public final class UserModel implements Parcelable {
 
     private String mId;

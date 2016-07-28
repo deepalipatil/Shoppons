@@ -8,13 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Base recycler view adapter
- *
- * @author : Kaustubh Deshmukh
- * @date : 01/10/15 : 8:57 PM
- * @email : akshay@betacraft.co
- */
 public abstract class BaseRecyclerViewAdapter<T, V extends RecyclerView.ViewHolder> extends RecyclerView
         .Adapter<V> {
     /**

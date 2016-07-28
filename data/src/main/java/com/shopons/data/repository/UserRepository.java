@@ -35,13 +35,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
 
-/**
- * User repository implementation
- *
- * @author : Kaustubh Deshmukh
- * @date : 01/10/15 : 8:47 PM
- * @email : akshay@betacraft.co
- */
 public final class UserRepository implements com.shopons.domain.repositories.UserRepository {
 
     private UserApis mUserApis;

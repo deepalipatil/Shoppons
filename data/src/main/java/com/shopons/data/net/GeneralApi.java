@@ -9,9 +9,6 @@ import retrofit.http.Headers;
 import retrofit.http.Path;
 import rx.Observable;
 
-/**
- * Created by komal on 11/2/16.
- */
 public interface GeneralApi {
 
     @Headers({

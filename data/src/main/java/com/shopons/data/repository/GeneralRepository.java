@@ -15,9 +15,7 @@ import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.functions.Func1;
 
-/**
- * Created by komal on 11/2/16.
- */
+
 public class GeneralRepository implements com.shopons.domain.repositories.GeneralRepository {
 
     GeneralApi mGeneralApi;

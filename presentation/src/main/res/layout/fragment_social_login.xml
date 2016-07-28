@@ -1,40 +1,60 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.SocialLoginActivity"
-    >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/login_fragment">
+
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/abc_action_bar_default_height_material"
-        android:minHeight="?attr/actionBarSize"
-        android:background="#2196F3"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:id="@+id/toolbar"
+        android:background="#2196F3">
+        <RelativeLayout
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_gravity="start"
-            android:layout_height="wrap_content"
-            android:src="@drawable/action_bar_back"
-            android:background="#2196F3"
-            android:id="@+id/btn_back"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/relativeLayout1">
 
-      <TextView android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
-          android:text="Login"
-          android:textColor="#FFFFFF"
-          android:textSize="20dp"
-          android:id="@+id/login_label"
-          android:layout_marginLeft="5dp"
-          />
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:src="@drawable/action_bar_back"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    />
+
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Login"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:id="@+id/login_label"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/btn_back"
+                    android:layout_toEndOf="@+id/btn_back" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
 
+
     <RelativeLayout
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="2dp"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,55 +73,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/facebook_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:text="@string/connect_with_facebook"
-                    android:background="@drawable/fb_button"
-                    android:layout_gravity="center_horizontal"/>
-
-                <Button
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/google_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:text="@string/connect_with_google"
-                    android:background="@drawable/gplus_button"
-                    android:layout_gravity="center_horizontal"/>
-
             </LinearLayout>
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/sign_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/facebook_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="@string/connect_with_facebook"
+            android:background="@drawable/fb_button"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@+id/social_button_container"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/social_button_container"
-            android:layout_marginTop="23dp"
-            android:text="Sign Up"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
+            android:layout_marginBottom="65dp" />
 
-        <TextView
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/social_button_container"
-            android:layout_marginTop="23dp"
-            android:text="Login"
-            android:textColor="@color/black"
-            android:textSize="16sp"/>
+        <Button
+            android:id="@+id/google_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp"
+            android:text="@string/connect_with_google"
+            android:background="@drawable/gplus_button"
+            android:layout_above="@+id/social_button_container"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

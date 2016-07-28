@@ -2,9 +2,6 @@ package com.shopons.data.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by komal on 9/3/16.
- */
 public class BrandInfo {
 
       private String person_type;

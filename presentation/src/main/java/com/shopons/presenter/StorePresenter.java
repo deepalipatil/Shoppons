@@ -16,9 +16,6 @@ import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
 
-/**
- * Created by komal on 1/3/16.
- */
 public class StorePresenter extends Presenter {
     StoreRepository mStoreRepository=new com.shopons.data.repository.StoreRepository();
 

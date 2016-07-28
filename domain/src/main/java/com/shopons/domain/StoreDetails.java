@@ -3,9 +3,6 @@ package com.shopons.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by komal on 20/3/16.
- */
 public class StoreDetails {
     private String id;
     private String name;

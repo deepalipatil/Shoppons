@@ -26,9 +26,6 @@ import com.shopons.view.activity.shop_info;
 import com.shopons.view.activity.MapsActivity;
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by komal on 2/3/16.
- */
 public class StoreRecyclerAdapter extends BaseRecyclerViewAdapter<Store,StoreRecyclerAdapter.StoreCardView> {
     Context context;
     Location currentLoc;

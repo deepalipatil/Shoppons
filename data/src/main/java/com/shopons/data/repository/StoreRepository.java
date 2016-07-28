@@ -39,9 +39,6 @@ import retrofit.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.functions.Func1;
 
-/**
- * Created by komal on 24/2/16.
- */
 public class StoreRepository implements com.shopons.domain.repositories.StoreRepository {
 
    StoreApi mStoreApi;
@@ -95,7 +92,7 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
     public Observable<StoreDetails> getStoreDetails(String storeId)
     {
         Log.d("TESTINGG","GJGJGGHJGGJGGJHGGHGHGHG");
-        mStoreApi.generateCoupon(" 25efc6bf-4cde-4868-986b-faed2b7b8bf5","5727193e5132624542dab6cc");
+        mStoreApi.generateCoupon("25efc6bf-4cde-4868-986b-faed2b7b8bf5","5727193e5132624542dab6cc");
         Log.d("TESTINGG","############################################################################");
         return  mStoreApi.getStoreDetails(storeId).map(new Func1<StoreDetailsEntity, StoreDetails>() {
             @Override
@@ -154,17 +151,17 @@ public class StoreRepository implements com.shopons.domain.repositories.StoreRep
 
         Log.d("###Coupon Repository","Inside method of getCouponCode");
         mStoreApi.getStoreDetails("ffdfdfdfdgf");
-        //Log.d("###Coupon Repository","NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
-       /* return mStoreApi.generateCoupon(authKey,DealId).map(new Func1<CouponEntity, Coupon>() {
+        Log.d("###Coupon Repository","NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
+        return mStoreApi.generateCoupon(authKey,DealId).map(new Func1<CouponEntity, Coupon>() {
             @Override
             public Coupon call(CouponEntity couponEntity) {
                 Log.d("###Coupon Repository","Mapping Info");
                 return CouponMapper.transform(couponEntity);
             }
-        });*/
+        });
 
 
-        return null;
+        //return null;
     }
 
 }

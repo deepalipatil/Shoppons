@@ -1,8 +1,5 @@
 package com.shopons.domain;
 
-/**
- * Created by komal on 19/2/16.
- */
 public class Location {
     private double latitude;
     private double longitude;

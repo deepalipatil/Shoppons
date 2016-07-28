@@ -16,9 +16,6 @@ import com.shopons.domain.Store;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by komal on 24/2/16.
- */
 public class StoreMapper {
     public static Store transform(final StoreInfo storeInfo) {
         List<com.shopons.domain.BrandInfo> mappedBrandInfo=new ArrayList<>();

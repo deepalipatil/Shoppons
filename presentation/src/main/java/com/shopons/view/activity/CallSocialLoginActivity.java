@@ -40,9 +40,10 @@ public class CallSocialLoginActivity extends BaseScreen  {
 
     public void BackActivity()
     {
-        Intent intent = new Intent(getBaseContext(),MainActivity.class);
-        startActivity(intent);
-        finish();
+        //Intent intent = new Intent(getBaseContext(),MainActivity.class);
+        //startActivity(intent);
+        //finish();
+        onBackPressed();
     }
 
 }

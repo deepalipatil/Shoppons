@@ -11,13 +11,7 @@ import android.util.Log;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Cache for custom typefaces
- * This mCache is created to avoid the well known memory leaks due to use of external typefaces
- * User: akshay
- * Date: 3/5/13
- * Time: 12:57 PM
- */
+
 public class Typefaces {
     /**
      * TAG for logging

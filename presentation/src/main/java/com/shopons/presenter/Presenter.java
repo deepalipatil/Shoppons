@@ -13,13 +13,6 @@ import com.shopons.domain.interactors.UseCase;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 
-/**
- * Base class for all the presenters
- *
- * @author : Kaustubh Deshmukh
- * @date : 05/10/15 : 5:36 PM
- * @email : akshay@betacraft.co
- */
 public abstract class Presenter {
     protected List<UseCase> mSubscriptions = new ArrayList<>();
     /**

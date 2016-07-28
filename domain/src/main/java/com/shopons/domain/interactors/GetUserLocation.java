@@ -8,9 +8,6 @@ import com.shopons.domain.repositories.LocationRepository;
 
 import rx.Observable;
 
-/**
- * Created by komal on 20/2/16.
- */
 public class GetUserLocation extends UseCase<Location> {
     LocationRepository mLocationRepository;
 

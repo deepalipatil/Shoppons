@@ -9,11 +9,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import io.fabric.sdk.android.Fabric;
 
-/**
- * @author : Kaustubh Deshmukh
- * @date : 24/01/16 : 11:52 AM
- * @email : kaustubh@betacraft.co
- */
 public class Shopons extends MultiDexApplication {
 
     /**

@@ -2,6 +2,7 @@
 package com.shopons.view.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shopons.R;
 import com.shopons.domain.BrandInfo;
@@ -63,6 +65,9 @@ public class shop_info extends BaseScreen{
     @Bind(R.id.info_label)
     TextView info;
 
+    @Bind(R.id.detail)
+    Button coupon;
+
 
 
     @OnClick(R.id.call)
@@ -90,7 +95,6 @@ public class shop_info extends BaseScreen{
         //addButtonClickListner();
         ImageButton button = (ImageButton) findViewById(R.id.title);
         mStorePresenter=new StorePresenter();
-
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -132,7 +136,7 @@ public class shop_info extends BaseScreen{
                     review_count.setVisibility(View.INVISIBLE);
                 review_count.setText(""+store.getReviews());
                 city.setText(store.getCity());
-
+                Toast.makeText(getBaseContext(), store.getReviews(), Toast.LENGTH_LONG).show();
                 add_row(store.getBrandInfoList());
                 Log.d("###Shop_info","Completed!!!!");
             }
@@ -205,6 +209,7 @@ public class shop_info extends BaseScreen{
             intent.putExtra("dealId",store.getDealsInfoList().get(0).getId());
             Log.d(TAG,"Deal Id"+store.getDealsInfoList().get(0).getId());
             intent.putExtra("shop_name",store.getName());
+            intent.putExtra("deal",store.getDealsInfoList().get(0).getInfo());
             startActivity(intent);
         }
         else
@@ -213,6 +218,10 @@ public class shop_info extends BaseScreen{
             Intent intent=new Intent(getApplicationContext(), CallSocialLoginActivity.class);
             startActivity(intent);
         }
+        coupon.setClickable(false);
+        coupon.setBackgroundColor(Color.GRAY);
+
+
     }
 
    /* public void addButtonClickListner() {

@@ -7,9 +7,6 @@ import com.shopons.domain.repositories.StoreRepository;
 
 import rx.Observable;
 
-/**
- * Created by komal on 20/3/16.
- */
 public class GetStoreDetails extends UseCase<StoreDetails> {
     StoreRepository mStoreRepository;
     String id;

@@ -46,15 +46,18 @@ public class SplashActivity extends AppCompatActivity {
         mInternetReceiver= new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d(TAG,"Inside Internet BroadCast receiver");
+                Log.d(TAG, "Inside Internet BroadCast receiver");
                 ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork= connectivity.getActiveNetworkInfo();
+                NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
                 // Check for network connections
-                if(activeNetwork !=null && activeNetwork.isConnected())
-                {   Log.d("###isNetworkAvailable","true");
+                if (activeNetwork != null && activeNetwork.isConnected()) {
+                    Log.d("###isNetworkAvailable", "true");
+                    Intent in = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(in);
+                    finish();
                     //Toast.makeText(getContext(), "Connected", Toast.LENGTH_LONG).show();
 
-                    try {
+                    /*  try {
                         version = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
@@ -103,9 +106,9 @@ public class SplashActivity extends AppCompatActivity {
 
                     });
                 }
-                else
-                {
-                    Log.d("###isNetworkAvailable","false");
+                else*/
+
+                    Log.d("###isNetworkAvailable", "false");
                     // Toast.makeText(getContext(), "Not Connected", Toast.LENGTH_LONG).show();
 
                     LayoutInflater inflater = getLayoutInflater();
@@ -124,6 +127,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 }
             }
+
         };
 
         registerReceiver(mInternetReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));

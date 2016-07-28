@@ -10,13 +10,6 @@ import com.shopons.domain.repositories.UserRepository;
 
 import rx.Subscriber;
 
-/**
- * Login Screen Presenter
- *
- * @author : Kaustubh Deshmukh
- * @date : 05/10/15 : 5:39 PM
- * @email : akshay@betacraft.co
- */
 public final class LoginPresenter extends Presenter {
 
     private UserRepository mUserRepository;

@@ -10,9 +10,7 @@ import java.util.List;
 
 import rx.Observable;
 
-/**
- * Created by komal on 24/2/16.
- */
+
 public class GetStoreListingByLocation extends UseCase<List<Store>> {
     StoreRepository mStoreRepository;
     double latitude, longitude;

@@ -15,9 +15,6 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
-/**
- * Created by komal on 24/2/16.
- */
 public interface StoreApi {
 
     @Headers({
@@ -45,7 +42,7 @@ public interface StoreApi {
     })
 
 
-    @GET("coupon/{deal_id}")
+    @PUT("coupon/{deal_id}")
     public Observable<CouponEntity> generateCoupon(@Header("Auth-Key") String authKey,@Path("deal_id") String dealId);
 
 

@@ -6,9 +6,6 @@ import com.shopons.domain.interactors.GetAppVersionInfo;
 
 import rx.Subscriber;
 
-/**
- * Created by komal on 11/2/16.
- */
 public class GeneralPresenter extends Presenter {
     GeneralRepository mGeneralRepository =new com.shopons.data.repository.GeneralRepository();
 

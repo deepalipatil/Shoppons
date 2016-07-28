@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.shopons.view.fragment.SearchFragment">
+                tools:context="com.shopons.view.fragment.NewSearchFragment">
 
     <ProgressBar
         android:id="@+id/progress"
@@ -43,7 +43,7 @@
                 android:layout_toEndOf="@+id/back"
                 android:layout_toRightOf="@+id/back"
                 android:background="@color/white"
-                android:hint="search_for_restaurant"
+                android:hint="Enter shop name"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:textColor="@color/black"

@@ -61,7 +61,7 @@ public class MainFragment extends BaseFragment {
     private BroadcastReceiver mInternetReceiver;
     private LocationPresenter mLocationPresenter;
     private StorePresenter mStorePresenter;
-    private boolean mFirstCalled=false;
+    private static boolean mFirstCalled=false;
     private Location mlocation;
     private List<Store> storeList;
     private ProgressBar progressBar;
@@ -91,6 +91,9 @@ public class MainFragment extends BaseFragment {
         View view=inflater.inflate(R.layout.fragment_main,container,false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
         progressBar=(ProgressBar)view.findViewById(R.id.progress_bar);
+        progressBar.getIndeterminateDrawable()
+                .setColorFilter(getContext().getResources().getColor(R.color.light_blue), android.graphics.PorterDuff.Mode.SRC_IN);
+
 
         mLocationReceiver= new BroadcastReceiver() {
             @Override
